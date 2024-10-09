@@ -31,6 +31,8 @@ doc = [
 dev = [
   # Dependencies for development of the project, such as type checkers,
   # linters, etc.
+  "jinja2",
+  "ruff",
 
   # Include the "test" and "doc" dependencies in the dev dependencies.
   "pyudunits2[doc,test]",
