@@ -1,0 +1,49 @@
+[build-system]
+requires = ["setuptools", "wheel", "setuptools_scm>=8"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pyudunits2"
+dynamic = [
+  "version",  # The version is taken directly from the repository, using setuptools-scm.
+]
+description = "A pure Python library designed for handling units of physical quantities, fully based on the UDUNITS2 grammar and XML database"
+readme = "README.md"
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "Operating System :: OS Independent",
+]
+authors = [
+  { name = "Phil Elson", email = "pelson.pub@gmail.com" },
+]
+requires-python = ">=3.9"
+
+# The core dependencies of the project.
+dependencies = [
+]
+
+[project.optional-dependencies]
+test = [
+  "pytest",
+]
+doc = [
+]
+dev = [
+  # Dependencies for development of the project, such as type checkers,
+  # linters, etc.
+
+  # Include the "test" and "doc" dependencies in the dev dependencies.
+  "pyudunits2[doc,test]",
+]
+
+[project.urls]
+Homepage = "https://github.com/pelson/pyudunits2"
+Repository = "https://github.com/pelson/pyudunits2"
+
+[tool.setuptools.packages.find]
+include = ["pyudunits2", "pyudunits2.*"]
+
+[tool.setuptools_scm]
+# Tell setuptools_scm to write a _version.py file in the package. The
+# _version.py file must not be committed to the repository.
+version_file = "pyudunits2/_version.py"
