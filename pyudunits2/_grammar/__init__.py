@@ -3,7 +3,7 @@
 import unicodedata
 from decimal import Decimal
 
-from . import graph
+from .. import _expr_graph as graph
 from ._antlr4_runtime import (
     CommonTokenStream,
     InputStream,

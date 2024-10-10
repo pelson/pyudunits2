@@ -2,8 +2,10 @@ from pprint import pprint
 
 import pytest
 
-from pyudunits2._ud_xml import Expander, UnitSystem, read_all
-from pyudunits2._grammar import graph, parse
+from pyudunits2._expr_simplifier import Expander
+from pyudunits2._udunits2_xml_parser import UnitSystem, read_all
+from pyudunits2._grammar import parse
+from pyudunits2 import _expr_graph as graph
 
 
 @pytest.fixture(scope="module")

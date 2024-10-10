@@ -1,6 +1,6 @@
 # Copyright cf-units contributors
 
-import pyudunits2._grammar.graph as g
+import pyudunits2._expr_graph as g
 from pyudunits2._grammar import parse
 
 

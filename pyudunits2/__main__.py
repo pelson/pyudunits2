@@ -2,7 +2,8 @@ import argparse
 import sys
 
 from ._grammar import parse
-from ._ud_xml import ToBasisVisitor, read_all, IdentifierLookupVisitor
+from ._udunits2_xml_parser import read_all
+from ._unit_resolver import ToBasisVisitor, IdentifierLookupVisitor
 
 
 def configure_parser(parser: argparse.ArgumentParser) -> None:
