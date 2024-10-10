@@ -75,7 +75,7 @@ def idfn(param):
         .replace("^", "_pow_")
         .replace("·", "_mul_")
         .replace("@", "+")
-        .replace(' ', '_')
+        .replace(" ", "_")
     )
 
 

@@ -8,6 +8,7 @@ from . import _expr_graph as unit_graph
 from ._unit_resolver import ToBasisVisitor, IdentifierLookupVisitor
 from ._expr_simplifier import Expander
 from ._dimensionality import DimensionalityCounter
+from ._grammar import parse
 
 
 class UnitSystem:
@@ -28,7 +29,6 @@ class UnitSystem:
 
     @classmethod
     def from_udunits2_xml(cls, path: pathlib.Path | None = None) -> UnitSystem:
-
         # Lazy import of the XML functionality, since it is not a
         # hard dependency.
         try:
@@ -110,38 +110,19 @@ class UnitSystem:
         self,
         unit: unit_graph.Node,
         convert_to: unit_graph.Node,
-    ) -> unit_graph.Node:
+    ) -> unit_graph.Node:  # TODO: Return something that is public API.
         if unit == convert_to:
             return unit_graph.Number(1)
 
         identifier_handler = IdentifierLookupVisitor(self)
-        # unit_in_basis_units = IdentifierLookupVisitor(self).visit(
-        #     unit,
-        # )
-        # convert_to_unit_in_basis_units = IdentifierLookupVisitor(self).visit(
-        #     convert_to,
-        # )
         expr = unit_graph.Divide(unit, convert_to)
         expr = ToBasisVisitor(identifier_handler).visit(expr)
-        print("EXPANDED:", str(expr))
-
-        # pprint(expr)
         conversion_unit = Expander().visit(expr)
-        # Validate that there are no identifiers/units remaining.
-        print("CONVERTED:", str(conversion_unit))
-
+        # TODO: Validate that there are no identifiers/units remaining.
         return conversion_unit
 
     def parse(self, unit_string: str) -> Node:
-        from ._grammar import parse
-
         return parse(unit_string)
-        # for node in parsed_unit.children():
-        #
-        # visitor = IdentifierLookupVisitor(self)
-        # return visitor.visit(parsed_unit)
-        # print(type(parsed_unit))
-        # print('PARSE:', parsed_unit)
 
     def identify(self, identifier: str) -> Node:
         """Find the unit given the name or symbol identifier"""
@@ -149,6 +130,4 @@ class UnitSystem:
             return self._names[identifier]
         if identifier in self._symbols:
             return self._symbols[identifier]
-        raise ValueError(
-            f"Identifier '{identifier}' not found in the unit system"
-        )
+        raise ValueError(f"Identifier '{identifier}' not found in the unit system")

@@ -52,10 +52,7 @@ class ChainedExpr:
 
             # Try to combine this node with the previous one.
 
-            if (
-                isinstance(last_term, unit_graph.Terminal)
-                and last_term == node
-            ):
+            if isinstance(last_term, unit_graph.Terminal) and last_term == node:
                 # a · a^n == a^(n+1)
 
                 # We can combine the two terms, so pop the last one.
@@ -285,9 +282,7 @@ class SimplifyingVisitor(Visitor):
             if lhs.content == rhs.content:
                 return unit_graph.Raise(lhs, 2)
             else:
-                lhs, rhs = sorted(
-                    [lhs, rhs], key=lambda identifier: identifier.content
-                )
+                lhs, rhs = sorted([lhs, rhs], key=lambda identifier: identifier.content)
                 return unit_graph.Multiply(lhs, rhs)
         elif (
             isinstance(lhs, unit_graph.Identifier)
@@ -297,9 +292,7 @@ class SimplifyingVisitor(Visitor):
             if lhs.content == rhs.content:
                 return unit_graph.Raise(lhs, 2)
             else:
-                lhs, rhs = sorted(
-                    [lhs, rhs], key=lambda identifier: identifier.content
-                )
+                lhs, rhs = sorted([lhs, rhs], key=lambda identifier: identifier.content)
                 return unit_graph.Multiply(lhs, rhs)
 
         return unit_graph.Multiply(lhs, rhs)

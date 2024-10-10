@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 # Gold dust. https://github.com/Unidata/MetPy/issues/1362
-import contextlib
 import dataclasses
 import logging
 import typing
@@ -9,8 +8,6 @@ from pathlib import Path
 
 from lxml import etree
 
-from . import _expr_graph as unit_graph
-from ._expr_graph import Identifier, Node, Visitor
 from ._baseless_unit import Prefix, Name, BaseUnit, DerivedUnit
 from ._unit_system import UnitSystem
 
@@ -79,9 +76,7 @@ class UDUNITS2XMLParser:
         _ = tag.pop_first_matching_tag("noplural")
 
         if tag.children or tag.text:
-            raise ValueError(
-                f"Unhandled content in unit {tag} (name {singular_name})"
-            )
+            raise ValueError(f"Unhandled content in unit {tag} (name {singular_name})")
         return Name(
             singular=singular_name,
             plural=plural_name,
@@ -108,9 +103,7 @@ class UDUNITS2XMLParser:
             symbols.add(symbol.text)
 
         if tag.children or tag.text:
-            raise ValueError(
-                f"Unhandled content in prefix {tag} (name {name})"
-            )
+            raise ValueError(f"Unhandled content in prefix {tag} (name {name})")
 
         return Prefix(
             name=name,
@@ -179,9 +172,7 @@ class UDUNITS2XMLParser:
                     base_unit_definition=basis_def.text,
                 )
             else:
-                dimensionless = unit_tag.pop_first_matching_tag(
-                    "dimensionless"
-                )
+                dimensionless = unit_tag.pop_first_matching_tag("dimensionless")
                 if dimensionless is not None:
                     pass  # Seen in radian
                 else:

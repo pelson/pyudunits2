@@ -42,10 +42,10 @@ grammar, which is a fundamental part of the
 The [`cf-units`][cf-units] library wraps the `UDUNITS2` C-API (using Cython)
 and offers an alternative approach to supporting UDUNITS2 based unit
 definitions. The complexity of having a compiled `cf-units` has been shown to
-be a source of pain for both maintenance and use <sub>
+be a source of pain for both maintenance and use <sup>
 [1](https://github.com/SciTools/cf-units/issues/446)
 [2](https://github.com/ioos/compliance-checker/pull/1094)
-</sub>.  
+</sup>.  
 
 The [`xclim`](https://github.com/Ouranosinc/xclim) library offers some powerful
 `UDUNITS2`-like functionality. It is hoped that `pyudunits2` could serve as a

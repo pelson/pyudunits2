@@ -164,9 +164,7 @@ def test_invalid_units(_, unit_str):
         cf_valid = False
 
     # Double check that udunits2 can't parse this.
-    assert (
-        cf_valid is False
-    ), f"Unit {unit_str!r} is unexpectedly valid in UDUNITS2"
+    assert cf_valid is False, f"Unit {unit_str!r} is unexpectedly valid in UDUNITS2"
 
     try:
         normalize(unit_str)
@@ -231,9 +229,7 @@ known_issues = [
 ]
 
 
-@pytest.mark.parametrize(
-    "_, unit_str, expected", multi_enumerate(known_issues)
-)
+@pytest.mark.parametrize("_, unit_str, expected", multi_enumerate(known_issues))
 def test_known_issues(_, unit_str, expected):
     # Unfortunately the grammar is not perfect.
     # These are the cases that don't work yet but which do work with udunits.
