@@ -1,0 +1,11 @@
+A pure Python library supporting units of physical quantities based on the UDUNITS2 grammar and database
+
+Features include:
+
+ * A UDUNITS2 grammar definition and generated parser (meaning the grammar is the canonical source of truth, and therefore suitable for reference in conventions / specifications)
+ * The ability to convert between related units using simple (vectorised) Python functions
+ * A symbolic representation of a unit is maintained throughout calculations, ensuring that precise definitions are propagated
+ * An optimised code path when using the UDUNITS2 XML database without extensions
+ * By default, units are not stripped to the base unit until a simplification is requested - meaning quantities such as kg/kg can be expressed (e.g. to distinguish weight ratios from volume ratios)
+ * A CLI tool for converting between units in the UDUNITS2 XML database
+

@@ -23,6 +23,9 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
+xml = [
+  "lxml",
+]
 test = [
   "cf-units",  # To compare against the real udunits2.
   "pytest",

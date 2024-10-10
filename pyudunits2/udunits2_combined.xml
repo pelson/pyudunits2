@@ -1,0 +1,2477 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<udunits-2 xmlns:u2="https://doi.org/10.5065/D6KD1WN0" xmlns:p="https://raw.githubusercontent.com/Unidata/UDUNITS-2/v2.2.27.27/lib/udunits2-prefixes.xml" xmlns:b="https://raw.githubusercontent.com/Unidata/UDUNITS-2/v2.2.27.27/lib/udunits2-base.xml" xmlns:d="https://raw.githubusercontent.com/Unidata/UDUNITS-2/v2.2.27.27/lib/udunits2-derived.xml" xmlns:a="https://raw.githubusercontent.com/Unidata/UDUNITS-2/v2.2.27.27/lib/udunits2-accepted.xml" xmlns:c="https://raw.githubusercontent.com/Unidata/UDUNITS-2/v2.2.27.27/lib/udunits2-common.xml"><!--Copyright 2020 University Corporation for Atmospheric Research
+
+This file is derived from the UDUNITS-2 package.  See the UDUNITS-2_COPYRIGHT
+https://docs.unidata.ucar.edu/thredds/udunits2/2.2.27.27/UDUNITS-2_COPYRIGHT for copying and
+redistribution conditions.
+--><u2:unit-system><p:prefix>
+        <p:value>1e24</p:value> <p:name>yotta</p:name>	<p:symbol>Y</p:symbol>
+    </p:prefix>
+    <p:prefix>
+        <p:value>1e21</p:value> <p:name>zetta</p:name>	<p:symbol>Z</p:symbol>
+    </p:prefix>
+    <p:prefix>
+        <p:value>1e18</p:value> <p:name>exa</p:name>	<p:symbol>E</p:symbol>
+    </p:prefix>
+    <p:prefix>
+        <p:value>1e15</p:value> <p:name>peta</p:name>	<p:symbol>P</p:symbol>
+    </p:prefix>
+    <p:prefix>
+        <p:value>1e12</p:value> <p:name>tera</p:name>	<p:symbol>T</p:symbol>
+    </p:prefix>
+    <p:prefix>
+        <p:value>1e9</p:value> <p:name>giga</p:name>	<p:symbol>G</p:symbol>
+    </p:prefix>
+    <p:prefix>
+        <p:value>1e6</p:value> <p:name>mega</p:name>	<p:symbol>M</p:symbol>
+    </p:prefix>
+    <p:prefix>
+        <p:value>1e3</p:value> <p:name>kilo</p:name>	<p:symbol>k</p:symbol>
+    </p:prefix>
+    <p:prefix>
+        <p:value>100</p:value> <p:name>hecto</p:name>	<p:symbol>h</p:symbol>
+    </p:prefix>
+    <p:prefix>
+        <p:value>10</p:value> <p:name>deka</p:name>	<p:symbol>da</p:symbol>
+    </p:prefix>
+    <p:prefix>
+        <p:value>.1</p:value> <p:name>deci</p:name>	<p:symbol>d</p:symbol>
+    </p:prefix>
+    <p:prefix>
+        <p:value>.01</p:value> <p:name>centi</p:name>	<p:symbol>c</p:symbol>
+    </p:prefix>
+    <p:prefix>
+        <p:value>1e-3</p:value> <p:name>milli</p:name>	<p:symbol>m</p:symbol>
+    </p:prefix>
+    <p:prefix>
+        <p:value>1e-6</p:value>
+        <p:name>micro</p:name>
+        <p:symbol comment="MICRO SIGN">µ</p:symbol>
+        <p:symbol comment="Greek small letter 'mu'">μ</p:symbol>
+        <p:symbol>u</p:symbol>
+    </p:prefix>
+    <p:prefix>
+        <p:value>1e-9</p:value> <p:name>nano</p:name>	<p:symbol>n</p:symbol>
+    </p:prefix>
+    <p:prefix>
+        <p:value>1e-12</p:value> <p:name>pico</p:name>	<p:symbol>p</p:symbol>
+    </p:prefix>
+    <p:prefix>
+        <p:value>1e-15</p:value> <p:name>femto</p:name>	<p:symbol>f</p:symbol>
+    </p:prefix>
+    <p:prefix>
+        <p:value>1e-18</p:value> <p:name>atto</p:name>	<p:symbol>a</p:symbol>
+    </p:prefix>
+    <p:prefix>
+        <p:value>1e-21</p:value> <p:name>zepto</p:name>	<p:symbol>z</p:symbol>
+    </p:prefix>
+    <p:prefix>
+        <p:value>1e-24</p:value> <p:name>yocto</p:name>	<p:symbol>y</p:symbol>
+    </p:prefix>
+<b:unit>
+        <b:base />
+        <b:name><b:singular>meter</b:singular></b:name>
+        <b:symbol>m</b:symbol>
+        <b:aliases> <b:name><b:singular>metre</b:singular></b:name> </b:aliases>
+        <b:definition>The meter is the length of the path travelled by light in vacuum during a time interval of 1/299 792 458 of a second.</b:definition>
+    </b:unit>
+    <b:unit>
+        <b:base />
+        <b:name><b:singular>kilogram</b:singular></b:name>
+        <b:symbol>kg</b:symbol>
+        <b:definition> The kilogram is the unit of mass; it is equal to the mass of the international prototype of the kilogram.</b:definition>
+    </b:unit>
+    <b:unit>
+        <b:base />
+        <b:name><b:singular>second</b:singular></b:name>
+        <b:symbol>s</b:symbol>
+        <b:definition>The second is the duration of 9 192 631 770 periods of the radiation corresponding to the transition between the two hyperfine levels of the ground state of the cesium 133 atom.</b:definition>
+    </b:unit>
+    <b:unit>
+        <b:base />
+        <b:name><b:singular>ampere</b:singular></b:name>
+        <b:symbol>A</b:symbol>
+        <b:definition>The ampere is that constant current which, if maintained in two straight parallel conductors of infinite length, of negligible circular cross-section, and placed 1 meter apart in vacuum, would produce between these conductors a force equal to 2e-7 newton per meter of length.</b:definition>
+    </b:unit>
+    <b:unit>
+        <b:base />
+        <b:name><b:singular>kelvin</b:singular></b:name>
+        <b:symbol>K</b:symbol>
+        <b:definition>The kelvin, unit of thermodynamic temperature, is the fraction 1/273.16 of the thermodynamic temperature of the triple point of water.</b:definition>
+    </b:unit>
+    <b:unit>
+        <b:base />
+        <b:name><b:singular>mole</b:singular></b:name>
+        <b:symbol>mol</b:symbol>
+        <b:definition>The mole is the amount of substance of a system which contains as many elementary entities as there are atoms in 0.012 kilogram of carbon 12. When the mole is used, the elementary entities must be specified and may be atoms, molecules, ions, electrons, other particles, or specified groups of such particles.</b:definition>
+    </b:unit>
+    <b:unit>
+        <b:base />
+        <b:name><b:singular>candela</b:singular></b:name>
+        <b:symbol>cd</b:symbol>
+        <b:definition>The candela is the luminous intensity, in a given direction, of a source that emits monochromatic radiation of frequency 540e12 hertz and that has a radiant intensity in that direction of 1/683 watt per steradian.</b:definition>
+    </b:unit>
+<d:unit>
+        <d:comment>SI derived unit</d:comment>
+        <d:dimensionless />
+        <d:name><d:singular>radian</d:singular></d:name>
+        <d:symbol>rad</d:symbol>
+        <d:definition>standard unit of angular measure, an angle that creates an arc in a circle equal in length to that circle's radius (roughly 57.3 degrees); as a ratio of two lengths, it has no dimension</d:definition>
+    </d:unit>
+    <d:unit>
+        <d:comment>SI derived unit</d:comment>
+        <d:def>rad^2</d:def>
+        <d:name><d:singular>steradian</d:singular></d:name>
+        <d:symbol>sr</d:symbol>
+        <d:definition>standard unit of solid angle measure, it is the solid angle which cuts out an area on a sphere that is the square of the sphere's radius; as a ratio of two areas, it has no dimension</d:definition>
+    </d:unit>
+    <d:unit>
+        <d:comment>SI derived unit</d:comment>
+        <d:def>1/s</d:def>
+        <d:name><d:singular>hertz</d:singular></d:name>
+        <d:symbol>Hz</d:symbol>
+        <d:definition>unit of frequency meaning one cycle per second</d:definition>
+    </d:unit>
+    <d:unit>
+        <d:comment>SI derived unit</d:comment>
+        <d:def>1e-3 kg</d:def>
+        <d:name><d:singular>gram</d:singular></d:name>
+        <d:symbol>g</d:symbol>
+        <d:definition>unit of mass equal to one thousandth of a kilogram</d:definition>
+    </d:unit>
+    <d:unit>
+        <d:comment>SI derived unit</d:comment>
+        <d:def>m.kg/s^2</d:def>
+        <d:name><d:singular>newton</d:singular></d:name>
+        <d:symbol>N</d:symbol>
+        <d:definition>unit of force; the amount needed to accelerate 1 kilogram of mass at the rate of 1 metre per second squared</d:definition>
+    </d:unit>
+    <d:unit>
+        <d:comment>SI derived unit</d:comment>
+        <d:def>N/m^2</d:def>
+        <d:name><d:singular>pascal</d:singular></d:name>
+        <d:symbol>Pa</d:symbol>
+        <d:definition>unit of pressure (force per unit area) equal to one newton per square meter</d:definition>
+    </d:unit>
+    <d:unit>
+        <d:comment>SI derived unit</d:comment>
+        <d:def>N.m</d:def>
+        <d:name><d:singular>joule</d:singular></d:name>
+        <d:symbol>J</d:symbol>
+        <d:definition>standard unit of work or energy, equal to the work done by a force of one newton acting along a distance of one meter</d:definition>
+    </d:unit>
+    <d:unit>
+        <d:comment>SI derived unit</d:comment>
+        <d:def>J/s</d:def>
+        <d:name><d:singular>watt</d:singular></d:name>
+        <d:symbol>W</d:symbol>
+        <d:definition>standard unit of power, equivalent to one joule per second, and equal to one ampere flowing across a potential difference of one volt</d:definition>
+    </d:unit>
+    <d:unit>
+        <d:comment>SI derived unit</d:comment>
+        <d:def>s.A</d:def>
+        <d:name><d:singular>coulomb</d:singular></d:name>
+        <d:symbol>C</d:symbol>
+        <d:definition>standard unit of electric charge, the quantity of electricity transported in one second by a current of one ampere</d:definition>
+    </d:unit>
+    <d:unit>
+        <d:comment>SI derived unit</d:comment>
+        <d:def>W/A</d:def>
+        <d:name><d:singular>volt</d:singular></d:name>
+        <d:symbol>V</d:symbol>
+        <d:definition>standard unit of electric potential difference (and electromotive force); the difference of potential between two points of a conductor carrying a constant current of one ampere and dissipating one watt of power</d:definition>
+    </d:unit>
+    <d:unit>
+        <d:comment>SI derived unit</d:comment>
+        <d:def>C/V</d:def>
+        <d:name><d:singular>farad</d:singular></d:name>
+        <d:symbol>F</d:symbol>
+        <d:definition>standard unit of capacitance; the amount which, when a capacitor is charged to a potential difference of one volt, carries a charge of one coulomb</d:definition>
+    </d:unit>
+    <d:unit>
+        <d:comment>SI derived unit</d:comment>
+        <d:def>V/A</d:def>
+        <d:name><d:singular>ohm</d:singular></d:name>
+        <d:symbol comment="Greek capital letter omega (preferred)">Ω</d:symbol>
+        <d:aliases>
+            <d:symbol comment="OHM SIGN">Ω</d:symbol>
+        </d:aliases>
+        <d:definition>standard unit of electrical resistance; the resistance between two points of a conductor when a constant potential difference of 1.0 volt, applied to these points, produces in the conductor a current of 1.0 ampere</d:definition>
+    </d:unit>
+    <d:unit>
+        <d:comment>SI derived unit</d:comment>
+        <d:def>A/V</d:def>
+        <d:name> <d:singular>siemens</d:singular> </d:name>
+        <d:symbol>S</d:symbol>
+        <d:definition>unit of electric conductance; the reciprocal of one ohm</d:definition>
+    </d:unit>
+    <d:unit>
+        <d:comment>SI derived unit</d:comment>
+        <d:def>V.s</d:def>
+        <d:name><d:singular>weber</d:singular></d:name>
+        <d:symbol>Wb</d:symbol>
+        <d:definition>unit of magnetic flux (product of the average magnetic field times the perpendicular area that it penetrates), expressed as volt-seconds</d:definition>
+    </d:unit>
+    <d:unit>
+        <d:comment>SI derived unit</d:comment>
+        <d:def>Wb/m^2</d:def>
+        <d:name><d:singular>tesla</d:singular></d:name>
+        <d:symbol>T</d:symbol>
+        <d:definition>unit of flux density, equal to one weber per square meter</d:definition>
+    </d:unit>
+    <d:unit>
+        <d:comment>SI derived unit</d:comment>
+        <d:def>Wb/A</d:def>
+        <d:name><d:singular>henry</d:singular></d:name>
+        <d:symbol>H</d:symbol>
+        <d:definition>unit of inductance; where a circuit's current changes at a constant rate of 1 ampere per second, results in a generation of 1 V of potential difference</d:definition>
+    </d:unit>
+    <d:unit>
+        <d:comment>SI derived unit</d:comment>
+        <d:def>K @ 273.15</d:def>
+        <d:name>
+            <d:singular>degree_Celsius</d:singular>
+            <d:plural>degrees_Celsius</d:plural>
+        </d:name>
+        <d:symbol comment="DEGREE SIGN">°C</d:symbol>
+        <d:definition>unit (and scale) of temperature, with same magnitude as the kelvin and a zero-point offset of 273.15</d:definition>
+    </d:unit>
+    <d:unit>
+        <d:comment>SI derived unit</d:comment>
+        <d:def>cd.sr</d:def>
+        <d:name><d:singular>lumen</d:singular></d:name>
+        <d:symbol>lm</d:symbol>
+        <d:definition>unit of luminous flux, a measure of the total "amount" of visible light emitted by a source; one candela-steradian</d:definition>
+    </d:unit>
+    <d:unit>
+        <d:comment>SI derived unit</d:comment>
+        <d:def>lm/m^2</d:def>
+        <d:name><d:singular>lux</d:singular></d:name>
+        <d:symbol>lx</d:symbol>
+        <d:definition>unit of illuminance and luminous emittance, measuring luminous flux per unit area, and used as a measure of intensity of light; equal to one lumen per square meter</d:definition>
+    </d:unit>
+    <d:unit>
+        <d:comment>SI derived unit</d:comment>
+        <d:def>mol/s</d:def>
+        <d:name><d:singular>katal</d:singular></d:name>
+        <d:symbol>kat</d:symbol>
+        <d:definition>unit of catalytic activity (property of a catalyst, such as an enzyme); expresses the ability to break 1 mole of bonds per second under specified conditions</d:definition>
+    </d:unit>
+
+    
+	<d:unit>
+        <d:comment>SI derived unit with special names/symbols admitted for reasons of safeguarding human health</d:comment>
+		<d:def>1/s</d:def>
+		<d:aliases>
+			<d:name comment="Is an alias because '1/s' is already mapped to 'hertz' and 'Hz'"><d:singular>becquerel</d:singular></d:name>
+			<d:symbol comment="Is an alias because '1/s' is already mapped to 'hertz' and 'Hz'">Bq</d:symbol>
+		</d:aliases>
+		<d:definition>unit of radioactivity; the activity of a quantity of material in which one nucleus decays per second (hence, equivalent to one unit per second)</d:definition>
+	</d:unit>
+	<d:unit>
+        <d:comment>SI derived unit with special names/symbols admitted for reasons of safeguarding human health</d:comment>
+		<d:def>J/kg</d:def>
+		<d:name><d:singular>gray</d:singular></d:name>
+		<d:symbol>Gy</d:symbol>
+		<d:definition>unit of ionizing radiation, a measure of the absorbed dose of radiation; absorption of one joule of radiation energy by one kilogram of matter</d:definition>
+	</d:unit>
+	<d:unit>
+        <d:comment>SI derived unit with special names/symbols admitted for reasons of safeguarding human health</d:comment>
+		<d:def>J/kg</d:def>
+		<d:aliases>
+			<d:name><d:singular>sievert</d:singular></d:name>
+			<d:symbol>Sv</d:symbol>
+		</d:aliases>
+		<d:definition>unit of ionizing radiation dose, measuring the health effect of low levels of ionizing radiation on the human body</d:definition>
+	</d:unit>
+<a:unit>
+            <a:def>60 s</a:def>
+            <a:name><a:singular>minute</a:singular></a:name>
+            <a:symbol>min</a:symbol>
+            <a:definition>period of time equal to 60 seconds</a:definition>
+        </a:unit>
+        <a:unit>
+            <a:def>60 min</a:def>
+            <a:name><a:singular>hour</a:singular></a:name>
+            <a:symbol>h</a:symbol>
+            <a:aliases> <a:symbol>hr</a:symbol> </a:aliases>
+            <a:definition>period of time equal to 60 minutes</a:definition>
+        </a:unit>
+        <a:unit>
+            <a:def>24 h</a:def>
+            <a:name><a:singular>day</a:singular></a:name>
+            <a:symbol>d</a:symbol>
+            <a:definition>period of time equal to 24 hours</a:definition>
+        </a:unit>
+        <a:unit>
+            <a:comment>This "unit" is useful in the definition of subsequent units.</a:comment>
+            <a:def>3.141592653589793238462643383279</a:def>
+            <a:aliases>
+                <a:name><a:singular>pi</a:singular><a:noplural /></a:name>
+                <a:symbol comment="GREEK SMALL LETTER PI">π</a:symbol>        
+            </a:aliases>
+            <a:definition>mathematical constant equal to the ratio of a circle's circumference to its diameter</a:definition>
+        </a:unit>
+        <a:unit>
+            <a:def>(pi/180) rad</a:def>
+            <a:name><a:singular>arc_degree</a:singular></a:name>
+            <a:symbol comment="DEGREE SIGN">°</a:symbol>             
+            <a:aliases>
+                <a:name><a:singular>angular_degree</a:singular></a:name>
+                <a:name><a:singular>degree</a:singular></a:name>
+                <a:name><a:singular>arcdeg</a:singular></a:name>
+            </a:aliases>
+            <a:definition>measurement of a plane angle representing 1/360 of a full rotation</a:definition>
+        </a:unit>
+        <a:unit>
+            <a:def>°/60</a:def>                
+            <a:name><a:singular>arc_minute</a:singular></a:name>
+            <a:symbol>'</a:symbol>
+            <a:symbol comment="PRIME">′</a:symbol>           
+            <a:aliases>
+                <a:name><a:singular>angular_minute</a:singular></a:name>
+                <a:name><a:singular>arcminute</a:singular></a:name>
+                <a:name><a:singular>arcmin</a:singular></a:name>
+            </a:aliases>
+            <a:definition>measurement of a plane angle equal to 1/60 arc degree</a:definition>
+        </a:unit>
+        <a:unit>
+            <a:def>'/60</a:def>
+            <a:name><a:singular>arc_second</a:singular></a:name>
+            <a:symbol>"</a:symbol>
+            <a:symbol comment="DOUBLE PRIME">″</a:symbol>           
+            <a:aliases>
+                <a:name><a:singular>angular_second</a:singular></a:name>
+                <a:name><a:singular>arcsecond</a:singular></a:name>
+                <a:name><a:singular>arcsec</a:singular></a:name>
+            </a:aliases>
+            <a:definition>measurement of a plane angle equal to 1/60 arc minute</a:definition>
+        </a:unit>
+        <a:unit>
+            <a:comment>The definition is exact.  From 1901 to 1964, however, 1 liter was 1.000028 dm^3 (volume of 1 kg of water under standard conditions).</a:comment>
+            <a:def comment="exact">dm^3</a:def>
+            <a:name><a:singular>liter</a:singular></a:name>
+            <a:symbol comment="NIST recommendation">L</a:symbol>                  
+            <a:aliases>
+                <a:name><a:singular>litre</a:singular></a:name>
+                <a:symbol>l</a:symbol>
+            </a:aliases>
+            <a:definition>unit of capacity equal to 1000 cubic centimeters</a:definition>
+        </a:unit>
+        <a:unit>
+            <a:def>1000 kg</a:def>
+            <a:name><a:singular>metric_ton</a:singular></a:name>
+            <a:symbol>t</a:symbol>
+            <a:aliases> <a:name><a:singular>tonne</a:singular></a:name> </a:aliases>
+            <a:definition>unit of weight equal to 1000 kilograms</a:definition>
+        </a:unit>
+
+    
+        <a:unit>
+            <a:comment>Unit's value is obtained experimentally</a:comment>
+            <a:def>1.60217733e-19 J</a:def>
+            <a:name><a:singular>electronvolt</a:singular></a:name>
+            <a:symbol>eV</a:symbol>
+            <a:aliases>
+                <a:name><a:singular>electron_volt</a:singular></a:name>
+            </a:aliases>
+            <a:definition>unit of energy equal to the work accelerating an electron through a potential difference of one volt</a:definition>
+        </a:unit>
+        <a:unit>
+            <a:comment>Unit's value is obtained experimentally</a:comment>
+            <a:def>1.6605402e-27 kg</a:def>
+            <a:name><a:singular>unified_atomic_mass_unit</a:singular></a:name>
+            <a:symbol>u</a:symbol>
+            <a:aliases>
+                <a:name> <a:singular>atomic_mass_unit</a:singular> </a:name>
+                <a:name> <a:singular>atomicmassunit</a:singular> </a:name>
+                <a:name> <a:singular>amu</a:singular><a:noplural /></a:name>
+            </a:aliases>
+            <a:definition>standard unit for indicating mass on an atomic or molecular scale; is approximately the mass of one nucleon (either a single proton or neutron), and equivalent to 1 g/mol</a:definition>
+        </a:unit>
+        <a:unit>
+            <a:comment>According to resolution by the International Astronomical Union (IAU) in 2012 </a:comment>
+            <a:def>1.49597870700e11 m</a:def>
+            <a:aliases>
+                <a:name><a:singular>astronomical_unit</a:singular></a:name>
+                <a:symbol>au</a:symbol> 
+            </a:aliases>
+            <a:definition>Exact definition according to 2012 resolution by the International Astronomical Union (IAU). Ostensibly equal to the mean distance from the center of the earth to the center of the sun.</a:definition>
+        </a:unit>
+        <a:unit>
+            <a:comment>Pre-2012 resolution by the IAU</a:comment>
+            <a:def>1.495979e11 m</a:def>
+            <a:aliases>
+                <a:name><a:singular>astronomical_unit_BIPM_2006</a:singular></a:name>
+                <a:symbol>ua</a:symbol> 
+            </a:aliases>
+            <a:definition>unit of measurement equal to 149.6 million kilometers, the mean distance from the center of the earth to the center of the sun according to the International Bureau of Weights and Measures (BIPM) in 2006</a:definition>
+        </a:unit>
+
+    
+        <a:unit>
+            <a:comment>Unit is temporarily accepted for use with the SI.</a:comment>
+            <a:def>1852 m</a:def>
+            <a:aliases>
+                <a:name><a:singular>nautical_mile</a:singular></a:name>
+            </a:aliases>
+            <a:definition>unit of distance at sea, set at 1852 meters (approximately one minute of arc measured along any meridian)</a:definition>
+        </a:unit>
+        <a:unit>
+            <a:comment>Unit is temporarily accepted for use with the SI.</a:comment>
+            <a:def>nautical_mile/hour</a:def>
+            <a:aliases>
+                <a:name><a:singular>international_knot</a:singular></a:name>
+                <a:name><a:singular>knot_international</a:singular></a:name>
+                <a:name><a:singular>knot</a:singular></a:name>
+            </a:aliases>
+            <a:definition>derived unit of speed at sea</a:definition>
+        </a:unit>
+        <a:unit>
+            <a:comment>Unit is temporarily accepted for use with the SI.</a:comment>
+            <a:def>1e-10 m</a:def>
+            <a:aliases>
+                <a:name><a:singular>angstrom</a:singular></a:name>
+                <a:name><a:singular>ångström</a:singular></a:name>
+                <a:symbol comment="LATIN CAPITAL LETTER A WITH RING ABOVE">Å</a:symbol>
+                <a:symbol comment="ANGSTROM SIGN">Å</a:symbol>       
+            </a:aliases>
+            <a:definition>unit of length equal to one hundred-millionth of a centimeter (1 meter/10**10)</a:definition>
+        </a:unit>
+        <a:unit>
+           <a:comment>Unit is temporarily accepted for use with the SI.</a:comment>
+           <a:def>dam^2</a:def>
+            <a:aliases>
+                <a:name><a:singular>are</a:singular></a:name>
+                <a:symbol>a</a:symbol>
+            </a:aliases>
+            <a:definition>unit of area equal to 100 square meters</a:definition>
+        </a:unit>
+        <a:unit>
+            <a:comment>Unit is temporarily accepted for use with the SI.</a:comment>
+            <a:def>100 are</a:def>
+            <a:aliases> <a:name><a:singular>hectare</a:singular></a:name> </a:aliases>
+            <a:definition>unit of area equal to 100 are ('hectoare'), or 10000 square meters</a:definition>
+        </a:unit>
+        <a:unit>
+            <a:comment>Unit is temporarily accepted for use with the SI.</a:comment>
+            <a:def comment="exact">100 fm^2</a:def>
+            <a:aliases>
+                <a:name><a:singular>barn</a:singular></a:name>
+                <a:symbol>b</a:symbol>
+            </a:aliases>
+            <a:definition>unit of area, approximately the cross-sectional area of a uranium nucleus (10e-28 square meters)</a:definition>
+        </a:unit>
+        <a:unit>
+            <a:comment>Unit is temporarily accepted for use with the SI.</a:comment>
+            <a:def>1000 hPa</a:def>
+            <a:aliases>
+                <a:name><a:singular>bar</a:singular></a:name>
+            </a:aliases>
+            <a:definition>unit of pressure equal to 100000 Pascals, or about 0.987 atmospheres of pressure</a:definition>
+        </a:unit>
+        <a:unit>
+            <a:comment>Unit is temporarily accepted for use with the SI.</a:comment>
+            <a:def>cm/s^2</a:def>
+            <a:aliases>
+                <a:name><a:singular>gal</a:singular></a:name>
+            </a:aliases>
+            <a:definition>unit of acceleration equal to 1 cm per second squared</a:definition>
+        </a:unit>
+        <a:unit>
+            <a:comment>Unit is temporarily accepted for use with the SI.</a:comment>
+            <a:def>3.7e10 Bq</a:def>
+            <a:aliases>
+                <a:name><a:singular>curie</a:singular></a:name>
+                <a:symbol>Ci</a:symbol>
+            </a:aliases>
+            <a:definition>unit of radioactivity corresponding to 3.7 * 10e10 disintegrations per second</a:definition>
+        </a:unit>
+        <a:unit>
+            <a:comment>Unit is temporarily accepted for use with the SI.</a:comment>
+            <a:def>2.58e-4 C/kg</a:def>
+            <a:aliases>
+                <a:name><a:singular>roentgen</a:singular></a:name>
+                <a:symbol>R</a:symbol>
+            </a:aliases>
+            <a:definition>unit of ionizing radiation, the amount producing one electrostatic unit of positive or negative ionic charge in one cubic centimeter of air under standard conditions; rarely used</a:definition>
+        </a:unit>
+        
+        <a:unit>
+            <a:comment>Unit is temporarily accepted for use with the SI.</a:comment>
+            <a:def>cSv</a:def>
+            <a:aliases>
+                <a:name><a:singular>rem</a:singular></a:name>
+            </a:aliases>
+            <a:definition>unit of radiation dosage applied to humans; equal to one hundredth of a sievert</a:definition>
+        </a:unit>
+<c:unit>
+            <c:comment>Synonym for SI unit</c:comment>
+            <c:def>s</c:def>
+            <c:aliases> <c:name> <c:singular>sec</c:singular> </c:name> </c:aliases>
+            <c:definition>unit of time, synonym for second</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:comment>Synonym for SI unit</c:comment>
+            <c:def>A</c:def>
+            <c:aliases> <c:name> <c:singular>amp</c:singular> </c:name> </c:aliases>
+            <c:definition>unit of electric current, synonym for ampere</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:comment>Synonym for SI unit</c:comment>
+            <c:def>K</c:def>
+            <c:aliases>
+                <c:symbol comment="DEGREE SIGN">°K</c:symbol>        
+                <c:name>
+                    <c:singular>degree_kelvin</c:singular>
+                    <c:plural>degrees_kelvin</c:plural>
+                </c:name>
+                <c:name>
+                    <c:singular>degree_K</c:singular>
+                    <c:plural>degrees_K</c:plural>
+                </c:name>
+                <c:name>
+                    <c:singular>degreeK</c:singular>
+                    <c:plural>degreesK</c:plural>
+                </c:name>
+                <c:name>
+                    <c:singular>deg_K</c:singular>
+                    <c:plural>degs_K</c:plural>
+                </c:name>
+                <c:name>
+                    <c:singular>degK</c:singular>
+                    <c:plural>degsK</c:plural>
+                </c:name>
+            </c:aliases>
+            <c:definition>unit of temperature, synonym for kelvin</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:comment>Synonym for SI unit</c:comment>
+            <c:def>cd</c:def>
+            <c:aliases> <c:name> <c:singular>candle</c:singular> </c:name> </c:aliases>
+            <c:definition>unit of luminous intensity, synonym for candela</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:comment>Synonym for SI unit</c:comment>
+            <c:def>mole</c:def>
+            <c:aliases> <c:name> <c:singular>einstein</c:singular> </c:name> </c:aliases>
+            <c:definition>unit of chemical mass, synonym for mole</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:comment>Synonym for SI unit</c:comment>
+            <c:def>Hz</c:def>
+            <c:aliases>
+                <c:name> <c:singular>baud</c:singular> </c:name>
+                <c:symbol>Bd</c:symbol>
+                <c:symbol>bps</c:symbol>
+            </c:aliases>
+            <c:definition>unit of frequency, synonym for hertz</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:comment>Synonym for SI unit</c:comment>
+            <c:def>degree_Celsius</c:def>
+            <c:aliases>
+                <c:symbol comment="DEGREE CELSIUS">℃</c:symbol>       
+                <c:name> <c:singular>celsius</c:singular> </c:name>
+                <c:name>
+                    <c:singular>degree_C</c:singular>
+                    <c:plural>degrees_C</c:plural>
+                </c:name>
+                <c:name>
+                    <c:singular>degreeC</c:singular>
+                    <c:plural>degreesC</c:plural>
+                </c:name>
+                <c:name>
+                    <c:singular>deg_C</c:singular>
+                    <c:plural>degs_C</c:plural>
+                </c:name>
+                <c:name>
+                    <c:singular>degC</c:singular>
+                    <c:plural>degsC</c:plural>
+                </c:name>
+            </c:aliases>
+            <c:definition>unit of temperature, synonym for 'K @ 273.15' (degree_Celsius)</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:comment>Synonym for SI unit</c:comment>
+            <c:def>knot</c:def>
+            <c:aliases>
+                <c:symbol>kt</c:symbol>
+                <c:symbol>kts</c:symbol>
+            </c:aliases>
+            <c:definition>unit of speed, synonym for nautical_mile/hour</c:definition>
+        </c:unit>
+
+    
+        <c:unit>
+            <c:comment>Constant; value is +-30e15</c:comment>
+            <c:def>6.02214179e23/mol</c:def>
+            <c:aliases>
+                <c:name><c:singular>avogadro_constant</c:singular></c:name>
+                <c:noplural />
+            </c:aliases>
+            <c:definition>number of constituent particles (usually atoms or molecules) per mole of a given substance</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:comment>Constant</c:comment>
+            <c:def>0.01</c:def>
+            <c:aliases>
+                <c:name><c:singular>percent</c:singular></c:name>
+                <c:noplural />
+                <c:symbol>%</c:symbol>
+            </c:aliases>
+            <c:definition>number of parts per hundred</c:definition>
+        </c:unit>
+        
+        <c:unit>
+            <c:comment>Constant</c:comment>
+            <c:def>1</c:def>
+            <c:aliases>
+                <c:symbol>ppv</c:symbol>
+            </c:aliases>
+            <c:definition>parts per volume</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:comment>Constant</c:comment>
+            <c:def>1e-6</c:def>
+            <c:aliases>
+                <c:symbol>ppm</c:symbol>
+                <c:symbol>ppmv</c:symbol>
+            </c:aliases>
+            <c:definition>parts per million</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:comment>Constant</c:comment>
+            <c:def>1e-9</c:def>
+            <c:aliases>
+                <c:symbol>ppb</c:symbol>
+                <c:symbol>ppbv</c:symbol>
+            </c:aliases>
+            <c:definition>parts per billion</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:comment>Constant</c:comment>
+            <c:def>1e-12</c:def>
+            <c:aliases>
+                <c:symbol>ppt</c:symbol>
+                <c:symbol>pptv</c:symbol>
+            </c:aliases>
+            <c:definition>parts per trillion</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:comment>Constant</c:comment>
+            <c:def>1e-15</c:def>
+            <c:aliases>
+                <c:symbol>ppq</c:symbol>
+                <c:symbol>ppqv</c:symbol>
+            </c:aliases>
+            <c:definition>parts per quadrillion</c:definition>
+        </c:unit>
+
+    
+        <c:unit>
+            <c:def>0.9 arc_degree</c:def>
+            <c:aliases> <c:name><c:singular>grade</c:singular></c:name> </c:aliases>
+            <c:definition>1/100 of a right angle (90 degrees)</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:def>2 pi rad</c:def>
+            <c:aliases>
+                <c:name><c:singular>circle</c:singular></c:name>
+                <c:name><c:singular>cycle</c:singular></c:name>
+                <c:name><c:singular>turn</c:singular></c:name>
+                <c:name><c:singular>revolution</c:singular></c:name>
+                <c:name><c:singular>rotation</c:singular></c:name>
+            </c:aliases>
+            <c:definition>unit of angle in a plane signifying a full 360-degree circle</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:def>arc_degree</c:def>
+            <c:aliases>
+                <c:name>
+                    <c:singular>degree_north</c:singular>
+                    <c:plural>degrees_north</c:plural>
+                </c:name>
+                <c:name>
+                    <c:singular>degree_N</c:singular>
+                    <c:plural>degrees_N</c:plural>
+                </c:name>
+                <c:name>
+                    <c:singular>degreeN</c:singular>
+                    <c:plural>degreesN</c:plural>
+                </c:name>
+                <c:name>
+                    <c:singular>degree_east</c:singular>
+                    <c:plural>degrees_east</c:plural>
+                </c:name>
+                <c:name>
+                    <c:singular>degree_E</c:singular>
+                    <c:plural>degrees_E</c:plural>
+                </c:name>
+                <c:name>
+                    <c:singular>degreeE</c:singular>
+                    <c:plural>degreesE</c:plural>
+                </c:name>
+                <c:name>
+                    <c:singular>degree_true</c:singular>
+                    <c:plural>degrees_true</c:plural>
+                </c:name>
+                <c:name>
+                    <c:singular>degree_T</c:singular>
+                    <c:plural>degrees_T</c:plural>
+                </c:name>
+                <c:name>
+                    <c:singular>degreeT</c:singular>
+                    <c:plural>degreesT</c:plural>
+                </c:name>
+            </c:aliases>
+            <c:definition>unit of angle on a sphere</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:def>-1 degree_east</c:def>
+            <c:aliases>
+                <c:name>
+                    <c:singular>degree_west</c:singular>
+                    <c:plural>degrees_west</c:plural>
+                </c:name>
+                <c:name>
+                    <c:singular>degree_W</c:singular>
+                    <c:plural>degrees_W</c:plural>
+                </c:name>
+                <c:name>
+                    <c:singular>degreeW</c:singular>
+                    <c:plural>degreesW</c:plural>
+                </c:name>
+            </c:aliases>
+            <c:definition>unit of angle on a sphere (units for negative direction)</c:definition>
+        </c:unit>
+
+    
+        <c:unit>
+            <c:def>2.916667e-2 kg</c:def>
+            <c:aliases>
+                <c:name> <c:singular>assay_ton</c:singular> </c:name>
+            </c:aliases>
+            <c:definition>reference unit of mass for a body of ore; roughly equal to 29167 milligrams</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:def>2.834952e-2 kg</c:def>
+            <c:aliases>
+                <c:name> <c:singular>avoirdupois_ounce</c:singular> </c:name>
+            </c:aliases>
+            <c:definition>unit of mass equal to 1/16 avoirdupois pound, commonly used in the United States (16 oz = 1 pound = 7000 grains)</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:def>4.5359237e-1 kg</c:def>
+            <c:aliases>
+                <c:name> <c:singular>avoirdupois_pound</c:singular> </c:name>
+                <c:name> <c:singular>pound</c:singular> </c:name>
+                <c:symbol>lb</c:symbol>
+            </c:aliases>
+            <c:definition>unit of mass in avoirdupois system of weights (a system commonly used in United States)</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:def>2e-4 kg</c:def>
+            <c:aliases>
+                <c:name> <c:singular>carat</c:singular> </c:name>
+            </c:aliases>
+            <c:definition>unit of mass equal to 0.2 gram (defined 1907)</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:def>6.479891e-5 kg</c:def>
+            <c:aliases>
+                <c:name> <c:singular>grain</c:singular> </c:name>
+                <c:symbol>gr</c:symbol>
+            </c:aliases>
+            <c:definition>unit of mass equal to 1/7000 pound</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:def>5.080235e1 kg</c:def>
+            <c:aliases>
+                <c:name> <c:singular>long_hundredweight</c:singular> </c:name>
+            </c:aliases>
+            <c:definition>unit of mass; a British hundredweight, which is 8 stone * 14 pounds/stone</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:def>1.555174e-3 kg</c:def>
+            <c:aliases>
+                <c:name> <c:singular>pennyweight</c:singular> </c:name>
+            </c:aliases>
+            <c:definition>unit of mass; based on historical US troy weight system (is 1/20 troy ounce)</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:def>4.535924e1 kg</c:def>
+            <c:aliases>
+                <c:name> <c:singular>short_hundredweight</c:singular> </c:name>
+            </c:aliases>
+            <c:definition>unit of mass, a US hundredweight, which is 100 pounds</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:def>14.59390 kg</c:def>
+            <c:aliases>
+                <c:name> <c:singular>slug</c:singular> </c:name>
+            </c:aliases>
+            <c:definition>unit of mass associated with Imperial units; a mass that accelerates by 1 ft/s2 when a force of one pound-force (lbF) is exerted on it</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:def>3.110348e-2 kg</c:def>
+            <c:aliases>
+                <c:name> <c:singular>troy_ounce</c:singular> </c:name>
+                <c:name> <c:singular>apothecary_ounce</c:singular> </c:name>
+            </c:aliases>
+            <c:definition>unit of mass; based on historical US troy weight system (is 1/12 troy pound)</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:def>3.732417e-1 kg</c:def>
+            <c:aliases>
+                <c:name> <c:singular>troy_pound</c:singular> </c:name>
+                <c:name> <c:singular>apothecary_pound</c:singular> </c:name>
+            </c:aliases>
+            <c:definition>unit of mass; based on historical US troy weight system (is 5760 grain)</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:def>20 grain</c:def>
+            <c:aliases> <c:name> <c:singular>scruple</c:singular> </c:name> </c:aliases>
+            <c:definition>unit of mass in apothecaries' weight system (is 1/3 apdram)</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:def>60 grain</c:def>
+            <c:aliases> <c:name> <c:singular>apdram</c:singular> </c:name> </c:aliases>
+            <c:definition>unit of mass in apothecaries' weight system (is 1/8 apounce)</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:comment>exact</c:comment>
+            <c:def>avoirdupois_ounce/16</c:def>
+            <c:aliases>
+                <c:name> <c:singular>dram</c:singular> </c:name>
+                <c:symbol>dr</c:symbol>
+            </c:aliases>
+            <c:definition>unit of mass in the avoirdupois system (the system commonly used in the United States)</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:def>480 grain</c:def>
+            <c:aliases> <c:name> <c:singular>apounce</c:singular> </c:name> </c:aliases>
+            <c:definition>unit of mass in apothecaries' weight system (is 1/16 appound)</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:def>5760 grain</c:def>
+            <c:aliases> <c:name> <c:singular>appound</c:singular> </c:name> </c:aliases>
+            <c:definition>unit of mass in apothecaries' weight system (is same as a troy pound)</c:definition>
+        </c:unit>
+        <c:unit> 
+            <c:def>94 pound</c:def>
+            <c:aliases> <c:name> <c:singular>bag</c:singular> </c:name> </c:aliases>
+            <c:definition>unit of mass, for a traditional bag of portland cement</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:def>2000 pound</c:def>
+            <c:aliases>
+                <c:name> <c:singular>short_ton</c:singular> </c:name>
+                <c:name> <c:singular>ton</c:singular> </c:name>
+            </c:aliases>
+            <c:definition>unit of mass based on US weight system</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:def>2240 pound</c:def>
+            <c:aliases>
+                <c:name> <c:singular>long_ton</c:singular> </c:name>
+            </c:aliases>
+            <c:definition>unit of mass based on British imperial weight system</c:definition>
+        </c:unit>
+
+    
+        <c:unit>
+            <c:def>1e-15 m</c:def>
+            <c:aliases>
+                <c:name> <c:singular>fermi</c:singular> </c:name>
+            </c:aliases>
+            <c:definition>unit of length equal to 10e-15 meters, a typical length-scale of nuclear physics</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:def>9.46073e15 m</c:def>
+            <c:aliases>
+                <c:name> <c:singular>light_year</c:singular> </c:name>
+            </c:aliases>
+            <c:definition>unit of length equal to the distance traversed by light in one mean solar year (365.2422 days), a typical length-scale of astronomy</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:def>1e-6 m</c:def>
+            <c:aliases>
+                <c:name> <c:singular>micron</c:singular> </c:name>
+            </c:aliases>
+            <c:definition>unit of length, a typical length-scale of technology and science fields</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:def>2.54e-5 m</c:def>
+            <c:aliases>
+                <c:name> <c:singular>mil</c:singular> </c:name>
+            </c:aliases>
+            <c:definition>unit of length equal to 0.001 inch, a typical length-scale for measuring wire diameters</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:def>3.085678e16 m</c:def>
+            <c:aliases>
+                <c:name> <c:singular>parsec</c:singular> </c:name>
+            </c:aliases>
+            <c:definition>unit of length corresponding to the distance at which the mean radius of the earth's orbit subtends an angle of one second of arc, a typical length-scale of astronomy</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:def>3.514598e-4 m</c:def>
+            <c:aliases>
+                <c:name> <c:singular>printers_point</c:singular> </c:name>
+            </c:aliases>
+            <c:definition>unit of length equal to 1/72.27 inch, the original (standardized 1886) unit for measuring font size and other small items on a printed page (see also big_point)</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:def>2.011684e1 m</c:def>
+            <c:aliases>
+                <c:name> <c:singular>chain</c:singular> </c:name>
+            </c:aliases>
+            <c:definition>unit of length equal to 66 feet (4 poles), or 1/10 furlong, a typical (historical) scale of land surveying</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:def>12 printers_point</c:def>
+            <c:aliases>
+                <c:name> <c:singular>printers_pica</c:singular> </c:name>
+                <c:name> <c:singular>pica</c:singular> </c:name>
+            </c:aliases>
+            <c:definition>unit of length equal to 1/6 inch (12 printers points)</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:def>nautical_mile</c:def>
+            <c:aliases>
+                <c:name> <c:singular>nmile</c:singular> </c:name>
+            </c:aliases>
+            <c:definition>unit of length in the US Customary System, equal to 6,076 feet; typically used for air and sea navigation</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:def>(1200/3937) m</c:def>
+            <c:aliases>
+                <c:name>
+                    <c:singular>US_survey_foot</c:singular>
+                    <c:plural>US_survey_feet</c:plural>
+                </c:name>
+            </c:aliases>
+            <c:definition>unit of length used for earlier survey data in some countries, slightly different than the current international foot</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:def>3 US_survey_feet</c:def>
+            <c:aliases>
+                <c:name> <c:singular>US_survey_yard</c:singular> </c:name>
+            </c:aliases>
+            <c:definition>unit of length used in earlier survey data in some countries, slightly different than the current international yard</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:def>5280 US_survey_feet</c:def>
+            <c:aliases>
+                <c:name> <c:singular>US_survey_mile</c:singular> </c:name>
+                <c:name> <c:singular>US_statute_mile</c:singular> </c:name>
+            </c:aliases>
+            <c:definition>unit of length used for earlier survey data in some countries, slightly slightly different than the current international mile</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:def>16.5 US_survey_feet</c:def>
+            <c:aliases>
+                <c:name> <c:singular>rod</c:singular> </c:name>
+                <c:name> <c:singular>pole</c:singular> </c:name>
+                <c:name> <c:singular>perch</c:singular> </c:name>
+            </c:aliases>
+            <c:definition>unit of length equal to one-fourth of a surveyor's chain</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:def>660 US_survey_feet</c:def>
+            <c:aliases> <c:name> <c:singular>furlong</c:singular> </c:name> </c:aliases>
+            <c:definition>unit of length equal to 1/8 mile or 10 chains</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:def>6 US_survey_feet</c:def>
+            <c:aliases> <c:name> <c:singular>fathom</c:singular> </c:name> </c:aliases>
+            <c:definition>unit of length equal to 6 feet in the imperial and US customary systems, typically used for measuring depth of water</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:def>2.54 cm</c:def>
+            <c:aliases>
+                <c:name> <c:singular>international_inch</c:singular> </c:name>
+                <c:name> <c:singular>inch</c:singular> </c:name>
+                <c:symbol>in</c:symbol>
+            </c:aliases>
+            <c:definition>unit of length equal to 25.4 mm by definition, used in imperial and US customary systems</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:def>12 international_inches</c:def>
+            <c:aliases>
+                <c:name>
+                    <c:singular>international_foot</c:singular>
+                    <c:plural>international_feet</c:plural>
+                </c:name>
+                <c:name>
+                    <c:singular>foot</c:singular>
+                    <c:plural>feet</c:plural>
+                </c:name>
+                <c:symbol>ft</c:symbol>
+            </c:aliases>
+            <c:definition>unit of length equal to 12 international inches, in the imperial and US customary systems; primarily used in the United States</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:def>3 international_feet</c:def>
+            <c:aliases>
+                <c:name> <c:singular>international_yard</c:singular> </c:name>
+                <c:name> <c:singular>yard</c:singular> </c:name>
+                <c:symbol>yd</c:symbol>
+            </c:aliases>
+            <c:definition>unit of length equal to 3 international feet, in the imperial and US customary systems; primarily used in the United States</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:def>5280 international_feet</c:def>
+            <c:aliases>
+                <c:name> <c:singular>international_mile</c:singular> </c:name>
+                <c:name> <c:singular>mile</c:singular> </c:name>
+                <c:symbol>mi</c:symbol>
+            </c:aliases>
+            <c:definition>unit of length equal to 5280 feet, equal to 12 international inches, in the imperial and US customary systems; primarily used in the United States and other smaller countries with ties to the US or United Kingdom</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:def>inch/72</c:def>
+            <c:aliases>
+                <c:name> <c:singular>big_point</c:singular> </c:name>
+            </c:aliases>
+            <c:definition>unit of length equal to 1/72 inch, standardized unit in modern computer-based publishing for measuring font size and other small items on a printed page (contrast to printers_point)</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:def>inch/3</c:def>
+            <c:aliases>
+                <c:name> <c:singular>barleycorn</c:singular> </c:name>
+            </c:aliases>
+            <c:definition>unit of length based in medieval laws of England and Wales, defining an inch as being 3 barleycorns long (length of a corn of barley); still the basis for current shoe sizes in Great Britain and Ireland</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:def>191.835 foot</c:def>
+            <c:aliases>
+                <c:name> <c:singular>arpentlin</c:singular> </c:name>
+            </c:aliases>
+            <c:definition>unit of length in French regions; a linear arpent is of length 10 perch (10 rod)</c:definition>
+        </c:unit>
+
+    
+        <c:unit>
+            <c:comment>exact</c:comment>
+            <c:def>rotation/second</c:def>
+            <c:aliases>
+                <c:name>
+                    <c:singular>rotation_per_second</c:singular>
+                    <c:plural>rotations_per_second</c:plural>
+                </c:name>
+                <c:symbol>rps</c:symbol>
+                <c:symbol>cps</c:symbol>
+            </c:aliases>
+            <c:definition>unit of angular velocity</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:comment>exact</c:comment>
+            <c:def>rotation/minute</c:def>
+            <c:aliases> <c:symbol>rpm</c:symbol> </c:aliases>
+            <c:definition>unit of angular velocity measuring the angular distance covered by a rotating object, divided by the amount of time used to cover that distance; measured perpendicular to the plane of rotation, with direction usually indicated by the right-hand rule</c:definition>
+        </c:unit>
+
+    
+        <c:unit>
+            <c:def>1.111111e-7 kg/m</c:def>
+            <c:aliases>
+                <c:name> <c:singular>denier</c:singular> </c:name>
+            </c:aliases>
+            <c:definition>unit of lineic mass density for fibers, equal to the mass in grams per 9000 meters (more common in United States and United Kingdom); a single strand of silk is approximately one denier</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:comment>exact</c:comment>
+            <c:def>1e-6 kg/m</c:def>
+            <c:aliases>
+                <c:name> <c:singular>tex</c:singular> </c:name>
+            </c:aliases>
+            <c:definition>unit of lineic mass density for fibers, defined as mass in grams per 1000 meters (more common in Canada and Continental Europe)</c:definition>
+        </c:unit>
+
+    
+        <c:unit>
+            <c:def>5.72135e-11 kg/(Pa.s.m^2)</c:def>
+            <c:aliases>
+                <c:name>
+                    <c:singular>perm_0C</c:singular>
+                    <c:plural>perms_0C</c:plural>
+                </c:name>
+            </c:aliases>
+            <c:definition>unit of mass per unit time (includes flow) for how fast water vapor flows through substance, or permeance; equals 1 gram of water vapor per hour, per square meter, per millimeter of mercury at 0 degrees C</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:def>5.74525e-11 kg/(Pa.s.m^2)</c:def>
+            <c:aliases>
+                <c:name>
+                    <c:singular>perm_23C</c:singular>
+                    <c:plural>perms_23C</c:plural>
+                </c:name>
+            </c:aliases>
+            <c:definition>unit of mass per unit time for how fast water vapor flows through substance, or permeance; equals 1 gram of water vapor per hour, per square meter, per millimeter of mercury at 23 degrees C</c:definition>
+        </c:unit>
+
+    
+        <c:unit>
+            <c:def>5.067075e-10 m^2</c:def>
+            <c:aliases>
+                <c:name> <c:singular>circular_mil</c:singular> </c:name>
+            </c:aliases>
+            <c:definition>unit of area equal to the area of a one-mil diameter circle</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:comment>porous solid permeability</c:comment>
+            <c:def>9.869233e-13 m^2</c:def>
+            <c:aliases> <c:name> <c:singular>darcy</c:singular> </c:name> </c:aliases>
+            <c:definition>unit of area for measuring permeability to fluid, equal to 1 cubic centimeter of fluid with 1 centipoise viscosity in 1 second through a 1-square-centimeter cross section of porous medium 1 centimeter long at 1 atmosphere</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:comment>exact</c:comment>
+            <c:def>160 rod^2</c:def>
+            <c:aliases>
+                <c:name> <c:singular>acre</c:singular> </c:name>
+            </c:aliases>
+            <c:definition>unit of area in the US Customary System, used in land and sea floor measurement, equal to 43560 square feet</c:definition>
+        </c:unit>
+
+    
+        <c:unit>
+            <c:comment>An "acre.foot", however, is 1233.4867714897 m^3.  Odd.</c:comment>
+            <c:def>1.233489e3 m^3</c:def>
+            <c:aliases>
+                <c:name>
+                    <c:singular>acre_foot</c:singular>
+                    <c:plural>acre_feet</c:plural>
+                </c:name>
+            </c:aliases>
+            <c:definition>unit of volume used to describe large-scale water resources in the United State; equal to the volume of one acre of surface area with one foot of depth depth</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:def>2.359737e-3 m^3</c:def>
+            <c:aliases>
+                <c:name>
+                    <c:singular>board_foot</c:singular>
+                    <c:plural>board_feet</c:plural>
+                </c:name>
+            </c:aliases>
+            <c:definition>unit of volume equal to the cubic contents of a piece of lumber one foot square and one inch thick, used in measuring logs and lumber in the United States and Canada</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:def>3.523907e-2 m^3</c:def>
+            <c:aliases>
+                <c:name> <c:singular>bushel</c:singular> </c:name>
+                <c:symbol>bu</c:symbol>
+            </c:aliases>
+            <c:definition>unit of volume defined as 2150.42 cubic inches or 4 pecks in the US Customary system (and formerly in England), where it is used as a dry measure</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:comment>exact</c:comment>
+            <c:def>bushel/4</c:def>
+            <c:aliases>
+                <c:name> <c:singular>peck</c:singular> </c:name>
+                <c:symbol>pk</c:symbol>
+            </c:aliases>
+            <c:definition>unit of volume defined as 537.6 cubic inches  in the US Customary system (and formerly in England), where it is used as a dry measure</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:comment>exact</c:comment>
+            <c:def>4.546090e-3 m^3</c:def>
+            <c:aliases>
+                <c:name> <c:singular>Canadian_liquid_gallon</c:singular> </c:name>
+            </c:aliases>
+            <c:definition>unit of volume for liquids in the Imperial system</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:def>4.404884e-3 m^3</c:def>
+            <c:aliases>
+                <c:name> <c:singular>US_dry_gallon</c:singular> </c:name>
+            </c:aliases>
+            <c:definition>unit of volume for dry measure in the US Customary system, defined as 1/2 peck or 1/8 bushel</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:comment>exact</c:comment>
+            <c:def>cm^3</c:def>
+            <c:aliases> <c:symbol>cc</c:symbol> </c:aliases>
+            <c:definition>unit of volume equal to the volume of a cube 1 centimeter on each side</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:comment>exact</c:comment>
+            <c:def>1 m^3</c:def>
+            <c:aliases>
+                <c:name> <c:singular>stere</c:singular> </c:name>
+            </c:aliases>
+            <c:definition>unit of volume equal to a cubic meter, originally defined primarily as a measure for firewood</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:def>2.831685 m^3</c:def>
+            <c:aliases>
+                <c:name> <c:singular>register_ton</c:singular> </c:name>
+            </c:aliases>
+            <c:definition>unit of volume used for internal capacity of ships, equal to 100 cubic feet</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:comment>exact</c:comment>
+            <c:def>US_dry_gallon/4</c:def>
+            <c:aliases>
+                <c:name> <c:singular>US_dry_quart</c:singular> </c:name>
+                <c:name> <c:singular>dry_quart</c:singular> </c:name>
+            </c:aliases>
+            <c:definition>unit of volume for dry measure in the US Customary system, equal to 1/32 US bushel</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:comment>exact</c:comment>
+            <c:def>US_dry_gallon/8</c:def>
+            <c:aliases>
+                <c:name> <c:singular>US_dry_pint</c:singular> </c:name>
+                <c:name> <c:singular>dry_pint</c:singular> </c:name>
+            </c:aliases>
+            <c:definition>unit of volume for dry measure in the US Customary system, equal to 1/2 US dry quart</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:def>3.785412e-3 m^3</c:def>
+            <c:aliases>
+                <c:name> <c:singular>US_liquid_gallon</c:singular> </c:name>
+                <c:name> <c:singular>liquid_gallon</c:singular> </c:name>
+                <c:name> <c:singular>gallon</c:singular> </c:name>
+            </c:aliases>
+            <c:definition>unit of volume for liquid measure in the US Customary system, defined as 3.785412 liters</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:comment>The following is the definition of the petroleum industry</c:comment>
+            <c:def>42 US_liquid_gallon</c:def>
+            <c:aliases>
+                <c:name> <c:singular>barrel</c:singular> </c:name>
+                <c:symbol>bbl</c:symbol>
+            </c:aliases>
+            <c:definition>unit of volume used by US and Canadian petroleum organizations</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:comment>The following is exact regardless of the definition of "barrel"</c:comment>
+            <c:def>barrel/4</c:def>
+            <c:aliases>
+                <c:name> <c:singular>firkin</c:singular> </c:name>
+            </c:aliases>
+            <c:definition>unit of volume whose exact quantity depends on the type of barrel on which it is defined; in this table it is defined based on the oil barrel used by the petroleum industry</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:comment>exact</c:comment>
+            <c:def>US_liquid_gallon/4</c:def>
+            <c:aliases>
+                <c:name> <c:singular>US_liquid_quart</c:singular> </c:name>
+                <c:name> <c:singular>liquid_quart</c:singular> </c:name>
+                <c:name> <c:singular>quart</c:singular> </c:name>
+            </c:aliases>
+            <c:definition>unit of volume for liquid measure in the US Customary system, equal to 1/4 liquid gallon</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:comment>exact</c:comment>
+            <c:def>US_liquid_gallon/8</c:def>
+            <c:aliases>
+                <c:name> <c:singular>US_liquid_pint</c:singular> </c:name>
+                <c:name> <c:singular>liquid_pint</c:singular> </c:name>
+                <c:name> <c:singular>pint</c:singular> </c:name>
+                <c:symbol>pt</c:symbol>
+            </c:aliases>
+            <c:definition>unit of volume for liquid measure in the US Customary system, equal to 1/8 liquid gallon</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:comment>exact</c:comment>
+            <c:def>US_liquid_gallon/16</c:def>
+            <c:aliases>
+                <c:name> <c:singular>US_liquid_cup</c:singular> </c:name>
+                <c:name> <c:singular>liquid_cup</c:singular> </c:name>
+                <c:name> <c:singular>cup</c:singular> </c:name>
+            </c:aliases>
+            <c:definition>unit of volume for liquid measure in the US Customary system, equal to 1/16 liquid gallon</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:comment>exact</c:comment>
+            <c:def>US_liquid_gallon/32</c:def>
+            <c:aliases>
+                <c:name> <c:singular>US_liquid_gill</c:singular> </c:name>
+                <c:name> <c:singular>liquid_gill</c:singular> </c:name>
+                <c:name> <c:singular>gill</c:singular> </c:name>
+            </c:aliases>
+            <c:definition>unit of volume for liquid measure in the US Customary system, equal to 1/32 liquid gallon</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:comment>exact</c:comment>
+            <c:def>US_liquid_gallon/128</c:def>
+            <c:aliases>
+                <c:name> <c:singular>US_fluid_ounce</c:singular> </c:name>
+                <c:name> <c:singular>US_liquid_ounce</c:singular> </c:name>
+                <c:name> <c:singular>fluid_ounce</c:singular> </c:name>
+                <c:name> <c:singular>liquid_ounce</c:singular> </c:name>
+                <c:symbol>oz</c:symbol>
+                <c:symbol>floz</c:symbol>
+            </c:aliases>
+            <c:definition>unit of volume for liquid measure in the US Customary system, equal to 1/128 liquid gallon</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:comment>exact</c:comment>
+            <c:def>US_fluid_ounce/2</c:def>
+            <c:aliases>
+                <c:name> <c:singular>tablespoon</c:singular> </c:name>
+                <c:symbol>Tbl</c:symbol>
+                <c:symbol>Tbsp</c:symbol>
+                <c:symbol>tbsp</c:symbol>
+                <c:symbol>Tblsp</c:symbol>
+                <c:symbol>tblsp</c:symbol>
+            </c:aliases>
+            <c:definition>unit of volume for liquid measure in the US Customary system, equal to 1/2 liquid ounce</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:comment>exact</c:comment>
+            <c:def>US_fluid_ounce/8</c:def>
+            <c:aliases>
+                <c:name> <c:singular>fluid_dram</c:singular> </c:name>
+                <c:symbol>fldr</c:symbol>
+            </c:aliases>
+            <c:definition>unit of volume for liquid measure in the apothecary system, equal to 1/8 liquid ounce</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:comment>exact</c:comment>
+            <c:def>tablespoon/3</c:def>
+            <c:aliases>
+                <c:name> <c:singular>teaspoon</c:singular> </c:name>
+                <c:symbol>tsp</c:symbol>
+            </c:aliases>
+            <c:definition>unit of volume defined as 1/3 tablespoon, the actual volume of which can vary depending on the measurement system (but is based on the US Customary system in this database)</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:comment>exact</c:comment>
+            <c:def>4.546090e-3 m^3</c:def>
+            <c:aliases>
+                <c:name> <c:singular>UK_liquid_gallon</c:singular> </c:name>
+            </c:aliases>
+            <c:definition>unit of volume for liquid measure in the Imperial system</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:comment>exact</c:comment>
+            <c:def>UK_liquid_gallon/4</c:def>
+            <c:aliases>
+                <c:name> <c:singular>UK_liquid_quart</c:singular> </c:name>
+            </c:aliases>
+            <c:definition>unit of volume for liquid measure in the Imperial system, equal to 1/4 liquid gallon</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:comment>exact</c:comment>
+            <c:def>UK_liquid_gallon/8</c:def>
+            <c:aliases>
+                <c:name> <c:singular>UK_liquid_pint</c:singular> </c:name>
+            </c:aliases>
+            <c:definition>unit of volume for liquid measure in the Imperial system, equal to 1/8 liquid gallon</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:comment>exact</c:comment>
+            <c:def>UK_liquid_gallon/16</c:def>
+            <c:aliases>
+                <c:name> <c:singular>UK_liquid_cup</c:singular> </c:name>
+            </c:aliases>
+            <c:definition>unit of volume for liquid measure in the Imperial system, equal to 1/16 liquid gallon</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:comment>exact</c:comment>
+            <c:def>UK_liquid_gallon/32</c:def>
+            <c:aliases>
+                <c:name> <c:singular>UK_liquid_gill</c:singular> </c:name>
+            </c:aliases>
+            <c:definition>unit of volume for liquid measure in the Imperial system, equal to 1/32 liquid gallon</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:comment>exact</c:comment>
+            <c:def>UK_liquid_gallon/160</c:def>
+            <c:aliases>
+                <c:name> <c:singular>UK_fluid_ounce</c:singular> </c:name>
+                <c:name> <c:singular>UK_liquid_ounce</c:singular> </c:name>
+            </c:aliases>
+            <c:definition>unit of volume for liquid measure in the Imperial system, equal to 1/160 liquid gallon</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:def>lg(re (1e-6 m)^3)</c:def>
+            <c:aliases> <c:symbol>BZ</c:symbol> </c:aliases>
+            <c:definition>logarithmic unit used to compare the reflectivity (Z) of an unknown remote object, to the reflective return created by a droplet of rain with a diameter of 1 mm; is the base unit for "dBz", which is the typical logarithmic unit for measuring atmospheric radar reflectivity; a value of 0 Bz (0 DBz) corresponds to the return from a single cubic micron; a value of 6 Bz (60 DBz) corresponds to extremely heavy rain.</c:definition>
+        </c:unit>
+
+    
+        <c:unit>
+            <c:def>1e-8 s</c:def>
+            <c:aliases> <c:name> <c:singular>shake</c:singular> </c:name> </c:aliases>
+            <c:definition>unit of time approximating the lifetime of an individual neutron, useful for describing very brief durations, e.g., in nuclear physics</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:def>8.616409e4 s</c:def>
+            <c:aliases>
+                <c:name> <c:singular>sidereal_day</c:singular> </c:name>
+            </c:aliases>
+            <c:definition>unit of time that it takes the earth to complete one revolution with respect to a star, roughly 23 hours, 56 minutes, 4 seconds</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:def>3.590170e3 s</c:def>
+            <c:aliases>
+                <c:name> <c:singular>sidereal_hour</c:singular> </c:name>
+            </c:aliases>
+            <c:definition>unit of time equal to 1/24 sidereal day</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:def>5.983617e1 s</c:def>
+            <c:aliases>
+                <c:name> <c:singular>sidereal_minute</c:singular> </c:name>
+            </c:aliases>
+            <c:definition>unit of time equal to 1/60 sidereal hour</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:def>0.9972696 s</c:def>
+            <c:aliases>
+                <c:name> <c:singular>sidereal_second</c:singular> </c:name>
+            </c:aliases>
+            <c:definition>unit of time equal to 1/60 sidereal minute</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:def>3.155815e7 s</c:def>
+            <c:aliases>
+                <c:name> <c:singular>sidereal_year</c:singular> </c:name>
+            </c:aliases>
+            <c:definition>unit of time for the earth to make one complete revolution around the sun, relative to the fixed stars</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:def>3.15569259747e7 s</c:def>
+            <c:aliases>
+                <c:name> <c:singular>tropical_year</c:singular> </c:name>
+                <c:name> <c:singular>year</c:singular> </c:name>
+                
+                <c:symbol>yr</c:symbol>
+            </c:aliases>
+            <c:definition>unit of time; Interval between 2 successive passages of sun through vernal equinox (365.242198781 days). See http://www.ast.cam.ac.uk/pubinfo/leaflets/, http://aa.usno.navy.mil/AA/, and http://adswww.colorado.edu/adswww/astro_coord.html</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:def>29.530589 day</c:def>
+            <c:aliases>
+                <c:name> <c:singular>lunar_month</c:singular> </c:name>
+            </c:aliases>
+            <c:definition>unit of time equal to the average time between successive new or full moons; equal to approximately 29 days, 12 hours, 44 minutes</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:def>365 day</c:def>
+            <c:aliases>
+                <c:name> <c:singular>common_year</c:singular> </c:name>
+            </c:aliases>
+            <c:definition>unit of time corresponding to a 'normal' calendar year, that is, one without insertion of a leap day</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:def>366 day</c:def>
+            <c:aliases>
+                <c:name> <c:singular>leap_year</c:singular> </c:name>
+            </c:aliases>
+            <c:definition>unit of time corresponding to a calendar year with a leap day inserted</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:def>365.25 day</c:def>
+            <c:aliases>
+                <c:name> <c:singular>Julian_year</c:singular> </c:name>
+            </c:aliases>
+            <c:definition>unit of time recognized by the International Astronomical Union for use in astronomy, defined as 365.25 days of 86400 seconds</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:def>365.2425 day</c:def>
+            <c:aliases>
+                <c:name> <c:singular>Gregorian_year</c:singular> </c:name>
+            </c:aliases>
+            <c:definition>unit of time based on the Gregorian Calendar, the one commonly used today; approximates the tropical year as 365 + 97/400 days</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:def>27.321661 day</c:def>
+            <c:aliases>
+                <c:name> <c:singular>sidereal_month</c:singular> </c:name>
+            </c:aliases>
+            <c:definition>unit of time based on 1/12 of the sidereal year</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:def>27.321582 day</c:def>
+            <c:aliases>
+                <c:name> <c:singular>tropical_month</c:singular> </c:name>
+            </c:aliases>
+            <c:definition>unit of time based on 1/12 of the tropical year</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:def>14 day</c:def>
+            <c:aliases>
+                <c:name> <c:singular>fortnight</c:singular> </c:name>
+            </c:aliases>
+            <c:definition>unit of time commonly defined as 14 days</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:def>7 day</c:def>
+            <c:aliases> <c:name> <c:singular>week</c:singular> </c:name> </c:aliases>
+            <c:definition>unit of time commonly defined as 7 days</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:comment>multiple values have been proposed for the amount of time represented by a 'jiffy'</c:comment>
+            <c:def>0.01 s</c:def>
+            <c:aliases> <c:name> <c:singular>jiffy</c:singular> </c:name> </c:aliases>
+            <c:definition>unit of time used in computer animation as a method of defining playback rate</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:def>1e9 year</c:def>
+            <c:aliases> <c:name> <c:singular>eon</c:singular> </c:name> </c:aliases>
+            <c:definition>unit of time defined in astronomy as 1 billion years</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:def>year/12</c:def>
+            <c:aliases> <c:name> <c:singular>month</c:singular> </c:name> </c:aliases>
+            <c:definition>unit of time defined as the average length of time for a calendar month</c:definition>
+        </c:unit>
+
+    
+        <c:unit>
+            <c:comment>exact</c:comment>
+            <c:def>1e6 m^3/s</c:def>
+            <c:aliases>
+                <c:name> <c:singular>sverdrup</c:singular> </c:name>
+                
+            </c:aliases>
+            <c:definition>unit of volume transport, used almost exclusively to measure the volumetric rate of ocean currents</c:definition>
+        </c:unit>
+
+    
+        <c:unit>
+            <c:comment>exact</c:comment>
+            <c:def>9.806650 m/s^2</c:def>
+            <c:aliases>
+                <c:name> <c:singular>standard_free_fall</c:singular> </c:name>
+            </c:aliases>
+            <c:definition>unit of acceleration corresponding to the nominal gravitational acceleration of an object in a vacuum near the surface of earth</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:comment>should be local</c:comment>
+            <c:def>standard_free_fall</c:def>
+            <c:aliases> <c:name> <c:singular>gravity</c:singular> </c:name> </c:aliases>
+            <c:definition>unit of acceleration synonymous with standard rate of free fall (in earth's gravity)</c:definition>
+        </c:unit>
+
+    
+        <c:unit>
+            <c:comment>exact</c:comment>
+            <c:def>gravity 1000 kg/m^3</c:def>
+            <c:aliases>
+                <c:name> <c:singular>conventional_water</c:singular> </c:name>
+                <c:name> <c:singular>water</c:singular> </c:name>
+                <c:symbol>H2O</c:symbol>
+                <c:symbol>h2o</c:symbol>
+            </c:aliases>
+            <c:definition>specifies the acceleration at the earth's surface of a substance with the density of water</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:def>gravity 999.972 kg/m^3</c:def>
+            <c:aliases>
+                <c:name>
+                    <c:singular>water_4C</c:singular>
+                    <c:plural>waters_4C</c:plural>
+                </c:name>
+                <c:name>
+                    <c:singular comment="actually 39.2 F">water_39F</c:singular>
+                    <c:plural>waters_39F</c:plural>
+                </c:name>
+            </c:aliases>
+            <c:definition>specifies the acceleration at the earth's surface of a substance with the density of water at 4 degrees C</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:def>gravity 999.001 kg/m^3</c:def>
+            <c:aliases>
+                <c:name>
+                    <c:singular>water_60F</c:singular>
+                    <c:plural>waters_60F</c:plural>
+                </c:name>
+            </c:aliases>
+            <c:definition>specifies the acceleration at the earth's surface of a substance with the density of water at 60 degrees F</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:def>gravity 13595.10 kg/m^3</c:def>
+            <c:aliases>
+                <c:name>
+                    <c:singular>mercury_0C</c:singular>
+                    <c:plural>mercuries_0C</c:plural>
+                </c:name>
+                <c:name>
+                    <c:singular>mercury_32F</c:singular>
+                    <c:plural>mercuries_32F</c:plural>
+                </c:name>
+                <c:name>
+                    <c:singular>conventional_mercury</c:singular>
+                    <c:plural>conventional_mercuries</c:plural>
+                </c:name>
+                <c:symbol>Hg</c:symbol>
+            </c:aliases>
+            <c:definition>specifies the acceleration at the earth's surface of a substance with the density of mercury at 0 degrees C</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:def>gravity 13556.8 kg/m^3</c:def>
+            <c:aliases>
+                <c:name>
+                    <c:singular>mercury_60F</c:singular>
+                    <c:plural>mercuries_60F</c:plural>
+                </c:name>
+            </c:aliases>
+            <c:definition>specifies the acceleration at the earth's surface of a substance with the density of mercury at 60 degrees F</c:definition>
+        </c:unit>
+
+    
+        <c:unit>
+            <c:def>standard_free_fall</c:def>
+            <c:aliases> <c:name> <c:singular>force</c:singular> </c:name> </c:aliases>
+            <c:definition>unit of force equivalent to the force generated by the effect of gravity</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:comment>exact</c:comment>
+            <c:def>1e-5 N</c:def>
+            <c:aliases> <c:name> <c:singular>dyne</c:singular> </c:name> </c:aliases>
+            <c:definition>unit of force, equal to the force that produces an acceleration of one centimeter per second per second on a mass of one gram (the standard centimeter-gram-second unit of force)</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:comment>exact</c:comment>
+            <c:def>9.806650e-3 N</c:def>
+            <c:aliases> <c:name> <c:singular>pond</c:singular> </c:name> </c:aliases>
+            <c:definition>unit of force, equal to the magnitude of the force exerted by one gram of mass in a 9.80665 m/s2 gravitational field</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:comment>exact</c:comment>
+            <c:def>9.806650 N</c:def>
+            <c:aliases>
+                <c:name> <c:singular>force_kilogram</c:singular> </c:name>
+                <c:name>
+                    <c:singular>kilogram_force</c:singular>
+                    <c:plural>kilograms_force</c:plural>
+                </c:name>
+                <c:symbol>kgf</c:symbol>
+            </c:aliases>
+            <c:definition>unit of force, equal to the magnitude of the force exerted by one kilogram of mass in a 9.80665 m/s2 gravitational field</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:comment>exact</c:comment>
+            <c:def>2.780139e-1 N</c:def>
+            <c:aliases>
+                <c:name> <c:singular>force_ounce</c:singular> </c:name>
+                <c:name>
+                    <c:singular>ounce_force</c:singular>
+                    <c:plural>ounces_force</c:plural>
+                </c:name>
+                <c:symbol>ozf</c:symbol>
+            </c:aliases>
+            <c:definition>unit of force, equal to the magnitude of the force exerted by one ounce of mass in a 9.80665 m/s2 gravitational field</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:comment>exact</c:comment>
+            <c:def>4.4482216152605 N</c:def>
+            <c:aliases>
+                <c:name> <c:singular>force_pound</c:singular> </c:name>
+                <c:name>
+                    <c:singular>pound_force</c:singular>
+                    <c:plural>pounds_force</c:plural>
+                </c:name>
+                <c:symbol>lbf</c:symbol>
+            </c:aliases>
+            <c:definition>unit of force, equal to the magnitude of the force exerted by one pound of mass in a 9.80665 m/s2 gravitational field</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:comment>exact</c:comment>
+            <c:def>1.382550e-1 N</c:def>
+            <c:aliases>
+                <c:name> <c:singular>poundal</c:singular> </c:name>
+            </c:aliases>
+            <c:definition>unit of force, that which is necessary to accelerate 1 pound-mass to 1 foot per second per second</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:comment>exact</c:comment>
+            <c:def>gram force</c:def>
+            <c:aliases>
+                <c:name>
+                    <c:singular>gram_force</c:singular>
+                    <c:plural>grams_force</c:plural>
+                </c:name>
+                <c:name>
+                    <c:singular>force_gram</c:singular>
+                </c:name>
+                <c:symbol>gf</c:symbol>
+            </c:aliases>
+            <c:definition>unit of force, equal to the magnitude of the force exerted by one gram of mass in a 9.80665 m/s2 gravitational field</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:comment>exact</c:comment>
+            <c:def>2000 force_pound</c:def>
+            <c:aliases>
+                <c:name> <c:singular>force_ton</c:singular> </c:name>
+                <c:name>
+                    <c:singular>ton_force</c:singular>
+                    <c:plural>tons_force</c:plural>
+                </c:name>
+            </c:aliases>
+            <c:definition>unit of force, equal to the magnitude of the force exerted by one ton of mass in a 9.80665 m/s2 gravitational field (specifically a short ton of mass)</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:comment>exact</c:comment>
+            <c:def>1000 lbf</c:def>
+            <c:aliases> <c:name><c:singular>kip</c:singular></c:name> </c:aliases>
+            <c:definition>unit of force, equal to the magnitude of the force exerted by one thousand pounds of mass in a 9.80665 m/s2 gravitational field</c:definition>
+        </c:unit>
+
+    
+        <c:unit>
+            <c:comment>exact</c:comment>
+            <c:def>1.01325e5 Pa</c:def>
+            <c:aliases>
+                <c:name> <c:singular>standard_atmosphere</c:singular> </c:name>
+                <c:name> <c:singular>atmosphere</c:singular> </c:name>
+                <c:symbol>atm</c:symbol>
+            </c:aliases>
+            <c:definition>unit of pressure, an international reference pressure intended to represent the mean atmospheric pressure at mean sea level at the latitude of Paris, France</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:comment>exact; note that the symbol 'at' clashes with that of the katal ('kat'), the SI unit of catalytic activity</c:comment>
+            <c:def>1 kg gravity/cm2</c:def>
+            <c:aliases>
+                <c:name> <c:singular>technical_atmosphere</c:singular> </c:name>
+                <c:symbol>at</c:symbol>
+            </c:aliases>
+            <c:definition>unit of pressure equal to one kilogram force per square centimeter</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:def>cm H2O</c:def>
+            <c:aliases>
+                <c:symbol>cm_H2O</c:symbol>
+                <c:symbol>cmH2O</c:symbol>
+            </c:aliases>
+            <c:definition>unit of pressure derived from pressure head calculations using metrology; represents the pressure exerted by a column of water of 1 cm height at 4 degrees C</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:comment>exact</c:comment>
+            <c:def>inch water_39F</c:def>
+            <c:aliases>
+                <c:name>
+                    <c:singular>inch_H2O_39F</c:singular>
+                    <c:plural>inches_H2O_39F</c:plural>
+                </c:name>
+            </c:aliases>
+            <c:definition>unit of pressure representing the pressure exerted by a column of water of 1 inch height at 39 degrees F</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:comment>exact</c:comment>
+            <c:def>inch water_60F</c:def>
+            <c:aliases>
+                <c:name>
+                    <c:singular>inch_H2O_60F</c:singular>
+                    <c:plural>inches_H2O_60F</c:plural>
+                </c:name>
+            </c:aliases>
+            <c:definition>unit of pressure representing the pressure exerted by a column of water of 1 inch height at 60 degrees F</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:def>foot water</c:def>
+            <c:aliases>
+                <c:name>
+                    <c:singular>foot_water</c:singular>
+                    <c:plural>feet_water</c:plural>
+                </c:name>
+                <c:name>
+                    <c:singular>foot_H2O</c:singular>
+                    <c:plural>feet_H2O</c:plural>
+                </c:name>
+                <c:name>
+                    <c:singular>footH2O</c:singular>
+                    <c:plural>feetH2O</c:plural>
+                </c:name>
+                <c:symbol>ftH2O</c:symbol>
+                <c:symbol>fth2o</c:symbol>
+            </c:aliases>
+            <c:definition>unit of pressure representing the pressure exerted by a column of water of 1 foot height at 4 degrees C</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:def>cm Hg</c:def>
+            <c:aliases>
+                <c:symbol>cm_Hg</c:symbol>
+                <c:symbol>cmHg</c:symbol>
+            </c:aliases>
+            <c:definition>unit of pressure representing the pressure exerted by a column of mercury of 1 cm height at 0 degrees C</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:comment>exact</c:comment>
+            <c:def>mm mercury_0C</c:def>
+            <c:aliases>
+                <c:name>
+                    <c:singular>millimeter_Hg_0C</c:singular>
+                    <c:plural>millimeters_Hg_0C</c:plural>
+                </c:name>
+            </c:aliases>
+            <c:definition>unit of pressure representing the pressure exerted by a column of mercury of 1 mm height at 0 degrees C</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:comment>exact</c:comment>
+            <c:def>inch mercury_32F</c:def>
+            <c:aliases>
+                <c:name>
+                    <c:singular>inch_Hg_32F</c:singular>
+                    <c:plural>inches_Hg_32F</c:plural>
+                </c:name>
+            </c:aliases>
+            <c:definition>unit of pressure representing the pressure exerted by a column of mercury of 1 inch height at 32 degrees F</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:comment>exact</c:comment>
+            <c:def>inch mercury_60F</c:def>
+            <c:aliases>
+                <c:name>
+                    <c:singular>inch_Hg_60F</c:singular>
+                    <c:plural>inches_Hg_60F</c:plural>
+                </c:name>
+            </c:aliases>
+            <c:definition>unit of pressure representing the pressure exerted by a column of mercury of 1 inch height at 60 degrees F</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:def>mm Hg</c:def>
+            <c:aliases>
+                <c:name>
+                    <c:singular>millimeter_Hg</c:singular>
+                    <c:plural>millimeters_Hg</c:plural>
+                </c:name>
+                <c:name> <c:singular>torr</c:singular> </c:name>
+                <c:symbol>mm_Hg</c:symbol>
+                <c:symbol>mm_hg</c:symbol>
+                <c:symbol>mmHg</c:symbol>
+                <c:symbol>mmhg</c:symbol>
+            </c:aliases>
+            <c:definition>unit of pressure representing the pressure exerted by a column of mercury of 1 mm height at 0 degrees C; approximately (within 0.000015%, generally below measurement error) 1 Torr, which is 1/760 standard atmospheric pressure</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:def>inch Hg</c:def>
+            <c:aliases>
+                <c:name>
+                    <c:singular>inch_Hg</c:singular>
+                    <c:plural>inches_Hg</c:plural>
+                </c:name>
+                <c:symbol>in_Hg</c:symbol>
+                <c:symbol>inHg</c:symbol>
+            </c:aliases>
+            <c:definition>unit of pressure representing the pressure exerted by a column of mercury of 1 inch height at 0 degrees C</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:comment>exact</c:comment>
+            <c:def>1 pound gravity/in^2</c:def>
+            <c:aliases> <c:symbol>psi</c:symbol> </c:aliases>
+            <c:definition>unit of pressure representing the pressure exerted, due to gravity, by a one-pound mass, of area one square inch; commonly referred to as "pounds per square inch"</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:comment>exact</c:comment>
+            <c:def>kip/in^2</c:def>
+            <c:aliases> <c:symbol>ksi</c:symbol> </c:aliases>
+            <c:definition>unit of pressure representing the pressure exerted, due to gravity, by a 1000-pound mass, of area one square inch</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:comment>exact</c:comment>
+            <c:def>0.1 N/m^2</c:def>
+            <c:aliases>
+                <c:name> <c:singular>barie</c:singular> </c:name>
+                <c:name> <c:singular>barye</c:singular> </c:name>
+            </c:aliases>
+            <c:definition>unit of pressure equal to one dyne per square centimeter</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:comment>sound pressure level</c:comment>
+            <c:def>lg(re 20e-6 Pa)</c:def>
+            <c:aliases> <c:symbol>B_SPL</c:symbol> </c:aliases>
+            <c:definition>logarithmic unit used to compare the sound pressure of an unknown sound to a standard reference sound pressure; is the base unit for "dB_SPL", a more typical logarithmic unit for measuring sound pressure (the SI unit for sound pressure is pascal); the standard reference sound pressure in air or other gases is 20 microPascal, which is usually considered the threshold of human hearing (at 1 kHz)</c:definition>
+        </c:unit>
+
+    
+        <c:unit>
+            <c:comment>exact</c:comment>
+            <c:def>1e-1 Pa.s</c:def>
+            <c:aliases>
+                <c:name> <c:singular>poise</c:singular> </c:name>
+            </c:aliases>
+            <c:definition>unit of dynamic viscosity, corresponding to 0.1 pascal-second (pascal-second: a fluid placed between two plates, when one plate is pushed sideways with a shear stress of one pascal, moves a distance equal to the thickness of the layer between the plates in one second)</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:comment>exact</c:comment>
+            <c:def>1e-4 m^2/s</c:def>
+            <c:aliases>
+                <c:name> <c:singular>stokes</c:singular> </c:name>
+                <c:symbol>St</c:symbol>
+            </c:aliases>
+            <c:definition>unit of kinematic viscosity, measuring the ratio of the dynamic viscosity to the density of the fluid; water at 20 degrees C has a kinematic viscosity about 100 stokes, or more cmomonly, 1 cSt</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:comment>exact</c:comment>
+            <c:def>10/(Pa.s)</c:def>
+            <c:aliases> <c:name> <c:singular>rhe</c:singular> </c:name> </c:aliases>
+            <c:definition>unit of fluidity (reciprocal of velocity), measured in reciprocal poise</c:definition>
+        </c:unit>
+
+    
+        <c:unit>
+            <c:comment>exact</c:comment>
+            <c:def>1e-7 J</c:def>
+            <c:aliases> <c:name> <c:singular>erg</c:singular> </c:name> </c:aliases>
+            <c:definition>unit of work, equal to the amount of work done by a force of one dyne exerted for a distance of one centimeter (in CGS base units, one gram centimeter-squared per second-squared)</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:comment>exact</c:comment>
+            <c:def>1.05505585262e3 J</c:def>
+            <c:aliases>
+                <c:name>
+                    <c:singular>IT_Btu</c:singular>
+                    <c:plural>IT_Btus</c:plural>
+                </c:name>
+                <c:name>
+                    <c:singular>Btu</c:singular>
+                    <c:plural>Btus</c:plural>
+                </c:name>
+            </c:aliases>
+            <c:definition>unit of energy, equal to the energy needed to cool or heat one pound of water by one degree F; this uses the International Steam Table (IT) calorie , defined by the Fifth International Conference on the properties of Steam (1956)</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:comment>exact (reference NIST Guide to SI Units)</c:comment>
+            <c:def>1.05506e8 J</c:def>
+            <c:aliases>
+                <c:name> <c:singular>EC_therm</c:singular> </c:name>
+            </c:aliases>
+            <c:definition>unit of energy legally defined by the Council Directive of 20 December 1979, Council of the European Communities (now the European Union, EU);.roughly equal to 100,000 IT_Btu </c:definition>
+        </c:unit>
+        <c:unit>
+            <c:comment>exact</c:comment>
+            <c:def>4.184000 J</c:def>
+            <c:aliases>
+                <c:name> <c:singular>thermochemical_calorie</c:singular> </c:name>
+            </c:aliases>
+            <c:definition>unit of heat energy defined as 4.184 Joules exactly (International Standard ISO 31-4: Quantities and units, Part 4: Heat); approximately the energy needed to increase the temperature of 1 gram of water by 1 C</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:comment>exact</c:comment>
+            <c:def>4.1868 J</c:def>
+            <c:aliases>
+                <c:name> <c:singular>IT_calorie</c:singular> </c:name>
+                <c:name> <c:singular>calorie</c:singular> </c:name>
+                <c:symbol>cal</c:symbol>
+            </c:aliases>
+            <c:definition>unit of heat energy used in thermochemistry, the International Steam Table (IT) calorie defined by the Fifth International Conference on the properties of Steam (1956)</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:comment>by definition</c:comment>
+            <c:def>4.184 MJ/kg</c:def>
+            <c:aliases>
+                <c:name> <c:singular>TNT</c:singular><c:noplural /></c:name>
+            </c:aliases>
+            <c:definition>unit of energy; approximately the energy released by the detonation of a given amount of mass of TNT</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:comment>by definition</c:comment>
+            <c:def>4.184e9 J</c:def>
+            <c:aliases>
+                <c:name>
+                    <c:singular>ton_TNT</c:singular>
+                    <c:plural>tons_TNT</c:plural>
+                </c:name>
+            </c:aliases>
+            <c:definition>unit of energy; approximately the energy released by the detonation of a 1000 kilograms of TNT</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:comment>exact</c:comment>
+            <c:def>1.054804e8 J</c:def>
+            <c:aliases>
+                <c:name> <c:singular>US_therm</c:singular> </c:name>
+                <c:name> <c:singular>therm</c:singular> </c:name>
+                <c:symbol>thm</c:symbol>
+            </c:aliases>
+            <c:definition>unit of energy legally defined in the U.S. Federal Register of July 27, 1968, and the legal unit used by the U.S. natural gas industry</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:comment>exact</c:comment>
+            <c:def>watt.hour</c:def>
+            <c:aliases>
+                <c:name> <c:singular>watthour</c:singular> </c:name>
+            </c:aliases>
+            <c:definition>unit of energy equal to the product of the power in watts and the time in hours (if the energy is being transmitted or used at a constant rate (power) over a period of time); one watt is equal to 1 Joule/second</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:comment>exact</c:comment>
+            <c:def>1e9 eV</c:def>
+            <c:aliases> <c:symbol>bev</c:symbol> </c:aliases>
+            <c:definition>unit of energy corresponding to 1 billion electron volts (eV)</c:definition>
+        </c:unit>
+
+    
+        <c:unit>
+            <c:comment>exact</c:comment>
+            <c:def>V.A</c:def>
+            <c:aliases>
+                <c:name> <c:singular>voltampere</c:singular> </c:name>
+                <c:symbol>VA</c:symbol>
+            </c:aliases>
+            <c:definition>unit of electric power equal to the product of one volt and one ampere, equivalent to one watt for direct current systems and a unit of apparent power for alternating current systems</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:def>9.80950e3 W</c:def>
+            <c:aliases>
+                <c:name> <c:singular>boiler_horsepower</c:singular> </c:name>
+            </c:aliases>
+            <c:definition>unit of power equal to the power required to evaporate 34.5 lb of fresh water at 212 degrees F in one hour; describes a boiler's capacity to deliver steam to a steam engine</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:comment>shaft_horsepower is a unit of power as delivered by a drive shaft at its output (e.g., of a ship, aircraft engine, or helicopter rotor; typically not automobiles due to drive train losses)</c:comment>
+            <c:def>7.456999e2 W</c:def>
+            <c:aliases>
+                <c:name> <c:singular>shaft_horsepower</c:singular> </c:name>
+                <c:name> <c:singular>horsepower</c:singular> </c:name>
+                <c:symbol>hp</c:symbol>
+            </c:aliases>
+            <c:definition>unit of power originally corresponding to the estimated typical power of draft horses, calculated as lifting 33000 pounds one foot in one minute (550 foot-pounds/second)</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:def>7.35499e2 W</c:def>
+            <c:aliases>
+                <c:name> <c:singular>metric_horsepower</c:singular> </c:name>
+            </c:aliases>
+            <c:definition>unit of power corresponding to a calculation of 75 kilogram-meters/second</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:comment>exact</c:comment>
+            <c:def>7.460000e2 W</c:def>
+            <c:aliases>
+                <c:name> <c:singular>electric_horsepower</c:singular> </c:name>
+            </c:aliases>
+            <c:definition>unit of power defined in the International System of Units as exactly 746 W; generally used for power used by electrical machines</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:def>7.46043e2 W</c:def>
+            <c:aliases>
+                <c:name> <c:singular>water_horsepower</c:singular> </c:name>
+            </c:aliases>
+            <c:definition>unit of power used in the U.S. primarily in rating pumps; calculated as pump capacity Q (gallons per minute) times pump pressure ("head") of P (feet of head), divided by 3956 water horsepower; the calculation assumes water density is 8 1/3 pounds per U.S. gallon, which is not exact.</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:def>7.4570e2 W</c:def>
+            <c:aliases>
+                <c:name> <c:singular>UK_horsepower</c:singular> </c:name>
+            </c:aliases>
+            <c:definition>unit of power originally corresponding to the estimated typical power of draft horses, calculated as lifting 33000 pounds one foot in one minute (550 foot-pounds/second), as calculated/specified in the United Kingdom</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:def>12000 Btu/hr</c:def>
+            <c:aliases>
+                <c:name> <c:singular>refrigeration_ton</c:singular> </c:name>
+                <c:name>
+                    <c:singular>ton_of_refrigeration</c:singular>
+                    <c:plural>tons_of_refrigeration</c:plural>
+                </c:name>
+            </c:aliases>
+            <c:definition>unit of power describing the heat-extraction capacity of cooling equipment; defined as the heat absorbed by melting 1 short ton of pure ice at 0 degrees C in 24 hours</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:def>lg(re 1 W)</c:def>
+            <c:aliases> <c:symbol>BW</c:symbol> </c:aliases>
+            <c:definition>unit of power in decibel scale, referenced to 1 watt; the power in bel-watts is equal to 100 times the base 10 logarithm of the power in watts (making decibel-watt, the more common term, 10 times the base 10 log of the power in watts)</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:def>lg(re 1 mW)</c:def>
+            <c:aliases> <c:symbol>Bm</c:symbol> </c:aliases>
+            <c:definition>unit of power in decibel scale, referenced to 1 milliwatt; the power in bel-milliwatts is equal to 100 times the base 10 logarithm of the power in milliwatts (making decibel-milliwatt, the more common term, 10 times the base 10 log of the power in milliwatts)</c:definition>
+        </c:unit>
+
+    
+        <c:unit>
+            <c:def>1.55e-1 K.m^2/W</c:def>
+            <c:aliases> <c:name> <c:singular>clo</c:singular> </c:name> </c:aliases>
+            <c:definition>unit of thermal resistance used in describing the insulating value of clothing; the amount of thermal resistance needed to maintain in comfort a resting subject in a normally ventilated room (air movement 10 cm/sec) at a temperature of 20 degrees C and a humidity less than 50%</c:definition>
+        </c:unit>
+
+    
+        <c:unit>
+            <c:def>10 A</c:def>
+            <c:aliases> <c:name><c:singular>abampere</c:singular></c:name> </c:aliases>
+            <c:definition>basic unit of electricity in the electromagnetic CGS system of units</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:def>7.957747e-1 A</c:def>
+            <c:aliases> <c:name><c:singular>gilbert</c:singular></c:name> </c:aliases>
+            <c:definition>unit of electricity/magnetism</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:def>3.335640e-10 A</c:def>
+            <c:aliases>
+                <c:name><c:singular>statampere</c:singular></c:name>
+            </c:aliases>
+            <c:definition>unit of electricity/magnetism</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:def>10 A</c:def>
+            <c:aliases> <c:name><c:singular>biot</c:singular></c:name> </c:aliases>
+            <c:definition>basic unit of electricity in the electromagnetic CGS system of units (same as abampere), named after Jean-Baptiste Biot</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:comment>exact</c:comment>
+            <c:def>1e9 F</c:def>
+            <c:aliases> <c:name> <c:singular>abfarad</c:singular> </c:name> </c:aliases>
+            <c:definition>unit of electricity/magnetism</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:comment>exact</c:comment>
+            <c:def>1e-9 H</c:def>
+            <c:aliases>
+                <c:name> <c:singular>abhenry</c:singular> </c:name>
+            </c:aliases>
+            <c:definition>unit of electricity/magnetism</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:comment>exact</c:comment>
+            <c:def>1e9 S</c:def>
+            <c:aliases> <c:name> <c:singular>abmho</c:singular> </c:name> </c:aliases>
+            <c:definition>unit of electricity/magnetism</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:comment>exact</c:comment>
+            <c:def>1e-9 ohm</c:def>
+            <c:aliases> <c:name> <c:singular>abohm</c:singular> </c:name> </c:aliases>
+            <c:definition>unit of electricity/magnetism</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:comment>exact</c:comment>
+            <c:def>1e-8 V</c:def>
+            <c:aliases> <c:name> <c:singular>abvolt</c:singular> </c:name> </c:aliases>
+            <c:definition>unit of electricity/magnetism</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:def>1.602176487e-19 C</c:def>
+            <c:aliases> <c:symbol>e</c:symbol> </c:aliases>
+            <c:definition>unit of electricity/magnetism</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:def>9.64957e4 C</c:def>
+            <c:aliases>
+                <c:name> <c:singular>chemical_faraday</c:singular> </c:name>
+            </c:aliases>
+            <c:definition>unit of electricity/magnetism</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:def>9.65219e4 C</c:def>
+            <c:aliases>
+                <c:name> <c:singular>physical_faraday</c:singular> </c:name>
+            </c:aliases>
+            <c:definition>unit of electricity/magnetism</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:def>9.648531e4 C</c:def>
+            <c:aliases>
+                <c:name> <c:singular>C12_faraday</c:singular> </c:name>
+                <c:name> <c:singular>faraday</c:singular> </c:name>
+            </c:aliases>
+            <c:definition>unit of electricity/magnetism</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:comment>exact</c:comment>
+            <c:def>1e-9 T</c:def>
+            <c:aliases>
+                <c:name> <c:singular>gamma</c:singular> </c:name>
+            </c:aliases>
+            <c:definition>unit of electricity/magnetism</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:comment>exact</c:comment>
+            <c:def>1e-4 T</c:def>
+            <c:aliases>
+                <c:name> <c:singular>gauss</c:singular> </c:name>
+            </c:aliases>
+            <c:definition>unit of electricity/magnetism</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:comment>exact</c:comment>
+            <c:def>1e-8 Wb</c:def>
+            <c:aliases>
+                <c:name> <c:singular>maxwell</c:singular> </c:name>
+            </c:aliases>
+            <c:definition>unit of electricity/magnetism</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:def>7.957747e1 A/m</c:def>
+            <c:aliases>
+                <c:name> <c:singular>oersted</c:singular> </c:name>
+                <c:symbol>Oe</c:symbol>
+            </c:aliases>
+            <c:definition>unit of electricity/magnetism</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:def>3.335640e-10 C</c:def>
+            <c:aliases>
+                <c:name> <c:singular>statcoulomb</c:singular> </c:name>
+            </c:aliases>
+            <c:definition>unit of electricity/magnetism</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:def>1.112650e-12 F</c:def>
+            <c:aliases>
+                <c:name> <c:singular>statfarad</c:singular> </c:name>
+            </c:aliases>
+            <c:definition>unit of electricity/magnetism</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:def>8.987554e11 H</c:def>
+            <c:aliases>
+                <c:name> <c:singular>stathenry</c:singular> </c:name>
+            </c:aliases>
+            <c:definition>unit of electricity/magnetism</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:def>1.112650e-12 S</c:def>
+            <c:aliases>
+                <c:name> <c:singular>statmho</c:singular> </c:name>
+            </c:aliases>
+            <c:definition>unit of electricity/magnetism</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:def>8.987554e11 ohm</c:def>
+            <c:aliases>
+                <c:name> <c:singular>statohm</c:singular> </c:name>
+            </c:aliases>
+            <c:definition>unit of electricity/magnetism</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:def>2.997925e2 V</c:def>
+            <c:aliases>
+                <c:name> <c:singular>statvolt</c:singular> </c:name>
+            </c:aliases>
+            <c:definition>unit of electricity/magnetism</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:def>1.256637e-7 Wb</c:def>
+            <c:aliases>
+                <c:name> <c:singular>unit_pole</c:singular> </c:name>
+            </c:aliases>
+            <c:definition>unit of electricity/magnetism</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:def>lg(re 1 V)</c:def>
+            <c:aliases> <c:symbol>BV</c:symbol> </c:aliases>
+            <c:definition>unit of electricity/magnetism</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:comment>rms voltage</c:comment>
+            <c:def>lg(re 0.775 V)</c:def>
+            <c:aliases> <c:symbol>Bv</c:symbol> </c:aliases>
+            <c:definition>unit of electricity/magnetism</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:def>lg(re 1e-6 V)</c:def>
+            <c:aliases> 
+                <c:symbol comment="uses MICRO SIGN">BµV</c:symbol>
+            </c:aliases>
+            <c:definition>unit of electricity/magnetism</c:definition>
+        </c:unit>
+
+    
+        <c:unit>
+            <c:def>K/1.8</c:def>
+            <c:aliases>
+                <c:symbol comment="DEGREE SIGN">°R</c:symbol>    
+                <c:name>
+                    <c:singular>degree_rankine</c:singular>
+                    <c:plural>degrees_rankine</c:plural>
+                </c:name>
+                <c:name>
+                    <c:singular>degreeR</c:singular>
+                    <c:plural>degreesR</c:plural>
+                </c:name>
+                <c:name>
+                    <c:singular>degree_R</c:singular>
+                    <c:plural>degrees_R</c:plural>
+                </c:name>
+                <c:name>
+                    <c:singular>degR</c:singular>
+                    <c:plural>degsR</c:plural>
+                </c:name>
+                <c:name>
+                    <c:singular>deg_R</c:singular>
+                    <c:plural>degs_R</c:plural>
+                </c:name>
+            </c:aliases>
+            <c:definition>unit of thermodynamic temperature</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:def>°R @ 459.67</c:def>
+            <c:aliases>
+                <c:symbol comment="DEGREE SIGN">°F</c:symbol>    
+                <c:symbol comment="DEGREE FAHRENHEIT">℉</c:symbol>   
+                <c:name> <c:singular>fahrenheit</c:singular> </c:name>
+                <c:name>
+                    <c:singular>degree_fahrenheit</c:singular>
+                    <c:plural>degrees_fahrenheit</c:plural>
+                </c:name>
+                <c:name>
+                    <c:singular>degreeF</c:singular>
+                    <c:plural>degreesF</c:plural>
+                </c:name>
+                <c:name>
+                    <c:singular>degree_F</c:singular>
+                    <c:plural>degrees_F</c:plural>
+                </c:name>
+                <c:name>
+                    <c:singular>degF</c:singular>
+                    <c:plural>degsF</c:plural>
+                </c:name>
+                <c:name>
+                    <c:singular>deg_F</c:singular>
+                    <c:plural>degs_F</c:plural>
+                </c:name>
+            </c:aliases>
+            <c:definition>unit of thermodynamic temperature</c:definition>
+        </c:unit>
+
+    
+        <c:unit>
+            <c:def>1.076391e-1 lx</c:def>
+            <c:aliases>
+                <c:name> <c:singular>footcandle</c:singular> </c:name>
+            </c:aliases>
+            <c:definition>unit of illumination</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:comment>exact</c:comment>
+            <c:def>3.426259 cd/m^2</c:def>
+            <c:aliases>
+                <c:name> <c:singular>footlambert</c:singular> </c:name>
+            </c:aliases>
+            <c:definition>unit of illumination</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:comment>exact</c:comment>
+            <c:def>(1e4/pi) cd/m^2</c:def>
+            <c:aliases>
+                <c:name> <c:singular>lambert</c:singular> </c:name>
+            </c:aliases>
+            <c:definition>unit of illumination</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:comment>exact</c:comment>
+            <c:def>1e4 cd/m^2</c:def>
+            <c:aliases>
+                <c:name> <c:singular>stilb</c:singular> </c:name>
+                <c:symbol>sb</c:symbol>
+            </c:aliases>
+            <c:definition>unit of illumination</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:comment>exact</c:comment>
+            <c:def>1e4 lm/m^2</c:def>
+            <c:aliases>
+                <c:name> <c:singular>phot</c:singular> </c:name>
+                <c:symbol>ph</c:symbol>
+            </c:aliases>
+            <c:definition>unit of illumination</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:comment>exact</c:comment>
+            <c:def>1 cd/m^2</c:def>
+            <c:aliases>
+                <c:name> <c:singular>nit</c:singular> </c:name>
+                <c:symbol>nt</c:symbol>
+            </c:aliases>
+            <c:definition>unit of illumination</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:comment>exact</c:comment>
+            <c:def>4.184000e4 J/m^2</c:def>
+            <c:aliases>
+                <c:name> <c:singular>langley</c:singular> </c:name>
+            </c:aliases>
+            <c:definition>unit of illumination</c:definition>
+        </c:unit>
+        <c:unit>
+            <c:comment>exact</c:comment>
+            <c:def>cd/(pi m^2)</c:def>
+            <c:aliases>
+                <c:name> <c:singular>blondel</c:singular> </c:name>
+                <c:name> <c:singular>apostilb</c:singular> </c:name>
+            </c:aliases>
+            <c:definition>unit of illumination</c:definition>
+        </c:unit>
+
+    
+        <c:unit>
+            <c:comment>exact</c:comment>
+            <c:def>100/m</c:def>
+            <c:aliases> <c:name> <c:singular>kayser</c:singular> </c:name> </c:aliases>
+            <c:definition />
+        </c:unit>
+        <c:unit>
+            <c:comment>exact</c:comment>
+            <c:def>gravity</c:def>
+            <c:aliases>
+                <c:name> <c:singular>geopotential</c:singular> </c:name>
+                <c:name> <c:singular>dynamic</c:singular> </c:name>
+                <c:symbol>gp</c:symbol>
+            </c:aliases>
+            <c:definition />
+        </c:unit>
+        <c:unit>
+            <c:comment>exact</c:comment>
+            <c:def>2056 hours</c:def>
+            <c:aliases>
+                <c:name> <c:singular>work_year</c:singular> </c:name>
+            </c:aliases>
+            <c:definition />
+        </c:unit>
+        <c:unit>
+            <c:comment>exact</c:comment>
+            <c:def>work_year/12</c:def>
+            <c:aliases>
+                <c:name> <c:singular>work_month</c:singular> </c:name>
+            </c:aliases>
+            <c:definition />
+        </c:unit>
+        <c:unit>
+            <c:comment>exact</c:comment>
+            <c:def>1e-6 m^2 s^-1 K kg^-1</c:def>
+            <c:aliases>
+                <c:name> <c:singular>potential_vorticity_unit</c:singular> </c:name>
+                <c:symbol>PVU</c:symbol>
+            </c:aliases>
+            <c:definition />
+        </c:unit>
+        <c:unit>
+            <c:def>1</c:def>
+            <c:aliases>
+                <c:name> <c:singular>count</c:singular> </c:name>
+            </c:aliases>
+            <c:definition />
+        </c:unit>
+        <c:unit>
+            <c:def>1</c:def>
+            <c:aliases>
+                <c:name> <c:singular>bit</c:singular> </c:name>
+            </c:aliases>
+            <c:definition />
+        </c:unit>
+        <c:unit>
+            <c:def>8</c:def>
+            <c:aliases>
+                <c:name><c:singular>octet</c:singular></c:name>
+                <c:name><c:singular>byte</c:singular></c:name>
+            </c:aliases>
+            <c:definition />
+        </c:unit>
+        <c:unit>
+            <c:def>446.2 micromoles/meter^2</c:def>
+            <c:aliases>
+                <c:name> <c:singular>dobson</c:singular> </c:name>
+                <c:symbol>DU</c:symbol>
+            </c:aliases>
+            <c:definition />
+        </c:unit>
+        <c:unit>
+            <c:def>1/avogadro_constant</c:def>
+            <c:name><c:singular>molecule</c:singular></c:name>
+            <c:aliases>
+                <c:name><c:singular>molec</c:singular></c:name>
+                <c:name><c:singular>nucleon</c:singular></c:name>
+                <c:name><c:singular>nuc</c:singular></c:name>
+            </c:aliases>
+            <c:definition />
+        </c:unit>
+</u2:unit-system></udunits-2>
