@@ -1,3 +1,7 @@
+from __future__ import annotations
+
+import pathlib
+
 from ._baseless_unit import BaseUnit, Prefix
 from ._expr_graph import Node
 from . import _expr_graph as unit_graph
@@ -21,6 +25,27 @@ class UnitSystem:
 
         self._prefix_names: dict[str, Prefix] = {}
         self._prefix_symbols: dict[str, Prefix] = {}
+
+    @classmethod
+    def from_udunits2_xml(cls, path: pathlib.Path | None = None) -> UnitSystem:
+
+        # Lazy import of the XML functionality, since it is not a
+        # hard dependency.
+        try:
+            from ._udunits2_xml_parser import read_all
+        except ImportError as err:
+            raise ImportError(
+                "Unable to import the pyudunits2 XML functionality. "
+                "Be sure to install the pyudunits2 xml extra. "
+                "For example, with 'pip install pyudunits2[xml]'"
+            ) from err
+
+        if path is None:
+            # TODO: In the future we can short-circuit this to a pre-prepared
+            #  unit system which was built from the udunits2 XML file.
+            return read_all()
+        else:
+            raise NotImplementedError("Not yet able to read from another XML file")
 
     def add_prefix(self, prefix: Prefix):
         self._prefix_names[prefix.name] = prefix
