@@ -9,3 +9,4 @@ from ._unit import (
 from ._unit_system import (
     UnitSystem as UnitSystem,
 )
+from ._exceptions import UnresolvableUnitException as UnresolvableUnitException

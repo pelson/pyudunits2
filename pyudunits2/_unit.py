@@ -9,6 +9,11 @@ class Unit:
     def __init__(self, *, reference: UnitReference):
         self._reference = reference
 
+    def convertible_to(self, other: Unit) -> bool:
+        # For basis units, and those without a unit system, the only units
+        # which are convertible are those which are equal.
+        return self == other
+
 
 class BasisUnit(Unit):
     pass
@@ -46,3 +51,6 @@ class DefinedUnit(Unit):
             unit_system=self._unit_system,
             unit_graph=basis_graph,
         )
+
+    def convertible_to(self, other: Unit) -> bool:
+        raise NotImplementedError("TODO")

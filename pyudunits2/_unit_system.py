@@ -141,3 +141,16 @@ class UnitSystem:
         if identifier in self._symbols:
             return self._symbols[identifier]
         raise ValueError(f"Identifier '{identifier}' not found in the unit system")
+
+    def unit(self, unit: str) -> Unit:
+        unit_expr = parse(unit)
+        from ._unit import DefinedUnit
+        from ._unit_resolver import ToBasisVisitor, IdentifierLookupVisitor
+
+        identifier_handler = IdentifierLookupVisitor(self)
+        # Check that we can resolve the units. But don't do anything with it
+        # (yet).
+        _ = ToBasisVisitor(identifier_handler).visit(unit_expr)
+        # TODO: We should move again... Unit should not have a system in it - it should be a thing which has a basis expression.
+        result = DefinedUnit.from_graph(self, unit_expr)
+        return result

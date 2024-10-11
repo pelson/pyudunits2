@@ -11,7 +11,8 @@ Furthermore, as a result of its compatibility with the UDUNITS2 grammar,
 [Climate Forecast (CF) conventions][CF Conventions].
 
 
-## Key Features:
+## Key Features
+
 - **UDUNITS2 Grammar**: The library implements a parser based on the UDUNITS2 
   grammar, ensuring the grammar serves as the canonical source of truth.
 - **Unit Conversions**: Easily convert between related units using simple,
@@ -26,6 +27,20 @@ Furthermore, as a result of its compatibility with the UDUNITS2 grammar,
   be propagated through calculations.
 - **Command-Line Interface (CLI)**: Includes a CLI tool for convenient unit
   conversion using the UDUNITS2 database.
+
+## Examples
+
+```python
+from pyudunits2 import UnitSystem
+
+ut_system = UnitSystem.from_udunits2_xml()
+unit = ut_system.unit('km/h')  # May raise an UnresolvableUnitException
+
+meters = ut_system.unit('meters')
+
+print(f'Unit {unit} is a length unit?: {unit.convertible_to(meters)}')
+
+```
 
 
 ## Alternative unit libraries

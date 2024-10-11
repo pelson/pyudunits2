@@ -7,7 +7,7 @@ import typing
 from . import _expr_graph as unit_graph
 from ._expr_graph import Node, Visitor
 from ._unit import BasisUnit
-from _unit_resolver import UnitNode
+from ._unit_resolver import UnitNode
 
 
 _log = logging.getLogger(__name__)

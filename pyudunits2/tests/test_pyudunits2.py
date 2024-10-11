@@ -1,5 +1,38 @@
 import pyudunits2
+import pytest
 
 
 def test_version():
     assert pyudunits2.__version__ is not None
+
+
+def test_public_api():
+    # We keep close control of the public API, and validate all names that are
+    # allowed here.
+    public_vars = {
+        name
+        for name in vars(pyudunits2).keys()
+        if not name.startswith("_") and name not in ["tests"]
+    }
+    assert public_vars == {
+        "Unit",
+        "BasisUnit",
+        "DefinedUnit",
+        "UnitSystem",
+        "UnresolvableUnitException",
+    }
+
+
+@pytest.mark.skip
+def test_readme_example(capsys):
+    # TODO: pull this out from the README automatically (or use doctest).
+
+    ut_system = pyudunits2.UnitSystem.from_udunits2_xml()
+    unit = ut_system.unit("km/h")  # May raise an UnresolvableUnitException
+
+    meters = ut_system.unit("meters")
+
+    print(f"Unit {unit} is a length unit?: {unit.convertible_to(meters)}")
+
+    out, _ = capsys.readouterr()
+    assert out == "Unit km.h^1 is a length unit?: False"

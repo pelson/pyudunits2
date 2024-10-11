@@ -6,6 +6,7 @@ import typing
 from . import _expr_graph as unit_graph
 from ._expr_graph import Identifier, Node, Visitor
 from ._unit import DefinedUnit, Unit
+from ._exceptions import UnresolvableUnitException
 
 
 if typing.TYPE_CHECKING:
@@ -108,7 +109,7 @@ class IdentifierLookupVisitor(Visitor):
                     self._prefix_value(prefix.value),
                     self.visit(Identifier(node.content[len(prefix_symbol) :])),
                 )
-        raise ValueError(
+        raise UnresolvableUnitException(
             f"Unable to convert the identifier '{node.content}' into a unit "
             "in the unit system"
         )
