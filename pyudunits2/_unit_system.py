@@ -1,14 +1,16 @@
 from __future__ import annotations
 
 import pathlib
+import typing
 
-from ._baseless_unit import BaseUnit, Prefix
+from ._unit_reference import Prefix
+
 from ._expr_graph import Node
 from . import _expr_graph as unit_graph
-from ._unit_resolver import ToBasisVisitor, IdentifierLookupVisitor
-from ._expr_simplifier import Expander
-from ._dimensionality import DimensionalityCounter
 from ._grammar import parse
+
+if typing.TYPE_CHECKING:
+    from ._unit import Unit
 
 
 class UnitSystem:
@@ -18,11 +20,11 @@ class UnitSystem:
         # # https://docs.unidata.ucar.edu/udunits/current/udunits2lib.html#Unit-Systems
 
         # self._units = {}
-        self._symbols: dict[str, BaseUnit] = {}
-        self._names: dict[str, BaseUnit] = {}
+        self._symbols: dict[str, Unit] = {}
+        self._names: dict[str, Unit] = {}
 
-        self._alias_names: dict[str, BaseUnit] = {}
-        self._alias_symbols: dict[str, BaseUnit] = {}
+        self._alias_names: dict[str, Unit] = {}
+        self._alias_symbols: dict[str, Unit] = {}
 
         self._prefix_names: dict[str, Prefix] = {}
         self._prefix_symbols: dict[str, Prefix] = {}
@@ -52,39 +54,41 @@ class UnitSystem:
         for symbol in prefix.symbols:
             self._prefix_symbols[symbol] = prefix
 
-    def add_unit(self, unit: BaseUnit) -> None:
-        if unit.name is not None:
-            if unit.name.singular in self._names:
+    def add_unit(self, unit: Unit) -> None:
+        if unit._reference is None:
+            raise ValueError("The unit {unit} has no reference")
+        ref = unit._reference
+        if ref.name is not None:
+            if ref.name.singular in self._names:
                 raise ValueError(
-                    f"unit name '{unit.name.singular}' already registered in "
+                    f"unit name '{ref.name.singular}' already registered in "
                     "the system"
                 )
-            if unit.name.plural and unit.name.plural in self._names:
+            if ref.name.plural and ref.name.plural in self._names:
                 raise ValueError(
-                    f"unit name '{unit.name.plural}' already registered in "
-                    "the system"
+                    f"unit name '{ref.name.plural}' already registered in " "the system"
                 )
 
-        for symbol in unit.symbols:
+        for symbol in ref.symbols:
             if symbol in self._symbols:
                 raise ValueError(
                     f"unit symbol '{symbol}' already registered in the system"
                 )
 
-        if unit.name is not None:
-            self._names[unit.name.singular] = unit
-            if unit.name.plural:
-                self._names[unit.name.plural] = unit
+        if ref.name is not None:
+            self._names[ref.name.singular] = unit
+            if ref.name.plural:
+                self._names[ref.name.plural] = unit
 
-        for symbol in unit.symbols:
+        for symbol in ref.symbols:
             self._symbols[symbol] = unit
 
-        for alias in unit.alias_names:
+        for alias in ref.alias_names:
             self._alias_names[alias.singular] = unit
             if alias.plural:
                 self._alias_names[alias.plural] = unit
 
-        for alias in unit.alias_symbols:
+        for alias in ref.alias_symbols:
             self._alias_symbols[alias] = unit
 
     #     def get_symbol(self, symbol: str) -> SymbolPrefix:
@@ -98,6 +102,9 @@ class UnitSystem:
     #         return self._names[name.lower()]
 
     def basis_of(self, unit: Node) -> dict[unit_graph.Node, float]:
+        from ._dimensionality import DimensionalityCounter
+        from ._unit_resolver import IdentifierLookupVisitor
+
         unit_in_basis_units = IdentifierLookupVisitor(self).visit(
             unit,
         )
@@ -111,6 +118,9 @@ class UnitSystem:
         unit: unit_graph.Node,
         convert_to: unit_graph.Node,
     ) -> unit_graph.Node:  # TODO: Return something that is public API.
+        from ._unit_resolver import ToBasisVisitor, IdentifierLookupVisitor
+        from ._expr_simplifier import Expander
+
         if unit == convert_to:
             return unit_graph.Number(1)
 

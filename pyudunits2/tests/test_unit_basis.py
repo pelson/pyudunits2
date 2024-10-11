@@ -37,7 +37,7 @@ def test_get_basis(
     # pprint(ut)
 
     dims = unit_system.basis_of(ut)
-    result = {base.symbols[0]: order for base, order in dims.items()}
+    result = {base._reference.symbols[0]: order for base, order in dims.items()}
     assert result == dimensionality
 
 

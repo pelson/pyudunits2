@@ -1,16 +1,32 @@
 from __future__ import annotations
 
-from ._udunits2_xml_parser import UnitSystem
+from ._unit_system import UnitSystem
 from ._expr_graph import Node
-from ._unit_resolver import ToBasisVisitor, IdentifierLookupVisitor
+from ._unit_reference import UnitReference
 
 
 class Unit:
+    def __init__(self, *, reference: UnitReference):
+        self._reference = reference
+
+
+class BasisUnit(Unit):
+    pass
+
+
+class DefinedUnit(Unit):
     # Represents a unit in a unit system.
-    def __init__(self, unit_system: UnitSystem, unit: str):
+    def __init__(
+        self,
+        unit_system: UnitSystem,
+        unit: str,
+        *,
+        reference: UnitReference | None = None,
+    ):
         self._unit_system = unit_system
         self._unit_raw = unit
         self._unit_graph = None
+        super().__init__(reference=reference)
 
     @classmethod
     def from_graph(cls, unit_system: UnitSystem, unit_graph: Node):
@@ -19,6 +35,8 @@ class Unit:
         return unit
 
     def base_form(self) -> Unit:
+        from ._unit_resolver import ToBasisVisitor, IdentifierLookupVisitor
+
         basis_graph = ToBasisVisitor(
             IdentifierLookupVisitor(
                 self._unit_system,

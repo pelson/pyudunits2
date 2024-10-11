@@ -5,7 +5,7 @@ import typing
 
 from . import _expr_graph as unit_graph
 from ._expr_graph import Identifier, Node, Visitor
-from ._baseless_unit import DerivedUnit, BaseUnit
+from ._unit import DefinedUnit, Unit
 
 
 if typing.TYPE_CHECKING:
@@ -18,7 +18,7 @@ _log = logging.getLogger(__name__)
 
 
 class UnitNode(Identifier):
-    content: BaseUnit
+    content: Unit
 
 
 class ToBasisVisitor(Visitor):
@@ -45,10 +45,10 @@ class ToBasisVisitor(Visitor):
     def visit_UnitNode(self, node: UnitNode):
         from ._grammar import parse
 
-        if isinstance(node.content, DerivedUnit):
+        if isinstance(node.content, DefinedUnit):
             # Substitute the identifiers.
             unit_expr = self._identifier_lookup.visit(
-                parse(node.content.base_unit_definition),
+                parse(node.content._unit_raw),
             )
             # Now potentially expand the derived units identified
             # until there are none left.

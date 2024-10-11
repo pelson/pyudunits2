@@ -8,7 +8,8 @@ from pathlib import Path
 
 from lxml import etree
 
-from ._baseless_unit import Prefix, Name, BaseUnit, DerivedUnit
+from ._unit_reference import Prefix, Name, UnitReference
+from ._unit import BasisUnit, DefinedUnit
 from ._unit_system import UnitSystem
 
 
@@ -120,11 +121,10 @@ class UDUNITS2XMLParser:
         [unit_system] = root.xpath('//*[local-name()="unit-system"]')
         unit_system_t = Tag.from_element(unit_system)
 
-        units = []
-        prefixes = []
+        system = UnitSystem()
 
         for prefix_tag in unit_system_t.pop_iter_tags("prefix"):
-            prefixes.append(cls.handle_prefix(prefix_tag))
+            system.add_prefix(cls.handle_prefix(prefix_tag))
 
         for unit_tag in unit_system_t.pop_iter_tags("unit"):
             name_tag = unit_tag.pop_first_matching_tag("name")
@@ -162,14 +162,18 @@ class UDUNITS2XMLParser:
             _ = human_definition
 
             basis_def = unit_tag.pop_first_matching_tag("def")
+            reference = UnitReference(
+                name=name,
+                symbols=tuple(symbols),
+                alias_names=tuple(alias_names),
+                alias_symbols=tuple(alias_symbols),
+            )
             if basis_def is not None:
                 assert not basis_def.children
-                unit = DerivedUnit(
-                    name=name,
-                    symbols=tuple(symbols),
-                    alias_names=tuple(alias_names),
-                    alias_symbols=tuple(alias_symbols),
-                    base_unit_definition=basis_def.text,
+                unit = DefinedUnit(
+                    reference=reference,
+                    unit=basis_def.text,
+                    unit_system=system,
                 )
             else:
                 dimensionless = unit_tag.pop_first_matching_tag("dimensionless")
@@ -179,30 +183,17 @@ class UDUNITS2XMLParser:
                     base_tag = unit_tag.pop_first_matching_tag("base")
                     assert base_tag is not None
                     assert not base_tag.text and not base_tag.children
-                unit = BaseUnit(
-                    name=name,
-                    symbols=tuple(symbols),
-                    alias_names=tuple(alias_names),
-                    alias_symbols=tuple(alias_symbols),
-                )
+                unit = BasisUnit(reference=reference)
 
             if unit_tag.children:
                 raise ValueError(
                     f"Unhandled unit content for unit {unit}: \n{unit_tag}"
                 )
 
-            units.append(unit)
+            system.add_unit(unit)
 
         if unit_system_t.children:
             raise ValueError(f"Unhandled content {unit_system_t}")
-
-        system = UnitSystem()
-
-        for prefix in prefixes:
-            system.add_prefix(prefix)
-
-        for unit in units:
-            system.add_unit(unit)
 
         return system
 
