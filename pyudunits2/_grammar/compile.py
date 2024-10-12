@@ -6,7 +6,7 @@ Compiles the UDUNITS-2 grammar using ANTLR4.
 You may be interested in running this with entr to watch changes to the
 grammar:
 
-    echo udunits2*.g4* | entr -c "python compile.py"
+    find . -iname '*.g4*' -o -name "compile.py" | entr python ./compile.py
 
 You're welcome ;).
 

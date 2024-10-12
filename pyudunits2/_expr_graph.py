@@ -71,6 +71,14 @@ class Identifier(Terminal):
     content: str
 
 
+class UnaryOp(Node):
+    def __init__(self, function: str, term: Node):
+        super().__init__(function=function, term=term)
+
+    def __repr__(self):
+        return f"{self.function}({self.term})"
+
+
 class BinaryOp(Node):
     def __init__(self, lhs, rhs):
         super().__init__(lhs=lhs, rhs=rhs)
@@ -100,6 +108,11 @@ class Shift(Node):
 
     def __str__(self):
         return f"({self.unit} @ {self.shift_from})"
+
+
+class Logarithm(UnaryOp):
+    def __str__(self):
+        return f"({self.function}(re {self.term}))"
 
 
 class Timestamp(Terminal):

@@ -18,7 +18,7 @@ class Prefix:
 @dataclasses.dataclass(frozen=True)
 class Name:
     singular: str
-    plural: str | None
+    plural: str | None = None
 
 
 @dataclasses.dataclass(frozen=True, kw_only=True)

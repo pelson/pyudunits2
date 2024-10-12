@@ -34,6 +34,11 @@ class DefinedUnit(Unit):
         self._unit_graph = None
         super().__init__(reference=reference)
 
+    # def _basis(self):
+    #     sympy_expr = ToSympy().visit(self._definition)
+    #     expr = FromSympy().visit(sympy_expr)
+    #     return expr
+
     def base_form(self) -> Unit:
         # TODO: Return Unit
         # TODO: Resolve the terms, and canonicalise the name/symbols.

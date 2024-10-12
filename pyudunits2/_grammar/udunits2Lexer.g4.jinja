@@ -56,9 +56,11 @@ RAISE :
   )
 ;
 
-LOG: 'log' | 'lg' | 'ln' | 'lb';
 
-LOGREF: '(' WS* ('RE' | 're') ':'? WS*;
+// Unlike the udunits2 grammar, we combine LOG and LOGREF into a single token.
+// This is because lb(re lb) is a valid unit, and the second lb should be seen
+// as an identifier, not as a LOG.
+LOG: ('log' | 'lg' | 'ln' | 'lb') WS* '(' WS* ('RE' | 're') ':'? WS*;
 
 //ID: one of
 //        <id>

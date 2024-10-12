@@ -26,6 +26,10 @@ class udunits2ParserVisitor(ParseTreeVisitor):
     def visitPower(self, ctx: udunits2Parser.PowerContext):
         return self.visitChildren(ctx)
 
+    # Visit a parse tree produced by udunits2Parser#logarithm.
+    def visitLogarithm(self, ctx: udunits2Parser.LogarithmContext):
+        return self.visitChildren(ctx)
+
     # Visit a parse tree produced by udunits2Parser#basic_spec.
     def visitBasic_spec(self, ctx: udunits2Parser.Basic_specContext):
         return self.visitChildren(ctx)

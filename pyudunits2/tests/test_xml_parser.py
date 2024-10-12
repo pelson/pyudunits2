@@ -5,6 +5,9 @@ from pyudunits2._udunits2_xml_parser import UnitSystem, read_all
 
 @pytest.fixture(scope="module")
 def unit_system() -> UnitSystem:
+    # Use the real UDUNITS2 XML file to validate the parsing.
+    # In general, outside of this test module, we should use a simpler
+    # unit system form (see conftest.py::simple_unit_system).
     return read_all()
 
 

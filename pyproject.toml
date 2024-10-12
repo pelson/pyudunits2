@@ -20,6 +20,7 @@ requires-python = ">=3.10"
 
 # The core dependencies of the project.
 dependencies = [
+  "sympy",
 ]
 
 [project.optional-dependencies]

@@ -114,12 +114,26 @@ testdata = [
     "π",
     "e",
     "°C",
+    # Logarithms (ln, lb, log, lg)
+    "lg(re W)",
+    "0.1 lg(re 1 mW)",
+    "0.1 ln(re km^2)",
+    "0.1 ln(re (K @ 10))",
+    "lg(RE km)",
+    "lb(re km)",
+    "lb(re lb)",  # lb is also a valid unit identifier.
+    "log(re km)",
+    "lg(re log(re m))",  # udunits2 supports logs of logs.
+    "log(re 1)^0",  # You can only raise to a zero power in udunits
+    "log(re 1)-0",
+    "log(re 1)0",
 ]
 
 invalid = [
     "1 * m",
     "m--m",
     "-m",
+    "m^n",
     ".1e2.",
     "m+-1",
     "--1",
@@ -148,9 +162,6 @@ def test_normed_units_equivalent(_, unit_str):
     # Whilst the symbolic form from udunits is ugly, it *is* acurate,
     # so check that the two represent the same unit.
     assert raw_symbol == parsed_expr_symbol
-
-
-udunits_bugs = ["2¹²³⁴⁵⁶⁷⁸⁹⁰", "m⁻²"]
 
 
 @pytest.mark.parametrize("_, unit_str", enumerate(invalid))
@@ -187,6 +198,13 @@ not_udunits = [
     ["mfrom1", "mfrom^1"],
     ["m⁴", "m^4"],  # udunits bug.
     ["2¹²³⁴⁵⁶⁷⁸⁹⁰", "2^1234567890"],
+    ["m⁻²", "m^-2"],
+    ["0.1 ln(re K @ 10)", "0.1·(ln(re (K @ 10)))"],
+    ["LOG(re W)", "LOG·re·W"],  # LOG cannot be uppercase. But can be an id.
+    ["log(re 1)^2", "(log(re 1))^2"],  # It is not possible to raise a log term.
+    ["log(re 1)2", "(log(re 1))^2"],  # It is not possible to raise a log term.
+    ["log(re 1)-1", "(log(re 1))^-1"],  # It is not possible to raise a log term.
+    ["log(re re)", "(log(re re))"],  # parses, but not UT_UNKNOWN.
     # Unicode (subset of the subset).
     ["À"] * 2,
     ["Á"] * 2,
@@ -225,7 +243,6 @@ known_issues = [
     ["hours since 2001-12-31 23:59:59.999UTC", SyntaxError],
     ["hours since 2001-12-31 23:59:59.999 Z", SyntaxError],
     ["hours since 2001-12-31 23:59:59.999 GMT", SyntaxError],
-    ["0.1 lg(re 1 mW)", SyntaxError],
 ]
 
 

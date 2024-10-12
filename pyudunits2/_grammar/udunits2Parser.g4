@@ -25,19 +25,23 @@ product:
 ;
 
 power:
-    basic_spec integer   // e.g. m+2, m2. Note that this occurs *before* basic_spec,
+    logarithm integer   // e.g. m+2, m2. Note that this occurs *before* basic_spec,
                          // as m2 should be matched before m for precendence of power
                          // being greater than multiplication (e.g. m2==m^2, not m*2).
-    | basic_spec
-    | basic_spec RAISE integer      // e.g. m^2
-    | basic_spec UNICODE_EXPONENT   // e.g. m²
+    | logarithm
+    | logarithm RAISE integer      // e.g. m^2
+    | logarithm UNICODE_EXPONENT   // e.g. m²
+;
+
+logarithm:
+    basic_spec
+    | LOG shift_spec ')'  // LOG includes the "(re" term.
+                          // For example, "lg(re W)", and even "lb ( re lb)"
 ;
 
 basic_spec:
     ID
     | '(' shift_spec ')'
-// Log not yet implemented, but it is supported in UDUNITS2. 
-//    | LOGREF product_spec ')'
     | number
 ;
 
