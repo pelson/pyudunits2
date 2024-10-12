@@ -5,7 +5,7 @@ from ._unit_reference import UnitReference
 
 
 class Unit:
-    def __init__(self, *, reference: UnitReference):
+    def __init__(self, *, reference: UnitReference | None):
         self._reference = reference
 
     def convertible_to(self, other: Unit) -> bool:
@@ -36,7 +36,24 @@ class DefinedUnit(Unit):
 
     def base_form(self) -> Unit:
         # TODO: Return Unit
+        # TODO: Resolve the terms, and canonicalise the name/symbols.
         return self._definition
 
     def convertible_to(self, other: Unit) -> bool:
         raise NotImplementedError("TODO")
+
+    def __str__(self):
+        return self._unit_raw
+
+    def __repr__(self):
+        return (
+            f"DefinedUnit(raw_spec={self._unit_raw}, definition={self._definition}, "
+            f"reference={self._reference})"
+        )
+
+    def __eq__(self, other):
+        if type(other) is not DefinedUnit:
+            return NotImplemented
+
+        # TODO: Get the base form to compare __eq__ on simplified form.
+        return other.base_form() == self.base_form()

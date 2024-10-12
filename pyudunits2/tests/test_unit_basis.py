@@ -50,6 +50,7 @@ def test_get_basis(
         ["minute", "hour", "60^-1"],
         ["week", "second", "604800"],
         ["week", "fortnight", "14^-1·7"],
+        # ["kweek", "week", "1000"],
         ["nmile", "km", "1^-3·1852"],
         # ["degree_Celsius", "degree_fahrenheit", "1^-3·1000"],
     ],

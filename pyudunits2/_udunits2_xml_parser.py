@@ -76,7 +76,15 @@ class UDUNITS2XMLParser:
         else:
             plural_name = None
 
-        _ = tag.pop_first_matching_tag("noplural")
+        no_plural = tag.pop_first_matching_tag("noplural")
+        if no_plural is not None:
+            assert plural_name is None
+            assert not no_plural.children and not no_plural.text
+        else:
+            # In the UDUNITS2 XML files, things like meters aren't defined.
+            # You have to interpret a name as trivially plural iff there is
+            # not a noplural tag.
+            plural_name = singular_name + "s"
 
         if tag.children or tag.text:
             raise ValueError(f"Unhandled content in unit {tag} (name {singular_name})")

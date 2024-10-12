@@ -1,5 +1,6 @@
-import pyudunits2
 import pytest
+
+import pyudunits2
 
 
 def test_version():
