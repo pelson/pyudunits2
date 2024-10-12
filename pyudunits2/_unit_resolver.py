@@ -6,7 +6,6 @@ import typing
 from . import _expr_graph as unit_graph
 from ._expr_graph import Identifier, Node, Visitor
 from ._unit import DefinedUnit, Unit
-from ._exceptions import UnresolvableUnitException
 
 
 if typing.TYPE_CHECKING:
@@ -80,38 +79,14 @@ class IdentifierLookupVisitor(Visitor):
             raise NotImplementedError(f"Node {type(node)} not implemented")
 
     def visit_Identifier(self, node: Identifier) -> Node:
-        if node.content in self._unit_system._names:
-            return UnitNode(self._unit_system._names[node.content])
-        if node.content in self._unit_system._symbols:
-            return UnitNode(self._unit_system._symbols[node.content])
-        # TODO: Aliases.
+        prefix, unit = self._unit_system.unit_by_name_or_symbol(node.content)
+        if prefix is None:
+            # TODO: Preserve the content string.
+            return UnitNode(unit)
 
-        if node.content in self._unit_system._alias_names:
-            return UnitNode(self._unit_system._alias_names[node.content])
-
-        if node.content in self._unit_system._alias_symbols:
-            return UnitNode(self._unit_system._alias_symbols[node.content])
-
-        for prefix_name, prefix in self._unit_system._prefix_names.items():
-            # TODO: We shouldn't strip off more than one prefix.
-            #  (e.g. nautical_mile)
-
-            if node.content.startswith(prefix_name):
-                # TODO: Maybe we shouldn't match if it is a named prefix but a
-                #  symbol unit e.g. kilom. The inverse also true e.g. kmeter
-                return unit_graph.Multiply(
-                    self._prefix_value(prefix.value),
-                    self.visit(Identifier(node.content[len(prefix_name) :])),
-                )
-        for prefix_symbol, prefix in self._unit_system._prefix_symbols.items():
-            if node.content.startswith(prefix_symbol):
-                return unit_graph.Multiply(
-                    self._prefix_value(prefix.value),
-                    self.visit(Identifier(node.content[len(prefix_symbol) :])),
-                )
-        raise UnresolvableUnitException(
-            f"Unable to convert the identifier '{node.content}' into a unit "
-            "in the unit system"
+        return unit_graph.Multiply(
+            self._prefix_value(prefix.value),
+            UnitNode(unit),
         )
 
     def _prefix_value(self, value: str) -> unit_graph.Node:

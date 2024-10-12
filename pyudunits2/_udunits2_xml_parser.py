@@ -9,8 +9,8 @@ from pathlib import Path
 from lxml import etree
 
 from ._unit_reference import Prefix, Name, UnitReference
-from ._unit import BasisUnit, DefinedUnit
-from ._unit_system import UnitSystem
+from ._unit import BasisUnit
+from ._unit_system import UnitSystem, LazilyDefinedUnit
 
 
 _log = logging.getLogger(__name__)
@@ -61,18 +61,20 @@ class Tag:
 class UDUNITS2XMLParser:
     @classmethod
     def handle_name_tag(cls, tag: Tag) -> Name:
-        singular_name = tag.pop_first_matching_tag("singular")
+        singular_name_tag = tag.pop_first_matching_tag("singular")
 
-        if singular_name is None:
+        if singular_name_tag is None:
             raise ValueError(f"Name for {tag} missing the singular tag")
         else:
-            assert not singular_name.children
-            singular_name = singular_name.text
+            assert not singular_name_tag.children
+            singular_name: str = singular_name_tag.text or ""
 
         # plural_name = content.pop('plural', None)
-        plural_name = tag.pop_first_matching_tag("plural")
-        if plural_name is not None:
-            plural_name = plural_name.text
+        plural_name_tag = tag.pop_first_matching_tag("plural")
+        if plural_name_tag is not None:
+            plural_name = plural_name_tag.text
+        else:
+            plural_name = None
 
         _ = tag.pop_first_matching_tag("noplural")
 
@@ -91,13 +93,13 @@ class UDUNITS2XMLParser:
         if name_tag is None:
             raise ValueError(f"Name missing in prefix {tag}")
         assert not name_tag.children
-        name = name_tag.text
+        name: str = name_tag.text or ""
 
         if value_tag is None:
             raise ValueError(f"Value missing in prefix {tag}")
         assert not value_tag.children
         # Keep the value as a string. We can parse it later.
-        value = value_tag.text
+        value: str = value_tag.text or ""
 
         symbols = set()
         for symbol in tag.pop_iter_tags("symbol"):
@@ -168,12 +170,13 @@ class UDUNITS2XMLParser:
                 alias_names=tuple(alias_names),
                 alias_symbols=tuple(alias_symbols),
             )
+            unit: BasisUnit | LazilyDefinedUnit
             if basis_def is not None:
                 assert not basis_def.children
-                unit = DefinedUnit(
-                    reference=reference,
-                    unit=basis_def.text,
+                unit = LazilyDefinedUnit(
                     unit_system=system,
+                    definition=basis_def.text or "",
+                    reference=reference,
                 )
             else:
                 dimensionless = unit_tag.pop_first_matching_tag("dimensionless")

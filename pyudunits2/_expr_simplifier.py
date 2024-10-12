@@ -91,8 +91,6 @@ class ChainedExpr:
 
                 # We can combine the two terms, so pop the last one.
                 assert terms.pop() is last_term
-                print("S:", type(node.content), node.content)
-                print("N:", node)
                 new_term = unit_graph.Number(
                     last_term.content * (node.content**raised_to)
                 )

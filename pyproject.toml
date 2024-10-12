@@ -53,3 +53,23 @@ include = ["pyudunits2", "pyudunits2.*"]
 # Tell setuptools_scm to write a _version.py file in the package. The
 # _version.py file must not be committed to the repository.
 version_file = "pyudunits2/_version.py"
+
+#[tool.mypy]
+#check_untyped_defs = true
+#disallow_untyped_defs = true
+#disallow_untyped_calls = true
+
+[tool.ruff.lint.per-file-ignores]
+"pyudunits2/_grammar/**/*.py" = [
+  "F841",
+  "F401",
+  "E402",
+  "F403",
+  "F405",  # There are many import * in the antlr runtime.
+  "F821",
+  "E741",
+  "E721",
+  "E711",
+]
+
+

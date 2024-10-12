@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-from ._unit_system import UnitSystem
 from ._expr_graph import Node
 from ._unit_reference import UnitReference
 
@@ -20,37 +19,24 @@ class BasisUnit(Unit):
 
 
 class DefinedUnit(Unit):
-    # Represents a unit in a unit system.
+    # Represents a well-defined unit with comparable basis.
+    # Note that a LazilyDefinedUnit exists if you do not want to resolve the
+    # basis expression upfront.
     def __init__(
         self,
-        unit_system: UnitSystem,
-        unit: str,
+        raw_spec: str,  # The requested form of the unit.
+        definition: Node,  # The fully resolved (basis form) definition of this unit.
         *,
         reference: UnitReference | None = None,
     ):
-        self._unit_system = unit_system
-        self._unit_raw = unit
+        self._definition = definition
+        self._unit_raw = raw_spec
         self._unit_graph = None
         super().__init__(reference=reference)
 
-    @classmethod
-    def from_graph(cls, unit_system: UnitSystem, unit_graph: Node):
-        unit = cls(unit_system, str(unit_graph))
-        unit._unit_graph = unit_graph
-        return unit
-
     def base_form(self) -> Unit:
-        from ._unit_resolver import ToBasisVisitor, IdentifierLookupVisitor
-
-        basis_graph = ToBasisVisitor(
-            IdentifierLookupVisitor(
-                self._unit_system,
-            ),
-        ).visit(self._unit_graph)
-        return type(self).from_graph(
-            unit_system=self._unit_system,
-            unit_graph=basis_graph,
-        )
+        # TODO: Return Unit
+        return self._definition
 
     def convertible_to(self, other: Unit) -> bool:
         raise NotImplementedError("TODO")

@@ -68,7 +68,7 @@ class Number(Terminal):
 class Identifier(Terminal):
     """The unit itself (e.g. meters, m, km and π)"""
 
-    pass
+    content: str
 
 
 class BinaryOp(Node):

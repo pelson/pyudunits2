@@ -1,7 +1,8 @@
 import pytest
 
-from pyudunits2 import UnitSystem, BasisUnit, DefinedUnit
+from pyudunits2 import UnitSystem, BasisUnit
 from pyudunits2._unit_reference import UnitReference, Prefix, Name
+from pyudunits2._unit_system import LazilyDefinedUnit
 
 
 @pytest.fixture
@@ -46,9 +47,9 @@ def simple_unit_system() -> UnitSystem:
 
     # Add a simple unit definition.
     system.add_unit(
-        DefinedUnit(
+        LazilyDefinedUnit(
             unit_system=system,
-            unit="60 seconds",
+            definition="60 seconds",
             reference=UnitReference(
                 name=Name(singular="minute", plural="minutes"),
                 symbols=("min",),
@@ -58,9 +59,9 @@ def simple_unit_system() -> UnitSystem:
 
     # Add a unit definition which relies on another unit definition.
     system.add_unit(
-        DefinedUnit(
+        LazilyDefinedUnit(
             unit_system=system,
-            unit="60 minutes",
+            definition="60 minutes",
             reference=UnitReference(
                 name=Name(singular="hour", plural="hours"),
                 symbols=("hr",),

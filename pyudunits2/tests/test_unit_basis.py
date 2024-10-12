@@ -1,5 +1,3 @@
-from pprint import pprint
-
 import pytest
 
 from pyudunits2._expr_simplifier import Expander
@@ -122,7 +120,6 @@ def test_Expander(unit_str: str, expected_str: str, as_offset: bool) -> None:
         # them, and expand them, and even produce a repr of them.
         unit = graph.Shift(graph.Identifier("m"), unit)
         expected_str = f"(m @ {expected_str})"
-    pprint(unit)
     sv = Expander()
     r = sv.visit(unit)
     assert str(r) == expected_str

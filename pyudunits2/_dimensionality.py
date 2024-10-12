@@ -7,7 +7,7 @@ from ._unit_resolver import UnitNode
 class DimensionalityCounter(Visitor):
     if typing.TYPE_CHECKING:
 
-        def visit(self, node: Node) -> dict[unit_graph.Node, float]:
+        def visit(self, node: unit_graph.Node) -> dict[unit_graph.Node, float]:
             pass
 
     def generic_visit(self, node: unit_graph.Node):
