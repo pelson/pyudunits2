@@ -177,26 +177,14 @@ class UnitSystem:
     def parse(self, unit_string: str) -> Node:
         return parse(unit_string)
 
-    def identify(self, identifier: str) -> Node:
-        """Find the unit given the name or symbol identifier"""
-        if identifier in self._names:
-            return self._names[identifier]
-        if identifier in self._symbols:
-            return self._symbols[identifier]
-        raise ValueError(f"Identifier '{identifier}' not found in the unit system")
-
     def _unit_by_name(self, name: str) -> Unit | None:
-        unit = self._names.get(name, None)
-        if unit is None:
-            unit = self._alias_names.get(name, None)
+        unit = self._names.get(name, None) or self._alias_names.get(name, None)
         if isinstance(unit, LazilyDefinedUnit):
             unit = unit.resolve()
         return unit
 
     def _unit_by_symbol(self, symbol: str) -> Unit | None:
-        unit = self._symbols.get(symbol, None)
-        if unit is None:
-            unit = self._alias_symbols.get(symbol, None)
+        unit = self._symbols.get(symbol, None) or self._alias_symbols.get(symbol, None)
         if isinstance(unit, LazilyDefinedUnit):
             unit = unit.resolve()
         return unit
@@ -218,16 +206,22 @@ class UnitSystem:
         if result is None:
             for prefix_name, prefix in self._prefix_names.items():
                 if name_or_symbol.startswith(prefix_name):
-                    unit = self._unit_by_name(name_or_symbol[len(prefix_name) :])
+                    unit = self._unit_by_name(
+                        name_or_symbol[len(prefix_name) :]
+                    ) or self._unit_by_symbol(name_or_symbol[len(prefix_name) :])
                     if unit:
                         result = prefix, unit
+                        break
 
         if result is None:
             for prefix_symbol, prefix in self._prefix_symbols.items():
                 if name_or_symbol.startswith(prefix_symbol):
-                    unit = self._unit_by_symbol(name_or_symbol[len(prefix_symbol) :])
+                    unit = self._unit_by_name(
+                        name_or_symbol[len(prefix_symbol) :]
+                    ) or self._unit_by_symbol(name_or_symbol[len(prefix_symbol) :])
                     if unit:
                         result = prefix, unit
+                        break
 
         if result is None:
             raise UnresolvableUnitException(

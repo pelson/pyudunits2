@@ -52,7 +52,8 @@ def test_get_basis(
         ["week", "fortnight", "14^-1·7"],
         # ["kweek", "week", "1000"],
         ["nmile", "km", "1^-3·1852"],
-        # ["degree_Celsius", "degree_fahrenheit", "1^-3·1000"],
+        # ["degree_Celsius", "degree_fahrenheit", "1^-3·1000"],  # Shift based conversion
+        # ["BW", "watt", "pow(10, (x/BW))"],  # lg based unit conversion.
     ],
 )
 def test_conversion_expr(

@@ -32,6 +32,7 @@ def simple_unit_system() -> UnitSystem:
             reference=UnitReference(
                 name=Name(singular="meter", plural="meters"),
                 symbols=("m",),
+                alias_names=(Name(singular="metre", plural="metres"),),
             ),
         ),
     )
