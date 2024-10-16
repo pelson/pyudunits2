@@ -1,28 +1,26 @@
-from pyudunits2 import UnitSystem, DefinedUnit, UnresolvableUnitException
+from pyudunits2 import UnitSystem, UnresolvableUnitException
+from pyudunits2._unit import Unit
 import pytest
 
 
-def test__unit__basis_unit(simple_unit_system: UnitSystem):
-    unit = simple_unit_system.unit("m")
-    assert isinstance(unit, DefinedUnit)
-    assert unit._unit_raw == "m"
-    # TODO: The basis should be exactly the one defined in the system.
-    # assert unit.basis_expr() == system._names['meters']
-
-
 @pytest.mark.parametrize(
-    "unit_str",
+    ["unit_spec", "definition"],
     [
-        "km",
-        "kmetres",
-        "kilom",
+        ["m", "m"],
+        ["Bm", "(lg(re 1·0.001·watt))"],
+        ["1e-3 Bm", "0.001·(lg(re 1·0.001·watt))"],
+        ["mBm", "0.001·(lg(re 1·0.001·watt))"],
+        ["km", "1000·meter"],
+        ["m 1000", "meter·1000"],  # The definition isn't fully normalised (yet).
+        ["kmetres", "1000·meter"],
+        ["kilom", "1000·meter"],
     ],
 )
-def test__unit__prefix_plural(simple_unit_system: UnitSystem, unit_str: str):
+def test__unit__valid(simple_unit_system: UnitSystem, unit_spec: str, definition: str):
     # We have a non defined plural name, with a symbol based prefix.
-    unit = simple_unit_system.unit(unit_str)
-    assert isinstance(unit, DefinedUnit)
-    assert unit._unit_raw == unit_str
+    unit = simple_unit_system.unit(unit_spec)
+    assert isinstance(unit, Unit)
+    assert unit._expression._raw_definition == unit_spec
 
 
 def test__unit__undefined_unit(simple_unit_system: UnitSystem):

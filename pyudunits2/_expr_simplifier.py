@@ -209,7 +209,7 @@ class Expander(Visitor):
 
     def visit_UnitNode(self, node: UnitNode):
         if not isinstance(node.content, BasisUnit):
-            raise ValueError("unknown type")
+            raise ValueError(f"unknown type {type(node.content)}")
         return unit_graph.Identifier(node.content._reference.name)
 
     def visit_Identifier(self, node: unit_graph.Identifier):

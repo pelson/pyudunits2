@@ -13,6 +13,14 @@ def simple_unit_system() -> UnitSystem:
 
     system.add_prefix(
         Prefix(
+            name="milli",
+            value=".001",
+            symbols=("m",),
+        ),
+    )
+
+    system.add_prefix(
+        Prefix(
             "kilo",
             value="1000",
             symbols=("k",),
@@ -66,6 +74,26 @@ def simple_unit_system() -> UnitSystem:
             reference=UnitReference(
                 name=Name(singular="hour", plural="hours"),
                 symbols=("hr",),
+            ),
+        ),
+    )
+
+    system.add_unit(
+        BasisUnit(
+            reference=UnitReference(
+                name=Name(singular="watt"),
+                symbols=("W",),
+            ),
+        ),
+    )
+
+    # Add a simple unit definition.
+    system.add_unit(
+        LazilyDefinedUnit(
+            unit_system=system,
+            definition="lg(re 1 mW)",
+            reference=UnitReference(
+                symbols=("Bm",),
             ),
         ),
     )

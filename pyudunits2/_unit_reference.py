@@ -23,6 +23,8 @@ class Name:
 
 @dataclasses.dataclass(frozen=True, kw_only=True)
 class UnitReference:
+    # A thing representing the name and symbols that can be used to reference a
+    # unit
     name: Name | None = None
     symbols: tuple[str, ...] = ()
 

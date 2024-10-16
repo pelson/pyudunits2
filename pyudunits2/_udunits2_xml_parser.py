@@ -9,7 +9,7 @@ from pathlib import Path
 from lxml import etree
 
 from ._unit_reference import Prefix, Name, UnitReference
-from ._unit import BasisUnit
+from ._unit import BasisUnit, Unit
 from ._unit_system import UnitSystem, LazilyDefinedUnit
 
 
@@ -178,7 +178,7 @@ class UDUNITS2XMLParser:
                 alias_names=tuple(alias_names),
                 alias_symbols=tuple(alias_symbols),
             )
-            unit: BasisUnit | LazilyDefinedUnit
+            unit: Unit | LazilyDefinedUnit
             if basis_def is not None:
                 assert not basis_def.children
                 unit = LazilyDefinedUnit(
@@ -194,7 +194,9 @@ class UDUNITS2XMLParser:
                     base_tag = unit_tag.pop_first_matching_tag("base")
                     assert base_tag is not None
                     assert not base_tag.text and not base_tag.children
-                unit = BasisUnit(reference=reference)
+                unit = BasisUnit(
+                    reference=reference,
+                )
 
             if unit_tag.children:
                 raise ValueError(

@@ -5,7 +5,7 @@ import typing
 
 from . import _expr_graph as unit_graph
 from ._expr_graph import Identifier, Node, Visitor
-from ._unit import DefinedUnit, Unit
+from ._unit import DefinedUnit, Unit, Expression
 
 
 if typing.TYPE_CHECKING:
@@ -21,6 +21,10 @@ class UnitNode(Identifier):
     content: Unit
 
 
+class ExpressionNode(Identifier):
+    content: Expression
+
+
 class ToBasisVisitor(Visitor):
     def __init__(self, identifier_lookup: IdentifierLookupVisitor):
         self._identifier_lookup = identifier_lookup
@@ -28,6 +32,8 @@ class ToBasisVisitor(Visitor):
     def generic_visit(self, node: Node):
         if isinstance(node, unit_graph.Terminal):
             return node
+        elif isinstance(node, unit_graph.UnaryOp):
+            return type(node)(node.function, self.visit(node.term))
         elif isinstance(node, unit_graph.BinaryOp):
             return type(node)(self.visit(node.lhs), self.visit(node.rhs))
         else:
@@ -71,6 +77,8 @@ class IdentifierLookupVisitor(Visitor):
     def generic_visit(self, node: Node):
         if isinstance(node, unit_graph.Terminal):
             return node
+        elif isinstance(node, unit_graph.UnaryOp):
+            return type(node)(node.function, self.visit(node.term))
         elif isinstance(node, unit_graph.BinaryOp):
             return type(node)(self.visit(node.lhs), self.visit(node.rhs))
         elif isinstance(node, unit_graph.Shift):
@@ -87,6 +95,64 @@ class IdentifierLookupVisitor(Visitor):
         return unit_graph.Multiply(
             self._prefix_value(prefix.value),
             UnitNode(unit),
+        )
+
+    def _prefix_value(self, value: str) -> unit_graph.Node:
+        if "e" in value:
+            number, _, exponent = value.partition("e")
+            if "." in number:
+                number = float(number)
+            else:
+                number = int(number)
+
+            if "." in exponent:
+                exponent = float(exponent)
+            else:
+                exponent = int(exponent)
+
+            return unit_graph.Raise(
+                unit_graph.Number(number),
+                unit_graph.Number(exponent),
+            )
+        else:
+            if "." in value:
+                number = float(value)
+            else:
+                number = int(value)
+            return unit_graph.Number(number)
+
+
+class ExpressionLookup(Visitor):
+    # A non-recursive expression lookup visitor.
+    def __init__(self, unit_system: UnitSystem):
+        self._unit_system = unit_system
+        super().__init__()
+
+    if typing.TYPE_CHECKING:
+
+        def visit(self, node: Node) -> unit_graph.Node:
+            pass
+
+    def generic_visit(self, node: Node):
+        if isinstance(node, unit_graph.Terminal):
+            return node
+        elif isinstance(node, unit_graph.UnaryOp):
+            return type(node)(node.function, self.visit(node.term))
+        elif isinstance(node, unit_graph.BinaryOp):
+            return type(node)(self.visit(node.lhs), self.visit(node.rhs))
+        elif isinstance(node, unit_graph.Shift):
+            return unit_graph.Shift(self.visit(node.unit), node.shift_from)
+        else:
+            raise NotImplementedError(f"Node {type(node)} not implemented")
+
+    def visit_Identifier(self, node: Identifier) -> Node:
+        prefix, unit = self._unit_system.unit_by_name_or_symbol(node.content)
+        if prefix is None:
+            return ExpressionNode(Expression(node.content, unit._expression.expression))
+
+        return unit_graph.Multiply(
+            self._prefix_value(prefix.value),
+            ExpressionNode(unit._expression),
         )
 
     def _prefix_value(self, value: str) -> unit_graph.Node:

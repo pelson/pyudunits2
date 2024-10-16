@@ -26,7 +26,7 @@ class LazilyDefinedUnit:
     """
 
     def __init__(
-        self, unit_system: UnitSystem, definition: str, reference: UnitReference
+        self, unit_system: UnitSystem, definition: str, reference: UnitReference | None
     ):
         self._unit_system = unit_system
         self._definition = definition
@@ -34,23 +34,29 @@ class LazilyDefinedUnit:
         self._resolved_definition: Node | None = None
 
     def resolve(self) -> Unit:
-        from ._unit import DefinedUnit
+        from ._unit import Unit, Expression
 
         if self._resolved_definition is None:
             unit_expr = parse(self._definition)
 
-            from ._unit_resolver import IdentifierLookupVisitor
+            from ._unit_resolver import ExpressionLookup
 
-            identifier_handler = IdentifierLookupVisitor(self._unit_system)
-            definition = identifier_handler.visit(unit_expr)
-            # Fully resolve the unit definition all the way down to the basis.
-            # basis_definition = ToBasisVisitor(identifier_handler).visit(unit_expr)
+            # identifier_handler = ExpressionLookup(self._unit_system)
+            # # definition = identifier_handler.visit(unit_expr)
+            # # Fully resolve the unit definition all the way down to the basis.
+            # # basis_definition = ToBasisVisitor(identifier_handler).visit(unit_expr)
+            # basis_definition = identifier_handler.visit(unit_expr)
 
-            self._resolved_definition = definition
+            # self._resolved_definition = basis_definition
+            self._resolved_definition = Expression(
+                raw_definition=self._definition,
+                expression=ExpressionLookup(
+                    self._unit_system,
+                ).visit(unit_expr),
+            )
 
-        return DefinedUnit(
-            raw_spec=self._definition,
-            definition=self._resolved_definition,
+        return Unit(
+            expression=self._resolved_definition,
             reference=self._reference,
         )
 
@@ -96,23 +102,23 @@ class UnitSystem:
         for symbol in prefix.symbols:
             self._prefix_symbols[symbol] = prefix
 
-    def add_unit(self, unit: Unit | LazilyDefinedUnit) -> None:
+    def add_unit(self, unit: Unit | LazilyDefinedUnit, replace=False) -> None:
         if unit._reference is None:
             raise ValueError("The unit {unit} has no reference")
         ref = unit._reference
         if ref.name is not None:
-            if ref.name.singular in self._names:
+            if not replace and ref.name.singular in self._names:
                 raise ValueError(
                     f"unit name '{ref.name.singular}' already registered in "
                     "the system"
                 )
-            if ref.name.plural and ref.name.plural in self._names:
+            if not replace and ref.name.plural and ref.name.plural in self._names:
                 raise ValueError(
                     f"unit name '{ref.name.plural}' already registered in " "the system"
                 )
 
         for symbol in ref.symbols:
-            if symbol in self._symbols:
+            if not replace and symbol in self._symbols:
                 raise ValueError(
                     f"unit symbol '{symbol}' already registered in the system"
                 )
@@ -181,12 +187,14 @@ class UnitSystem:
         unit = self._names.get(name, None) or self._alias_names.get(name, None)
         if isinstance(unit, LazilyDefinedUnit):
             unit = unit.resolve()
+            self.add_unit(unit, replace=True)
         return unit
 
     def _unit_by_symbol(self, symbol: str) -> Unit | None:
         unit = self._symbols.get(symbol, None) or self._alias_symbols.get(symbol, None)
         if isinstance(unit, LazilyDefinedUnit):
             unit = unit.resolve()
+            self.add_unit(unit, replace=True)
         return unit
 
     def unit_by_name_or_symbol(self, name_or_symbol: str) -> tuple[Prefix | None, Unit]:
@@ -231,13 +239,19 @@ class UnitSystem:
         return result
 
     def unit(self, unit: str) -> Unit:
-        unit_expr = parse(unit)
-        from ._unit import DefinedUnit
-        from ._unit_resolver import ToBasisVisitor, IdentifierLookupVisitor
+        # unit_expr = parse(unit)
+        # from ._unit import DefinedUnit
+        # from ._unit_resolver import ToBasisVisitor, IdentifierLookupVisitor
 
-        identifier_handler = IdentifierLookupVisitor(self)
-        # Do a non-recursive lookup of identifiers in the given unit.
-        expression = ToBasisVisitor(identifier_handler).visit(unit_expr)
-
-        result = DefinedUnit(raw_spec=unit, definition=expression)
-        return result
+        unit = LazilyDefinedUnit(
+            unit_system=self,
+            definition=unit,
+            reference=None,
+        ).resolve()
+        #
+        # identifier_handler = IdentifierLookupVisitor(self)
+        # # Do a non-recursive lookup of identifiers in the given unit.
+        # expression = identifier_handler.visit(unit_expr)
+        #
+        # result = DefinedUnit(raw_spec=unit, definition=expression)
+        return unit
