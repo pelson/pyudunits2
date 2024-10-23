@@ -201,6 +201,9 @@ class Converter:
             assert len(transformer1) == 1
             [transformer1] = transformer1
         convert_expr = t2.subs(to_value, transformer1 * d1 / d2)
+        # print('T1', transformer1)
+        # print('T2:', t2)
+        # print('CONVERTER:', sympy.expand(convert_expr, force=True))
         fn = sympy.lambdify(
             orig_qty,
             convert_expr,
