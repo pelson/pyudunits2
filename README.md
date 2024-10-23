@@ -34,12 +34,43 @@ Furthermore, as a result of its compatibility with the UDUNITS2 grammar,
 from pyudunits2 import UnitSystem
 
 ut_system = UnitSystem.from_udunits2_xml()
-unit = ut_system.unit('km/h')  # May raise an UnresolvableUnitException
+unit = ut_system.unit('km/h')  # May raise a pyudunits2.UnresolvableUnitException
 
 meters = ut_system.unit('meters')
 
 print(f'Unit {unit} is a length unit?: {unit.convertible_to(meters)}')
 
+```
+
+
+## Command line interface (CLI)
+
+The `pyudunits2` CLI offers a number of useful tools for working with `udunits2`
+units. For the complete help, see `python -m pyudunits2 --help`.
+
+### explain-unit
+
+It is possible to get human-readable information about a unit.
+This information is not intended to be machine readable, can change in the
+future, and should not be parsed for any purpose.
+
+For example:
+
+```
+$ python -m pyudunits2 explain-unit degC
+```
+
+
+### conversion-expr
+
+Produces a somewhat machine-readable form of the expression required to convert
+from one unit to another.
+
+For example:
+
+```
+$ python -m pyudunits2 conversion-expr degC degF
+1.8*value + 31.2
 ```
 
 

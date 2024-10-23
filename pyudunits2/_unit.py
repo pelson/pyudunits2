@@ -203,11 +203,12 @@ class Converter:
         convert_expr = t2.subs(to_value, transformer1 * d1 / d2)
         # print('T1', transformer1)
         # print('T2:', t2)
-        # print('CONVERTER:', sympy.expand(convert_expr, force=True))
+        # print(convert_expr)
         fn = sympy.lambdify(
             orig_qty,
             convert_expr,
         )
+        self.expression = convert_expr
         self._converter = fn
 
         # TODO: Check that it is dimensionless.

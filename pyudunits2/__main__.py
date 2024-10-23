@@ -4,6 +4,7 @@ import sys
 from ._grammar import parse
 from ._unit_system import UnitSystem
 from ._unit_resolver import ToBasisVisitor, IdentifierLookupVisitor
+from ._unit import Converter
 
 
 def configure_parser(parser: argparse.ArgumentParser) -> None:
@@ -41,15 +42,17 @@ def convert_handler(args: argparse.Namespace) -> None:
 
 
 def conv_expr_handler(args: argparse.Namespace) -> None:
-    from_unit = parse(args.from_unit)
-    to_unit = parse(args.to_unit)
     unit_system = UnitSystem.from_udunits2_xml()
+    from_unit = unit_system.unit(args.from_unit)
+    to_unit = unit_system.unit(args.to_unit)
 
-    converter_expr = unit_system.conversion_expr(from_unit, to_unit)
+    converter = Converter(from_unit, to_unit)
+
     print(
-        f'To convert from "{from_unit}" to "{to_unit}", apply the following expression:'
+        f'To convert from "{from_unit._expression._raw_definition}" to '
+        f'"{to_unit._expression._raw_definition}", apply the following expression:'
     )
-    print(converter_expr)
+    print(converter.expression)
 
 
 def explain_handler(args: argparse.Namespace) -> None:
