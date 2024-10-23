@@ -246,6 +246,18 @@ class Unit:
     #     assert isinstance(other, ExpressionUnit)
     #     return other._expression == self._expression
 
+    def dimensionality(self) -> dict[str, int]:
+        # WARNING: Currently the return key is a string. In the future, it will be a basis unit.
+        from ._expr._dimensionality import DimensionalityCounter
+        from ._expr.expr_split import SplitExpr
+
+        _, d = SplitExpr(self._expression.expression).visit(self._expression.expression)
+        r = DimensionalityCounter().visit(d)
+        return r
+
+    def is_dimensionless(self) -> bool:
+        return self.dimensionality() == {}
+
 
 class BasisUnit(Unit):
     def __init__(self, reference: UnitReference):

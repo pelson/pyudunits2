@@ -1,7 +1,8 @@
-from ._expr_graph import Visitor
+from .._expr_graph import Visitor
 import typing
-from . import _expr_graph as unit_graph
-from ._unit_resolver import UnitNode
+from .. import _expr_graph as unit_graph
+from .._unit_resolver import UnitNode
+from .._unit_resolver import ExpressionNode
 
 
 class DimensionalityCounter(Visitor):
@@ -9,6 +10,9 @@ class DimensionalityCounter(Visitor):
 
         def visit(self, node: unit_graph.Node) -> dict[unit_graph.Node, float]:
             pass
+
+    def visit_ExpressionNode(self, node: ExpressionNode):
+        return self.visit(node.content.expression)
 
     def generic_visit(self, node: unit_graph.Node):
         raise NotImplementedError(f"Not implemented for {type(node)}")
@@ -45,3 +49,7 @@ class DimensionalityCounter(Visitor):
     def visit_Shift(self, node: unit_graph.Shift):
         # We can drop the shift value when doing dimensionality analysis.
         return self.visit(node.unit)
+
+    def visit_Logarithm(self, node: unit_graph.Logarithm):
+        # We can drop the logarithm when doing dimensionality analysis.
+        return self.visit(node.term)

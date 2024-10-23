@@ -1,9 +1,7 @@
 import argparse
 import sys
 
-from ._grammar import parse
 from ._unit_system import UnitSystem
-from ._unit_resolver import ToBasisVisitor, IdentifierLookupVisitor
 from ._unit import Converter
 
 
@@ -56,11 +54,12 @@ def conv_expr_handler(args: argparse.Namespace) -> None:
 
 
 def explain_handler(args: argparse.Namespace) -> None:
-    unit = parse(args.unit)
     unit_system = UnitSystem.from_udunits2_xml()
-    basis_unit = ToBasisVisitor(IdentifierLookupVisitor(unit_system)).visit(unit)
+    unit = unit_system.unit(args.unit)
+    basis_unit = unit._expression._raw_definition
     print(f"Unit: {unit}")
     print(f"In basis form: {basis_unit}")
+    print("Dimensionality: ", unit.dimensionality())
 
 
 def main() -> None:
