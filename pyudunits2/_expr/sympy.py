@@ -37,13 +37,13 @@ class ToSympy(unit_graph.Visitor):
             return sympy_parse(node.content)
         elif isinstance(node.content, Decimal):
             return sympy_parse(str(node.content))
-        elif isinstance(node.content, int):
+        elif isinstance(node.content, (int, float)):
             return sympy_parse(str(node.content))
         else:
             raise ValueError(f"Unknown number type {type(node.content)}")
 
     def visit_Shift(self, node: unit_graph.Shift):
-        return self.visit(node.unit) + self.visit(node.shift_from)
+        return self.visit(node.unit) - self.visit(node.shift_from)
 
     def visit_Raise(self, node: unit_graph.Raise):
         return self.visit(node.lhs) ** self.visit(node.rhs)

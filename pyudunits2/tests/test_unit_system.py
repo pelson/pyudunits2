@@ -27,3 +27,19 @@ def test__unit__undefined_unit(simple_unit_system: UnitSystem):
     match = r"Unable to convert the identifier 'other' into a unit in the unit system"
     with pytest.raises(UnresolvableUnitException, match=match):
         simple_unit_system.unit("other")
+
+
+@pytest.mark.parametrize(
+    ["unit_lhs", "unit_rhs"],
+    [
+        ["km", "1000 m"],
+    ],
+)
+def test__unit__symbolic_eq(
+    simple_unit_system: UnitSystem, unit_lhs: str, unit_rhs: str
+):
+    # We have a non defined plural name, with a symbol based prefix.
+    unit1 = simple_unit_system.unit(unit_lhs)
+    unit2 = simple_unit_system.unit(unit_rhs)
+
+    assert unit1 == unit2

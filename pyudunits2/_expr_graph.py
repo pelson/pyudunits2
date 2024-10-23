@@ -102,6 +102,31 @@ class Divide(BinaryOp):
 
 
 class Shift(Node):
+    """
+    You have: years @ 5
+    You want: years
+    udunits2: Units are not convertible
+
+    You have: K @ 273.15
+    You want: K
+        1 K @ 273.15 = 274.15 K
+        x/K = (x/(K @ 273.15)) + 273.15
+
+    You have: years @ 5.0
+    You want: years
+        1 years @ 5.0 = 6 years
+        x/years = (x/(years @ 5.0)) + 5
+
+    You have: lg(re years @ 5.0)
+    udunits2: Don't recognize "lg(re years @ 5.0)"
+
+    You have: lg(re (years @ 5.0))
+    You want: years
+        1 lg(re (years @ 5.0)) = 15 years
+        x/years = 3.16888e-08*(3.15569e+07*(pow(10, (x/(lg(re (years @ 5.0)))))) + 1.57785e+08)
+
+    """
+
     def __init__(self, unit, shift_from):
         # The product unit to be shifted.
         super().__init__(unit=unit, shift_from=shift_from)

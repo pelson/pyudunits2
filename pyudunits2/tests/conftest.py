@@ -21,6 +21,14 @@ def simple_unit_system() -> UnitSystem:
 
     system.add_prefix(
         Prefix(
+            "deci",
+            value="10",
+            symbols=("d",),
+        ),
+    )
+
+    system.add_prefix(
+        Prefix(
             "kilo",
             value="1000",
             symbols=("k",),
@@ -94,6 +102,52 @@ def simple_unit_system() -> UnitSystem:
             definition="lg(re 1 mW)",
             reference=UnitReference(
                 symbols=("Bm",),
+            ),
+        ),
+    )
+
+    system.add_unit(
+        BasisUnit(
+            reference=UnitReference(
+                name=Name(singular="year"),
+            ),
+        ),
+    )
+
+    # Add a simple unit definition.
+    system.add_unit(
+        LazilyDefinedUnit(
+            unit_system=system,
+            definition="10 year",
+            reference=UnitReference(
+                name=Name(singular="decade", plural="decades"),
+            ),
+        ),
+    )
+
+    system.add_unit(
+        LazilyDefinedUnit(
+            unit_system=system,
+            definition="10 decade",
+            reference=UnitReference(
+                name=Name(singular="century", plural="centuries"),
+            ),
+        ),
+    )
+
+    # Add a temperature unit definition.
+    system.add_unit(
+        BasisUnit(
+            reference=UnitReference(name=Name(singular="kelvin"), symbols=["K"]),
+        ),
+    )
+
+    system.add_unit(
+        LazilyDefinedUnit(
+            unit_system=system,
+            definition="K @ 273.15",
+            reference=UnitReference(
+                name=Name(singular="degC"),
             ),
         ),
     )

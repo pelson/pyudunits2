@@ -24,6 +24,9 @@ class UnitNode(Identifier):
 class ExpressionNode(Identifier):
     content: Expression
 
+    def __repr__(self):
+        return f"ExpressionNode(content={self.content})"
+
 
 class ToBasisVisitor(Visitor):
     def __init__(self, identifier_lookup: IdentifierLookupVisitor):
@@ -152,7 +155,7 @@ class ExpressionLookup(Visitor):
 
         return unit_graph.Multiply(
             self._prefix_value(prefix.value),
-            ExpressionNode(unit._expression),
+            unit._expression.expression,
         )
 
     def _prefix_value(self, value: str) -> unit_graph.Node:
