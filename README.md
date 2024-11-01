@@ -31,15 +31,16 @@ Furthermore, as a result of its compatibility with the UDUNITS2 grammar,
 ## Examples
 
 ```python
-from pyudunits2 import UnitSystem
+>>> from pyudunits2 import UnitSystem
 
-ut_system = UnitSystem.from_udunits2_xml()
-unit = ut_system.unit('km/h')  # May raise a pyudunits2.UnresolvableUnitException
+>>> ut_system = UnitSystem.from_udunits2_xml()
+>>> unit = ut_system.unit('km/h')
+>>> # Note that creating a unit may raise a pyudunits2.UnresolvableUnitException
 
-meters = ut_system.unit('meters')
+>>> meters = ut_system.unit('meters')
 
-print(f'Unit {unit} is a length unit?: {unit.convertible_to(meters)}')
-
+>>> print(f'Unit {unit} is a length unit?: {unit.dimensionality() == meters.dimensionality()}')
+Unit km/h is a length unit?: False
 ```
 
 

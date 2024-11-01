@@ -26,10 +26,17 @@ def test__unit__expansion(
     assert str(unit.expanded()) == definition
 
 
-def test__unit__undefined_unit(simple_unit_system: UnitSystem):
-    match = r"Unable to convert the identifier 'other' into a unit in the unit system"
+@pytest.mark.parametrize(
+    "unit_spec",
+    [
+        "other",
+        "deci",  # A valid prefix.
+    ],
+)
+def test__unit__undefined_unit(simple_unit_system: UnitSystem, unit_spec):
+    match = rf"Unable to convert the identifier '{unit_spec}' into a unit in the unit system"
     with pytest.raises(UnresolvableUnitException, match=match):
-        simple_unit_system.unit("other")
+        simple_unit_system.unit(unit_spec)
 
 
 @pytest.mark.parametrize(

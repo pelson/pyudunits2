@@ -81,7 +81,7 @@ def simple_unit_system() -> UnitSystem:
             definition="60 minutes",
             names=UnitReference(
                 name=Name(singular="hour", plural="hours"),
-                symbols=("hr",),
+                symbols=("h",),
             ),
         ),
     )

@@ -237,9 +237,12 @@ class Unit:
         definition: Node,
         identifier_references: typing.Mapping[Identifier, Unit | Prefix],
     ):
-        self._definition = definition
+        self._definition: Node = definition
         self._identifier_references = identifier_references
         self._cached_symbolic_definition = None
+
+    def __str__(self):
+        return str(self._definition)
 
     def __eq__(self, other) -> bool:
         if not isinstance(other, Unit):
@@ -304,17 +307,37 @@ class Unit:
     #     assert isinstance(other, ExpressionUnit)
     #     return other._expression == self._expression
 
-    def dimensionality(self) -> dict[str, int]:
-        # WARNING: Currently the return key is a string. In the future, it will be a basis unit.
+    def dimensionality(self) -> dict[BasisUnit, int]:
         from ._expr._dimensionality import DimensionalityCounter
         from ._expr.expr_split import SplitExpr
 
-        _, d = SplitExpr(self._expanded_expr()).visit(self._expanded_expr())
+        _, d = SplitExpr(self._definition).visit(self._definition)
         r = DimensionalityCounter().visit(d)
-        return r
+
+        result = {}
+        for identifier, order in r.items():
+            identifier_unit = self._identifier_references[identifier]
+            if isinstance(identifier_unit, Prefix):
+                continue
+            unit_dimensionality = identifier_unit.dimensionality()
+            for basis_unit, basis_order in unit_dimensionality.items():
+                result[basis_unit] = result.get(basis_unit, 0) + basis_order * order
+        return {basis: order for basis, order in result.items() if order != 0}
 
     def is_dimensionless(self) -> bool:
         return self.dimensionality() == {}
+
+    def is_convertible_to(self, other: Unit) -> bool:
+        self_d = self.dimensionality()
+        other_d = other.dimensionality()
+        if self_d == other_d:
+            return True
+        # It is also possible to simply invert the dimensionality. For example,
+        # m/s is simply 1/value s/m
+        inverted_d = {unit: -order for unit, order in self_d.items()}
+        if inverted_d == other_d:
+            return True
+        return False
 
 
 Names = UnitReference
@@ -350,17 +373,21 @@ class BasisUnit(NamedUnit):
             names=names,
         )
 
+    def __hash__(self):
+        # TODO: Implement this properly.
+        return 1
+
     def _expanded_expr(self):
         return self._definition
 
     def __str__(self):
         return self._ref
 
-    def dimensionality(self) -> dict[str, int]:
+    def dimensionality(self) -> dict[BasisUnit, int]:
         if self._dimensionless:
             return {}
         else:
-            return {self._ref: 1}
+            return {self: 1}
 
 
 # class DefinedUnit(Unit):

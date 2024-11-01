@@ -1,5 +1,3 @@
-import pytest
-
 import pyudunits2
 
 
@@ -24,7 +22,6 @@ def test_public_api():
     }
 
 
-@pytest.mark.skip
 def test_readme_example(capsys):
     # TODO: pull this out from the README automatically (or use doctest).
 
@@ -33,7 +30,9 @@ def test_readme_example(capsys):
 
     meters = ut_system.unit("meters")
 
-    print(f"Unit {unit} is a length unit?: {unit.convertible_to(meters)}")
+    print(
+        f"Unit {unit} is a length unit?: {unit.dimensionality() == meters.dimensionality()}"
+    )
 
     out, _ = capsys.readouterr()
-    assert out == "Unit km.h^1 is a length unit?: False"
+    assert out == "Unit km/h is a length unit?: False"
