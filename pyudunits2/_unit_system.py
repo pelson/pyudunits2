@@ -9,9 +9,10 @@ from ._expr_graph import Node
 from . import _expr_graph as unit_graph
 from ._grammar import parse
 from ._exceptions import UnresolvableUnitException
+from ._unit import Unit
 
 if typing.TYPE_CHECKING:
-    from ._unit import Unit
+    from ._unit import Unit, NamedUnit
     from ._unit_reference import UnitReference
 
 
@@ -26,39 +27,55 @@ class LazilyDefinedUnit:
     """
 
     def __init__(
-        self, unit_system: UnitSystem, definition: str, reference: UnitReference | None
+        self,
+        unit_system: UnitSystem,
+        definition: str,
+        names: UnitReference,
     ):
         self._unit_system = unit_system
         self._definition = definition
-        self._reference = reference
-        self._resolved_definition: Node | None = None
+        self._names = names
+        # self._resolved_definition: Node | None = None
+        self._resolved_unit: NamedUnit | None = None
 
-    def resolve(self) -> Unit:
-        from ._unit import Unit, Expression
+    def resolve(self) -> NamedUnit:
+        from ._unit import NamedUnit
 
-        if self._resolved_definition is None:
+        if self._resolved_unit is None:
             unit_expr = parse(self._definition)
 
-            from ._unit_resolver import ExpressionLookup
+            from ._expr._atoms import ExtractIdentifiers
 
-            # identifier_handler = ExpressionLookup(self._unit_system)
-            # # definition = identifier_handler.visit(unit_expr)
-            # # Fully resolve the unit definition all the way down to the basis.
-            # # basis_definition = ToBasisVisitor(identifier_handler).visit(unit_expr)
-            # basis_definition = identifier_handler.visit(unit_expr)
+            identifiers = ExtractIdentifiers().visit(unit_expr)
 
-            # self._resolved_definition = basis_definition
-            self._resolved_definition = Expression(
-                raw_definition=self._definition,
-                expression=ExpressionLookup(
-                    self._unit_system,
-                ).visit(unit_expr),
+            identifier_references = {
+                identifier: self._unit_system.unit_by_name_or_symbol(identifier.content)
+                for identifier in identifiers
+            }
+
+            self._resolved_unit = NamedUnit(
+                definition=unit_expr,
+                identifier_references=identifier_references,
+                names=self._names,
             )
 
-        return Unit(
-            expression=self._resolved_definition,
-            reference=self._reference,
-        )
+        return self._resolved_unit
+
+        # identifier_handler = ExpressionLookup(self._unit_system)
+        # # definition = identifier_handler.visit(unit_expr)
+        # # Fully resolve the unit definition all the way down to the basis.
+        # # basis_definition = ToBasisVisitor(identifier_handler).visit(unit_expr)
+        # basis_definition = identifier_handler.visit(unit_expr)
+
+        # self._resolved_definition = basis_definition
+        # self._resolved_definition = Expression(
+        #     raw_definition=self._definition,
+        #     expression=ExpressionLookup(
+        #         self._unit_system,
+        #     ).visit(unit_expr),
+        # )
+
+        # return
 
 
 class UnitSystem:
@@ -97,15 +114,13 @@ class UnitSystem:
         else:
             raise NotImplementedError("Not yet able to read from another XML file")
 
-    def add_prefix(self, prefix: Prefix):
+    def add_prefix(self, prefix: Prefix) -> None:
         self._prefix_names[prefix.name] = prefix
         for symbol in prefix.symbols:
             self._prefix_symbols[symbol] = prefix
 
-    def add_unit(self, unit: Unit | LazilyDefinedUnit, replace=False) -> None:
-        if unit._reference is None:
-            raise ValueError("The unit {unit} has no reference")
-        ref = unit._reference
+    def add_unit(self, unit: NamedUnit | LazilyDefinedUnit, replace=False) -> None:
+        ref = unit._names
         if ref.name is not None:
             if not replace and ref.name.singular in self._names:
                 raise ValueError(
@@ -197,19 +212,20 @@ class UnitSystem:
             self.add_unit(unit, replace=True)
         return unit
 
-    def unit_by_name_or_symbol(self, name_or_symbol: str) -> tuple[Prefix | None, Unit]:
+    def unit_by_name_or_symbol(self, name_or_symbol: str) -> Unit:
         # Looks up a referencable unit from the system. This does not do any
         # parsing, for that use the `unit` method.
         # Instead, this method is designed to look up a specific referencable unit,
         # optionally with a prefix. For example "km", "hours", etc.
-        no_prefix = None
-        result: tuple[Prefix | None, Unit] | None = None
+        result: Unit | None = None
 
         if unit := self._unit_by_name(name_or_symbol):
-            result = no_prefix, unit
+            result = unit
 
         elif unit := self._unit_by_symbol(name_or_symbol):
-            result = no_prefix, unit
+            result = unit
+
+        from ._expr_graph import Multiply, Identifier
 
         if result is None:
             for prefix_name, prefix in self._prefix_names.items():
@@ -218,7 +234,17 @@ class UnitSystem:
                         name_or_symbol[len(prefix_name) :]
                     ) or self._unit_by_symbol(name_or_symbol[len(prefix_name) :])
                     if unit:
-                        result = prefix, unit
+                        refs = {
+                            Identifier(prefix_name): prefix,
+                            Identifier(name_or_symbol[len(prefix_name) :]): unit,
+                        }
+                        result = Unit(
+                            definition=Multiply(
+                                Identifier(prefix_name),
+                                Identifier(name_or_symbol[len(prefix_name) :]),
+                            ),
+                            identifier_references=refs,
+                        )
                         break
 
         if result is None:
@@ -228,7 +254,17 @@ class UnitSystem:
                         name_or_symbol[len(prefix_symbol) :]
                     ) or self._unit_by_symbol(name_or_symbol[len(prefix_symbol) :])
                     if unit:
-                        result = prefix, unit
+                        refs = {
+                            Identifier(prefix_symbol): prefix,
+                            Identifier(name_or_symbol[len(prefix_symbol) :]): unit,
+                        }
+                        result = Unit(
+                            definition=Multiply(
+                                Identifier(prefix_symbol),
+                                Identifier(name_or_symbol[len(prefix_symbol) :]),
+                            ),
+                            identifier_references=refs,
+                        )
                         break
 
         if result is None:
@@ -243,11 +279,21 @@ class UnitSystem:
         # from ._unit import DefinedUnit
         # from ._unit_resolver import ToBasisVisitor, IdentifierLookupVisitor
 
-        unit = LazilyDefinedUnit(
-            unit_system=self,
-            definition=unit,
-            reference=None,
-        ).resolve()
+        unit_expr = parse(unit)
+
+        from ._expr._atoms import ExtractIdentifiers
+
+        identifiers = ExtractIdentifiers().visit(unit_expr)
+
+        identifier_references = {
+            identifier: self.unit_by_name_or_symbol(identifier.content)
+            for identifier in identifiers
+        }
+
+        unit = Unit(
+            definition=unit_expr,
+            identifier_references=identifier_references,
+        )
         #
         # identifier_handler = IdentifierLookupVisitor(self)
         # # Do a non-recursive lookup of identifiers in the given unit.

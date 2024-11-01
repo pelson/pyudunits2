@@ -45,7 +45,7 @@ def simple_unit_system() -> UnitSystem:
 
     system.add_unit(
         BasisUnit(
-            reference=UnitReference(
+            names=UnitReference(
                 name=Name(singular="meter", plural="meters"),
                 symbols=("m",),
                 alias_names=(Name(singular="metre", plural="metres"),),
@@ -55,7 +55,7 @@ def simple_unit_system() -> UnitSystem:
 
     system.add_unit(
         BasisUnit(
-            reference=UnitReference(
+            names=UnitReference(
                 name=Name(singular="second", plural="seconds"),
                 symbols=("s",),
             ),
@@ -67,7 +67,7 @@ def simple_unit_system() -> UnitSystem:
         LazilyDefinedUnit(
             unit_system=system,
             definition="60 seconds",
-            reference=UnitReference(
+            names=UnitReference(
                 name=Name(singular="minute", plural="minutes"),
                 symbols=("min",),
             ),
@@ -79,7 +79,7 @@ def simple_unit_system() -> UnitSystem:
         LazilyDefinedUnit(
             unit_system=system,
             definition="60 minutes",
-            reference=UnitReference(
+            names=UnitReference(
                 name=Name(singular="hour", plural="hours"),
                 symbols=("hr",),
             ),
@@ -88,7 +88,7 @@ def simple_unit_system() -> UnitSystem:
 
     system.add_unit(
         BasisUnit(
-            reference=UnitReference(
+            names=UnitReference(
                 name=Name(singular="watt"),
                 symbols=("W",),
             ),
@@ -100,7 +100,7 @@ def simple_unit_system() -> UnitSystem:
         LazilyDefinedUnit(
             unit_system=system,
             definition="lg(re 1 mW)",
-            reference=UnitReference(
+            names=UnitReference(
                 symbols=("Bm",),
             ),
         ),
@@ -108,7 +108,7 @@ def simple_unit_system() -> UnitSystem:
 
     system.add_unit(
         BasisUnit(
-            reference=UnitReference(
+            names=UnitReference(
                 name=Name(singular="year"),
             ),
         ),
@@ -119,7 +119,7 @@ def simple_unit_system() -> UnitSystem:
         LazilyDefinedUnit(
             unit_system=system,
             definition="10 year",
-            reference=UnitReference(
+            names=UnitReference(
                 name=Name(singular="decade", plural="decades"),
             ),
         ),
@@ -129,7 +129,7 @@ def simple_unit_system() -> UnitSystem:
         LazilyDefinedUnit(
             unit_system=system,
             definition="10 decade",
-            reference=UnitReference(
+            names=UnitReference(
                 name=Name(singular="century", plural="centuries"),
             ),
         ),
@@ -138,7 +138,7 @@ def simple_unit_system() -> UnitSystem:
     # Add a temperature unit definition.
     system.add_unit(
         BasisUnit(
-            reference=UnitReference(name=Name(singular="kelvin"), symbols=["K"]),
+            names=UnitReference(name=Name(singular="kelvin"), symbols=("K",)),
         ),
     )
 
@@ -146,7 +146,7 @@ def simple_unit_system() -> UnitSystem:
         LazilyDefinedUnit(
             unit_system=system,
             definition="K @ 273.15",
-            reference=UnitReference(
+            names=UnitReference(
                 name=Name(singular="degC"),
             ),
         ),

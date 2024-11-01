@@ -1,12 +1,13 @@
 from __future__ import annotations
 
 from ._expr_graph import Node, Identifier
-from ._unit_reference import UnitReference
+from ._unit_reference import UnitReference, Prefix
 
 import typing
 
+
 if typing.TYPE_CHECKING:
-    import sympy.core.expr
+    from sympy.core.expr import Expr as SympyExpr
 
 # class Unit:
 #     def __init__(self, *, reference: UnitReference | None):
@@ -25,10 +26,8 @@ class Expression:
     def __init__(self, raw_definition: str, expression: Node):
         self._raw_definition = raw_definition
         self.expression = expression
-        self._expanded_symbolic_form: sympy.core.expr.Expr | None = None
-        self._expanded_symbolic_form2: (
-            tuple[sympy.core.expr.Expr, sympy.core.expr.Expr] | None
-        ) = None
+        self._expanded_symbolic_form: SympyExpr | None = None
+        self._expanded_symbolic_form2: tuple[SympyExpr, SympyExpr] | None = None
 
     def __repr__(self):
         return f"Expression({self._raw_definition!r}, {self.expression!r})"
@@ -39,7 +38,7 @@ class Expression:
 
         return Expression(raw_definition, parse(raw_definition))
 
-    def _symbolic_form(self) -> sympy.core.expr.Expr:
+    def _symbolic_form(self) -> SympyExpr:
         if self._expanded_symbolic_form is None:
             from ._expr.sympy import ToSympy
 
@@ -47,7 +46,7 @@ class Expression:
             self._expanded_symbolic_form = prepared
         return self._expanded_symbolic_form
 
-    def _symbolic_form2(self) -> tuple[sympy.core.expr.Expr, sympy.core.expr.Expr]:
+    def _symbolic_form2(self) -> tuple[SympyExpr, SympyExpr]:
         if self._expanded_symbolic_form2 is None:
             from ._expr.sympy import ToSympy
             from ._expr.expr_split import SplitExpr
@@ -84,6 +83,18 @@ class Expression:
         eq = a - b
         sim = simplify(eq)
         return expand(sim, trig=False) == 0
+
+
+class UnitDefinition:
+    def __init__(
+        self, definition: Node, identifier_references: typing.Mapping[Identifier, Unit]
+    ):
+        self._definition = definition
+        self._expression_graph: Node
+        self._identifier_references: dict[Identifier, Prefix | Unit] = {}
+
+    def _to_sympy(self):
+        pass
 
 
 class Converter:
@@ -169,19 +180,17 @@ class Converter:
         self._from_unit = from_unit
         self._to_unit = to_unit
 
-        from ._expr_graph import Divide
-
-        self._expression = Expression(
-            raw_definition=f"({self._from_unit._expression._raw_definition}) / ({self._to_unit._expression._raw_definition})",
-            expression=Divide(
-                self._from_unit._expression.expression,
-                self._to_unit._expression.expression,
-            ),
-        )
+        # self._expression = Expression(
+        #     raw_definition=f"({self._from_unit._definition}) / ({self._to_unit._definition})",
+        #     expression=Divide(
+        #         self._from_unit._expanded_expr(),
+        #         self._to_unit._expanded_expr(),
+        #     ),
+        # )
         import sympy
 
-        t1, d1 = from_unit._expression._symbolic_form2()
-        t2, d2 = to_unit._expression._symbolic_form2()
+        t1, d1 = from_unit._symbolic_definition()
+        t2, d2 = to_unit._symbolic_definition()
 
         to_symbol = sympy.symbols("value_transformed_to_base_unit_scale")
 
@@ -223,20 +232,69 @@ class Converter:
 
 class Unit:
     def __init__(
-        self, expression: Expression, *, reference: UnitReference | None = None
+        self,
+        *,
+        definition: Node,
+        identifier_references: typing.Mapping[Identifier, Unit | Prefix],
     ):
-        self._expression = expression
-        self._reference = reference
-        super().__init__()
+        self._definition = definition
+        self._identifier_references = identifier_references
+        self._cached_symbolic_definition = None
 
     def __eq__(self, other) -> bool:
         if not isinstance(other, Unit):
             return NotImplemented
 
-        # if type(self) is not type(other):
-        #     return NotImplemented
         assert isinstance(other, Unit)
-        return other._expression == self._expression
+        # TODO: Use equality of the graph, not stringification.
+        if str(other._definition) == str(self._definition):
+            # Short-circuit identical definitions.
+            return True
+
+        from sympy import simplify, expand
+
+        self_t, self_d = self._symbolic_definition()
+        other_t, other_d = other._symbolic_definition()
+
+        eq = self_d - other_d
+        sim = simplify(eq)
+        return expand(sim, trig=False) == 0 and self_t == other_t
+
+    def _symbolic_definition(self) -> tuple[SympyExpr, SympyExpr]:
+        if self._cached_symbolic_definition is None:
+            from ._expr.sympy import ToSympy
+            from ._expr.expr_split import SplitExpr
+
+            definition = self._expanded_expr()
+            t, d = SplitExpr(definition).visit(definition)
+            if t is not None:
+                transform = ToSympy().visit(t)
+            else:
+                import sympy
+
+                transform = sympy.Symbol("value")
+
+            prepared = ToSympy().visit(d)
+
+            self._cached_symbolic_definition = transform, prepared
+        return self._cached_symbolic_definition
+
+    def _expanded_expr(self) -> Node:
+        from ._expr.substitute import Substitute
+
+        # print(self._identifier_references)
+        result = Substitute(
+            {
+                identifier: unit._expanded_expr()
+                for identifier, unit in self._identifier_references.items()
+            },
+        ).visit(self._definition)
+        return result
+
+    def expanded(self) -> str:
+        expr = self._expanded_expr()
+        # TODO: Simplify & normalise.
+        return str(expr)
 
     #
     #
@@ -251,7 +309,7 @@ class Unit:
         from ._expr._dimensionality import DimensionalityCounter
         from ._expr.expr_split import SplitExpr
 
-        _, d = SplitExpr(self._expression.expression).visit(self._expression.expression)
+        _, d = SplitExpr(self._expanded_expr()).visit(self._expanded_expr())
         r = DimensionalityCounter().visit(d)
         return r
 
@@ -259,74 +317,95 @@ class Unit:
         return self.dimensionality() == {}
 
 
-class BasisUnit(Unit):
-    def __init__(self, reference: UnitReference):
-        ref = reference.name.singular or reference.symbols[0]
-        super().__init__(
-            expression=Expression(ref, Identifier(ref)),
-            reference=reference,
-        )
-
-    def __str__(self):
-        if self._reference is None:
-            return super().__str__()
-        if self._reference.name is not None:
-            return self._reference.name.singular
-        assert self._reference.symbols
-        return self._reference.symbols[0]
+Names = UnitReference
 
 
-class SimpleUnit(Unit):
-    def __init__(self, definition: str):
-        from ._grammar import parse
-
-        unit_expr = parse(definition)
-        super().__init__(expression=Expression(definition, unit_expr))
-
-
-class DefinedUnit(Unit):
-    # Represents a well-defined unit with comparable basis.
-    # Note that a LazilyDefinedUnit exists if you do not want to resolve the
-    # basis expression upfront.
+class NamedUnit(Unit):
     def __init__(
         self,
-        raw_spec: str,  # The requested form of the unit.
-        definition: Node,  # The fully resolved (basis form) definition of this unit.
         *,
-        reference: UnitReference | None = None,
+        definition: Node,
+        identifier_references: typing.Mapping[Identifier, Unit],
+        names: Names,
     ):
-        self._definition = definition
-        self._unit_raw = raw_spec
-        self._unit_graph = None
-        super().__init__(reference=reference)
+        super().__init__(
+            definition=definition, identifier_references=identifier_references
+        )
+        self._names = names
 
-    def conversion_expr(self, other: Unit):
-        from ._expr.sympy import ToSympy
 
-        sympy_expr = ToSympy().visit(self._definition)
-        # expr = FromSympy().visit(sympy_expr)
-        return sympy_expr
-
-    def base_form(self) -> Unit:
-        # TODO: Return Unit
-        # TODO: Resolve the terms, and canonicalise the name/symbols.
-        return self._definition
-
-    def convertible_to(self, other: Unit) -> bool:
-        raise NotImplementedError("TODO")
-
-    def __str__(self):
-        return self._unit_raw
-
-    def __repr__(self):
-        return (
-            f"DefinedUnit(raw_spec={self._unit_raw}, definition={self._definition}, "
-            f"reference={self._reference})"
+class BasisUnit(NamedUnit):
+    def __init__(
+        self,
+        *,
+        names: Names,
+        dimensionless: bool = False,
+    ):
+        ref = names.name.singular or names.symbols[0]
+        self._ref = ref
+        self._dimensionless = dimensionless
+        super().__init__(
+            definition=Identifier(ref),
+            identifier_references={Identifier(ref): self},
+            names=names,
         )
 
-    def __eq__(self, other):
-        if type(other) is not DefinedUnit:
-            return NotImplemented
+    def _expanded_expr(self):
+        return self._definition
 
-        # TODO: Get the base form to compare __eq__ on simplified form.
-        return other.base_form() == self.base_form()
+    def __str__(self):
+        return self._ref
+
+    def dimensionality(self) -> dict[str, int]:
+        if self._dimensionless:
+            return {}
+        else:
+            return {self._ref: 1}
+
+
+# class DefinedUnit(Unit):
+#     # Represents a well-defined unit with comparable basis.
+#     # Note that a LazilyDefinedUnit exists if you do not want to resolve the
+#     # basis expression upfront.
+#     def __init__(
+#         self,
+#         raw_spec: str,  # The requested form of the unit.
+#         definition: Node,  # The fully resolved (basis form) definition of this unit.
+#         *,
+#         reference: UnitReference | None = None,
+#     ):
+#         self._definition = definition
+#         self._unit_raw = raw_spec
+#         self._unit_graph = None
+#         super().__init__(reference=reference)
+#
+#     # def conversion_expr(self, other: Unit):
+#     #     from ._expr.sympy import ToSympy
+#     #
+#     #     sympy_expr = ToSympy().visit(self._definition)
+#     #     # expr = FromSympy().visit(sympy_expr)
+#     #     return sympy_expr
+#     #
+#     # def base_form(self) -> Unit:
+#     #     # TODO: Return Unit
+#     #     # TODO: Resolve the terms, and canonicalise the name/symbols.
+#     #     return self._definition
+#     #
+#     # def convertible_to(self, other: Unit) -> bool:
+#     #     raise NotImplementedError("TODO")
+#
+#     def __str__(self):
+#         return self._unit_raw
+#
+#     def __repr__(self):
+#         return (
+#             f"DefinedUnit(raw_spec={self._unit_raw}, definition={self._definition}, "
+#             f"reference={self._reference})"
+#         )
+#
+#     def __eq__(self, other):
+#         if type(other) is not DefinedUnit:
+#             return NotImplemented
+#
+#         # TODO: Get the base form to compare __eq__ on simplified form.
+#         return other.base_form() == self.base_form()

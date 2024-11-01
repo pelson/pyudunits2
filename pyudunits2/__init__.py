@@ -4,7 +4,7 @@ from ._version import __version__ as __version__
 from ._unit import (
     Unit as Unit,
     BasisUnit as BasisUnit,
-    DefinedUnit as DefinedUnit,
+    NamedUnit as NamedUnit,
 )
 from ._unit_system import (
     UnitSystem as UnitSystem,

@@ -70,10 +70,16 @@ class Identifier(Terminal):
 
     content: str
 
+    def __hash__(self):
+        return hash(self.content)
+
 
 class UnaryOp(Node):
     def __init__(self, function: str, term: Node):
         super().__init__(function=function, term=term)
+
+    def children(self) -> list[Node]:
+        return [self.term]
 
     def __repr__(self):
         return f"{self.function}({self.term})"

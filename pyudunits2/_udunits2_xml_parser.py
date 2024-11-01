@@ -184,7 +184,7 @@ class UDUNITS2XMLParser:
                 unit = LazilyDefinedUnit(
                     unit_system=system,
                     definition=basis_def.text or "",
-                    reference=reference,
+                    names=reference,
                 )
             else:
                 dimensionless = unit_tag.pop_first_matching_tag("dimensionless")
@@ -195,7 +195,7 @@ class UDUNITS2XMLParser:
                     assert base_tag is not None
                     assert not base_tag.text and not base_tag.children
                 unit = BasisUnit(
-                    reference=reference,
+                    names=reference,
                 )
 
             if unit_tag.children:

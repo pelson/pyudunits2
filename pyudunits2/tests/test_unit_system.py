@@ -6,7 +6,7 @@ import pytest
 @pytest.mark.parametrize(
     ["unit_spec", "definition"],
     [
-        ["m", "m"],
+        ["m", "meter"],
         ["Bm", "(lg(re 1·0.001·watt))"],
         ["1e-3 Bm", "0.001·(lg(re 1·0.001·watt))"],
         ["mBm", "0.001·(lg(re 1·0.001·watt))"],
@@ -16,11 +16,14 @@ import pytest
         ["kilom", "1000·meter"],
     ],
 )
-def test__unit__valid(simple_unit_system: UnitSystem, unit_spec: str, definition: str):
+def test__unit__expansion(
+    simple_unit_system: UnitSystem, unit_spec: str, definition: str
+):
     # We have a non defined plural name, with a symbol based prefix.
     unit = simple_unit_system.unit(unit_spec)
     assert isinstance(unit, Unit)
-    assert unit._expression._raw_definition == unit_spec
+    # TODO: Fix this.
+    assert str(unit.expanded()) == definition
 
 
 def test__unit__undefined_unit(simple_unit_system: UnitSystem):

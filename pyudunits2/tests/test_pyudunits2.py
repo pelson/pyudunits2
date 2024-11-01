@@ -18,7 +18,7 @@ def test_public_api():
     assert public_vars == {
         "Unit",
         "BasisUnit",
-        "DefinedUnit",
+        "NamedUnit",
         "UnitSystem",
         "UnresolvableUnitException",
     }

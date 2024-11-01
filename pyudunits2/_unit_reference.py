@@ -14,6 +14,15 @@ class Prefix:
     value: str
     symbols: tuple[str, ...] = ()
 
+    def _expanded_expr(self):
+        from ._expr_graph import Number
+        from decimal import Decimal
+
+        if "." or "e" in self.value:
+            return Number(Decimal(self.value))
+        else:
+            return Number(int(self.value))
+
 
 @dataclasses.dataclass(frozen=True)
 class Name:

@@ -5,7 +5,7 @@ import typing
 
 from . import _expr_graph as unit_graph
 from ._expr_graph import Identifier, Node, Visitor
-from ._unit import DefinedUnit, Unit, Expression
+from ._unit import NamedUnit, Unit, Expression
 
 
 if typing.TYPE_CHECKING:
@@ -54,7 +54,7 @@ class ToBasisVisitor(Visitor):
     def visit_UnitNode(self, node: UnitNode):
         from ._grammar import parse
 
-        if isinstance(node.content, DefinedUnit):
+        if isinstance(node.content, NamedUnit):
             # Substitute the identifiers.
             unit_expr = self._identifier_lookup.visit(
                 parse(node.content._unit_raw),
