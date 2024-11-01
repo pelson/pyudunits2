@@ -13,17 +13,18 @@ Furthermore, as a result of its compatibility with the UDUNITS2 grammar,
 
 ## Key Features
 
-- **UDUNITS2 Grammar**: The library implements a parser based on the UDUNITS2 
-  grammar, ensuring the grammar serves as the canonical source of truth.
-- **Unit Conversions**: Easily convert between related units using simple,
-  vectorized functions.
+- **UDUNITS2 Grammar**: The library has a generated parser based on a unit
+  grammar definition adapted from UDUNITS2, ensuring the grammar serves as the
+  canonical source of truth.
+- **Unit Conversions**: Easily convert between related units using optimised and
+  vectorised functions.
 - **Symbolic Representation**: Unit symbols are preserved throughout
   calculations, ensuring precise definitions remain intact.
 - **Optimized Performance**: When using the UDUNITS2 XML database without
-  extensions, the code follows an optimized path for efficiency.
+  extensions, the code follows an optimized path for efficiency. (Not yet implemented)
 - **Flexible Simplification**: By default, units are not reduced to base units
   until simplification is explicitly requested, allowing expressions like
-  `mg kg-1` for a mass ratio and `microlitre litre-1` for a volume ratio to
+  `mg kg-1` for a mass ratio and `microlitres per litre` for a volume ratio to
   be propagated through calculations.
 - **Command-Line Interface (CLI)**: Includes a CLI tool for convenient unit
   conversion using the UDUNITS2 database.

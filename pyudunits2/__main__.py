@@ -44,11 +44,15 @@ def conv_expr_handler(args: argparse.Namespace) -> None:
     from_unit = unit_system.unit(args.from_unit)
     to_unit = unit_system.unit(args.to_unit)
 
+    if from_unit.dimensionality() != to_unit.dimensionality():
+        print(f'It is not possible to convert from "{from_unit}" to "{to_unit}"')
+        sys.exit(1)
+
     converter = Converter(from_unit, to_unit)
 
     print(
-        f'To convert from "{from_unit._expression._raw_definition}" to '
-        f'"{to_unit._expression._raw_definition}", apply the following expression:'
+        f'To convert from "{from_unit}" to '
+        f'"{to_unit}", apply the following expression:'
     )
     print(converter.expression)
 
@@ -56,10 +60,13 @@ def conv_expr_handler(args: argparse.Namespace) -> None:
 def explain_handler(args: argparse.Namespace) -> None:
     unit_system = UnitSystem.from_udunits2_xml()
     unit = unit_system.unit(args.unit)
-    basis_unit = unit._expression._raw_definition
+    basis_unit = unit.expanded()
     print(f"Unit: {unit}")
     print(f"In basis form: {basis_unit}")
-    print("Dimensionality: ", unit.dimensionality())
+    print(
+        "Dimensionality: ",
+        repr({str(unit): order for unit, order in unit.dimensionality().items()}),
+    )
 
 
 def main() -> None:

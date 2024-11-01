@@ -35,4 +35,4 @@ def test_readme_example(capsys):
     )
 
     out, _ = capsys.readouterr()
-    assert out == "Unit km/h is a length unit?: False"
+    assert out.strip() == "Unit km/h is a length unit?: False"
