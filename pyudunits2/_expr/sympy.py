@@ -12,7 +12,6 @@ import logging
 import typing
 
 from .. import _expr_graph as unit_graph
-from .._unit_resolver import ExpressionNode
 import sympy.core.expr
 
 _log = logging.getLogger(__name__)
@@ -28,9 +27,6 @@ class ToSympy(unit_graph.Visitor):
 
     def visit_Identifier(self, node: unit_graph.Identifier):
         return Symbol(node.content)
-
-    def visit_ExpressionNode(self, node: ExpressionNode):
-        return node.content._symbolic_form()
 
     def visit_Number(self, node: unit_graph.Number):
         if isinstance(node.content, str):

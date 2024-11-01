@@ -6,8 +6,6 @@ import typing
 
 from . import _expr_graph as unit_graph
 from ._expr_graph import Node, Visitor
-from ._unit import BasisUnit
-from ._unit_resolver import UnitNode
 
 
 _log = logging.getLogger(__name__)
@@ -206,11 +204,6 @@ class Expander(Visitor):
         # for term, raise_to in expansion._chain:
         #     self._expansion[-1].add_term(term, -raise_to)
         # self._expansion[-1]._offset -= expansion._offset
-
-    def visit_UnitNode(self, node: UnitNode):
-        if not isinstance(node.content, BasisUnit):
-            raise ValueError(f"unknown type {type(node.content)}")
-        return unit_graph.Identifier(node.content._reference.name)
 
     def visit_Identifier(self, node: unit_graph.Identifier):
         self._expansion[-1].add_term(node, 1)

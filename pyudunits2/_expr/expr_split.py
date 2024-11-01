@@ -4,7 +4,6 @@ import logging
 import typing
 
 from .. import _expr_graph as unit_graph
-from .._unit_resolver import ExpressionNode
 
 _log = logging.getLogger(__name__)
 
@@ -35,13 +34,6 @@ class SplitExpr(unit_graph.Visitor):
         if isinstance(node, unit_graph.Terminal):
             return None, node
         raise NotImplementedError(f"Not implemented for {type(node)}")
-
-    def visit_ExpressionNode(self, node: ExpressionNode):
-        # TODO: Remove ExpressionNode as much as possible from everywhere.
-        if node is self._root_node:
-            self._root_node = node.content.expression
-            # raise ValueError('s')
-        return self.visit(node.content.expression)
 
     def visit_Shift(self, node: unit_graph.Shift):
         # When shifting, you want to transform the value, since otherwise you

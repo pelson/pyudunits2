@@ -1,8 +1,6 @@
 from .._expr_graph import Visitor
 import typing
 from .. import _expr_graph as unit_graph
-from .._unit_resolver import UnitNode
-from .._unit_resolver import ExpressionNode
 
 
 class DimensionalityCounter(Visitor):
@@ -11,9 +9,6 @@ class DimensionalityCounter(Visitor):
         def visit(self, node: unit_graph.Node) -> dict[unit_graph.Node, float]:
             pass
 
-    def visit_ExpressionNode(self, node: ExpressionNode):
-        return self.visit(node.content.expression)
-
     def generic_visit(self, node: unit_graph.Node):
         raise NotImplementedError(f"Not implemented for {type(node)}")
 
@@ -21,9 +16,6 @@ class DimensionalityCounter(Visitor):
         return {}
 
     def visit_Identifier(self, node: unit_graph.Identifier):
-        return {node.content: 1}
-
-    def visit_UnitNode(self, node: UnitNode):
         return {node.content: 1}
 
     def visit_Multiply(self, node: unit_graph.Multiply):
