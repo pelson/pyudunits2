@@ -5,3 +5,9 @@ class UnresolvableUnitException(ValueError):
     """
 
     pass
+
+
+class IncompatibleUnitsError(ValueError):
+    """
+    Raised when two units cannot be converted from one to the other
+    """

@@ -30,16 +30,13 @@ def test__conversion_expr__possible(monkeypatch, capsys):
     assert out.strip() == expected_output
 
 
-@pytest.mark.xfail(reason="Inversion conversion not yet implemented", strict=True)
 def test__conversion_expr__inversion(monkeypatch, capsys):
-    monkeypatch.setattr(
-        "sys.argv", ["pyudunits2", "conversion-expr", "mg", "lg(re grams)"]
-    )
+    monkeypatch.setattr("sys.argv", ["pyudunits2", "conversion-expr", "m/s", "s/m"])
     main()
     out, err = capsys.readouterr()
     expected_output = textwrap.dedent("""
             To convert from "m/s" to "s/m", apply the following expression:
-            log(0.001*value)/log(10)
+            1/value
         """).strip()
     assert err == ""
     assert out.strip() == expected_output

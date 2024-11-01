@@ -17,8 +17,8 @@ import pytest
         ["centuries", "year", 1000],
         ["centuries", "decade", 100],
         ["centuries", "10 centuries", 1],
-        # ["m/s", "s/m", 0.1],  # Validated with udunits2.
-        # ["km/h", "s/m", 0.36],  # Validated with udunits2.
+        ["m/s", "s/m", 0.1],  # Validated with udunits2.
+        ["km/h", "s/m", 0.36],  # Validated with udunits2.
         ["(year @ 5)", "year", 15],  # Validated with udunits2.
         ["(year @ 5)*1", "year", 10],  # Validated with udunits2.
         [
@@ -36,8 +36,8 @@ import pytest
         ["lg(re m)", "lg(re m)", 10],  # Validated with udunits2
         ["watt", "dBm", 40],  # Validated with udunits2
         ["dBm", "watt", 0.01],  # Validated with udunits2
-        # ["lg(re m/s)", "s/m", 1e-10],  # Validated with udunits2
-        # ["(m2)^-3*m", "m5", 0.1],  # Validated with udunits2  # TODO: This doesn't work in our implementation.
+        ["lg(re m/s)", "s/m", 1e-10],  # Validated with udunits2
+        ["(m2)^-3*m", "m5", 0.1],  # Validated with udunits2
         ["(m2)^-3*m", "m-5", 10],  # Validated with udunits2
     ],
 )

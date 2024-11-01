@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from ._expr_graph import Node, Identifier
 from ._unit_reference import UnitReference, Prefix
+from ._exceptions import IncompatibleUnitsError
 
 import typing
 
@@ -189,6 +190,20 @@ class Converter:
         # )
         import sympy
 
+        from_dimensionality = from_unit.dimensionality()
+        to_dimensionality = to_unit.dimensionality()
+
+        # It is also possible to simply invert the dimensionality. For example,
+        # m/s is simply 1/value s/m
+        inverted_d = {unit: -order for unit, order in from_dimensionality.items()}
+
+        is_direct_conversion = from_dimensionality == to_dimensionality
+        is_inverted_conversion = inverted_d == to_dimensionality
+        if not (is_direct_conversion or is_inverted_conversion):
+            raise IncompatibleUnitsError(
+                f"Units {to_unit} and {from_unit} are not convertible"
+            )
+
         t1, d1 = from_unit._symbolic_definition()
         t2, d2 = to_unit._symbolic_definition()
 
@@ -209,10 +224,12 @@ class Converter:
             transformer1 = sympy.solve(t1 - orig_qty, to_symbol)
             assert len(transformer1) == 1
             [transformer1] = transformer1
-        convert_expr = t2.subs(to_value, transformer1 * d1 / d2)
-        # print('T1', transformer1)
-        # print('T2:', t2)
-        # print(convert_expr)
+
+        if is_direct_conversion:
+            convert_expr = t2.subs(to_value, transformer1 * d1 / d2)
+        else:
+            convert_expr = t2.subs(to_value, 1 / (transformer1 * d1 * d2))
+
         fn = sympy.lambdify(
             orig_qty,
             convert_expr,

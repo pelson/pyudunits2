@@ -3,6 +3,7 @@ import sys
 
 from ._unit_system import UnitSystem
 from ._unit import Converter
+from ._exceptions import IncompatibleUnitsError
 
 
 def configure_parser(parser: argparse.ArgumentParser) -> None:
@@ -44,11 +45,11 @@ def conv_expr_handler(args: argparse.Namespace) -> None:
     from_unit = unit_system.unit(args.from_unit)
     to_unit = unit_system.unit(args.to_unit)
 
-    if from_unit.dimensionality() != to_unit.dimensionality():
+    try:
+        converter = Converter(from_unit, to_unit)
+    except IncompatibleUnitsError:
         print(f'It is not possible to convert from "{from_unit}" to "{to_unit}"')
         sys.exit(1)
-
-    converter = Converter(from_unit, to_unit)
 
     print(
         f'To convert from "{from_unit}" to '

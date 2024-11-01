@@ -19,6 +19,7 @@ def test_public_api():
         "NamedUnit",
         "UnitSystem",
         "UnresolvableUnitException",
+        "IncompatibleUnitsError",
     }
 
 
