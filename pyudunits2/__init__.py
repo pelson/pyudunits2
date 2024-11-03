@@ -5,6 +5,7 @@ from ._unit import (
     Unit as Unit,
     BasisUnit as BasisUnit,
     NamedUnit as NamedUnit,
+    Converter as Converter,
 )
 from ._unit_system import (
     UnitSystem as UnitSystem,

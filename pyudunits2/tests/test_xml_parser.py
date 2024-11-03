@@ -16,6 +16,7 @@ def unit_system() -> UnitSystem:
     [
         ["meters", "m"],  # Not explicitly mentioned. Plural of the name.
         ["metres", "m"],  # Not explicitly mentioned. Plural of the alias.
+        ["inches", "inch"],  # Not explicitly mentioned. Plural of the alias.
     ],
 )
 def test__unit__well_known(
@@ -33,6 +34,8 @@ def test__unit__well_known(
     [
         ["radian", {}],
         ["radian meters", {"meter": 1}],
+        ["feet", {"meter": 1}],
+        ["inches", {"meter": 1}],  # The inches plural form is not in the XML file.
     ],
 )
 def test__unit__dimensionless(

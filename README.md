@@ -31,6 +31,8 @@ Furthermore, as a result of its compatibility with the UDUNITS2 grammar,
 
 ## Examples
 
+Determining if a unit is a length like unit:
+
 ```python
 >>> from pyudunits2 import UnitSystem
 
@@ -44,6 +46,21 @@ Furthermore, as a result of its compatibility with the UDUNITS2 grammar,
 Unit km/h is a length unit?: False
 ```
 
+Converting between units:
+
+```python
+>>> from pyudunits2 import UnitSystem, Converter
+>>> import numpy as np
+
+>>> ut_system = UnitSystem.from_udunits2_xml()
+>>> degC = ut_system.unit('degC')
+>>> kelvin = ut_system.unit('kelvin')
+>>> converter = Converter(degC, kelvin)
+>>> print(converter.expression)
+value + 273.15
+>>> converter.convert(np.array([32, 15, -20]))
+array([305.15, 288.15, 253.15])
+```
 
 ## Command line interface (CLI)
 
