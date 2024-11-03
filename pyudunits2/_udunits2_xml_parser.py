@@ -189,13 +189,16 @@ class UDUNITS2XMLParser:
             else:
                 dimensionless = unit_tag.pop_first_matching_tag("dimensionless")
                 if dimensionless is not None:
-                    pass  # Seen in radian
+                    dimensionless = True
                 else:
+                    dimensionless = False
                     base_tag = unit_tag.pop_first_matching_tag("base")
                     assert base_tag is not None
                     assert not base_tag.text and not base_tag.children
+
                 unit = BasisUnit(
                     names=reference,
+                    dimensionless=dimensionless,
                 )
 
             if unit_tag.children:

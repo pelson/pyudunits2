@@ -261,6 +261,16 @@ class Unit:
     def __str__(self):
         return str(self._definition)
 
+    def __repr__(self):
+        return "\n".join(
+            (
+                f"{type(self).__name__}(",
+                f"    definition={self._definition!r},"
+                f"    identifier_references={self._identifier_references!r},"
+                f")",
+            )
+        )
+
     def __eq__(self, other) -> bool:
         if not isinstance(other, Unit):
             return NotImplemented
@@ -389,6 +399,9 @@ class BasisUnit(NamedUnit):
             identifier_references={Identifier(ref): self},
             names=names,
         )
+
+    def __repr__(self):
+        return f"{type(self).__name__}(names={self._names!r}, dimensionless={self._dimensionless})"
 
     def __hash__(self):
         # TODO: Implement this properly.
