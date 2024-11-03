@@ -1,6 +1,6 @@
 from types import NoneType
 
-from pyudunits2._expr.expr_split import SplitExpr
+from pyudunits2._expr.split import SplitExpr
 
 
 from pyudunits2._grammar import parse

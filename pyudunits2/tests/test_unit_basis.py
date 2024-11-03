@@ -1,6 +1,6 @@
 import pytest
 
-from pyudunits2._expr_simplifier import Expander
+from pyudunits2._expr.expander import Expander
 from pyudunits2._udunits2_xml_parser import UnitSystem, read_all
 from pyudunits2._grammar import parse
 from pyudunits2 import _expr_graph as graph
@@ -12,73 +12,6 @@ from pyudunits2 import _expr_graph as graph
 @pytest.fixture(scope="module")
 def unit_system() -> UnitSystem:
     return read_all()
-
-
-# @pytest.mark.parametrize(
-#     ["unit_str", "dimensionality"],
-#     [
-#         ["s", {"s": 1}],
-#         ["m2", {"m": 2}],
-#         ["m2/s", {"m": 2, "s": -1}],
-#         ["m2/m", {"m": 1}],
-#         ["m2 m", {"m": 3}],
-#         ["K @ 271", {"K": 1}],
-#         ["km2 m", {"m": 3}],
-#     ],
-# )
-# def test_get_basis(
-#     unit_system: UnitSystem, unit_str: str, dimensionality: dict
-# ) -> None:
-#     # assert unit_system._names == {}
-#
-#     # assert unit_system.parse('m2 s-1') == {}
-#     ut = unit_system.parse(unit_str)
-#     # print('UT:', )
-#     # from pprint import pprint
-#     # pprint(ut)
-#
-#     dims = unit_system.basis_of(ut)
-#     result = {base._reference.symbols[0]: order for base, order in dims.items()}
-#     assert result == dimensionality
-
-
-@pytest.mark.skip
-@pytest.mark.parametrize(
-    ["unit_str", "convert_to_ut", "expected_conversion_expr"],
-    [
-        ["s", "s", "1"],
-        ["10m", "m", "10"],
-        ["m", "km", "1^-3"],
-        ["km", "m", "1^3"],
-        ["1000m", "km", "1^-3·1000"],
-        ["minute", "hour", "60^-1"],
-        ["week", "second", "604800"],
-        ["week", "fortnight", "14^-1·7"],
-        # ["kweek", "week", "1000"],
-        ["nmile", "km", "1^-3·1852"],
-        # ["degree_Celsius", "degree_fahrenheit", "1^-3·1000"],  # Shift based conversion
-        # ["BW", "watt", "pow(10, (x/BW))"],  # lg based unit conversion.
-    ],
-)
-def test_conversion_expr(
-    unit_system: UnitSystem,
-    unit_str: str,
-    convert_to_ut: str,
-    expected_conversion_expr: str,
-) -> None:
-    target_unit = unit_system.unit
-    converter = unit_system.unit(unit_str).converter(target_unit).expr()
-
-    from pyudunits2._unit import Expression
-
-    assert converter == Expression("foo", expected_conversion_expr)
-
-    # ut = unit_system.parse(unit_str)
-    # convert_to_ut = unit_system.parse(convert_to_ut)
-    #
-    #
-    # converter_expr = unit_system.conversion_expr(ut, convert_to_ut)
-    # assert str(converter_expr) == expected_conversion_expr
 
 
 def idfn(param):

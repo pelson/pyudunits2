@@ -3,7 +3,7 @@ from pyudunits2._unit_reference import Name
 from pyudunits2._unit import Names
 import pytest
 from pyudunits2._grammar import parse
-from pyudunits2._expr._atoms import ExtractIdentifiers
+from pyudunits2._expr.atoms import ExtractIdentifiers
 
 
 class SimpleUnit(Unit):

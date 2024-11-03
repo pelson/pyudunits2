@@ -50,7 +50,7 @@ class Expression:
     def _symbolic_form2(self) -> tuple[SympyExpr, SympyExpr]:
         if self._expanded_symbolic_form2 is None:
             from ._expr.sympy import ToSympy
-            from ._expr.expr_split import SplitExpr
+            from ._expr.split import SplitExpr
 
             t, d = SplitExpr(self.expression).visit(self.expression)
             if t is not None:
@@ -283,7 +283,7 @@ class Unit:
     def _symbolic_definition(self) -> tuple[SympyExpr, SympyExpr]:
         if self._cached_symbolic_definition is None:
             from ._expr.sympy import ToSympy
-            from ._expr.expr_split import SplitExpr
+            from ._expr.split import SplitExpr
 
             definition = self._expanded_expr()
             t, d = SplitExpr(definition).visit(definition)
@@ -325,8 +325,8 @@ class Unit:
     #     return other._expression == self._expression
 
     def dimensionality(self) -> dict[BasisUnit, int]:
-        from ._expr._dimensionality import DimensionalityCounter
-        from ._expr.expr_split import SplitExpr
+        from ._expr.dimensionality import DimensionalityCounter
+        from ._expr.split import SplitExpr
 
         _, d = SplitExpr(self._definition).visit(self._definition)
         r = DimensionalityCounter().visit(d)

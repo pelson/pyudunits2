@@ -44,7 +44,7 @@ class LazilyDefinedUnit:
         if self._resolved_unit is None:
             unit_expr = parse(self._definition)
 
-            from ._expr._atoms import ExtractIdentifiers
+            from ._expr.atoms import ExtractIdentifiers
 
             identifiers = ExtractIdentifiers().visit(unit_expr)
 
@@ -281,7 +281,7 @@ class UnitSystem:
 
         unit_expr = parse(unit)
 
-        from ._expr._atoms import ExtractIdentifiers
+        from ._expr.atoms import ExtractIdentifiers
 
         identifiers = ExtractIdentifiers().visit(unit_expr)
 
