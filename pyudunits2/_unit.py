@@ -195,7 +195,7 @@ class Converter:
 
         # It is also possible to simply invert the dimensionality. For example,
         # m/s is simply 1/value s/m
-        inverted_d = {unit: -order for unit, order in from_dimensionality.items()}
+        inverted_d = from_dimensionality.inverted()
 
         is_direct_conversion = from_dimensionality == to_dimensionality
         is_inverted_conversion = inverted_d == to_dimensionality
@@ -245,6 +245,41 @@ class Converter:
         # TODO: Sympy can return an expression here. We never want it
         #  to - it should always be a number-like.
         return self._converter(values)
+
+
+class Dimensionality:
+    def __init__(self, dimensionality: dict[BasisUnit, int]):
+        self._dimensionality = dimensionality
+
+    def __eq__(self, other: Dimensionality):
+        if isinstance(other, dict):
+            return self._name_form() == other
+        if type(self) is not type(other):
+            return NotImplemented
+        return self._dimensionality == other._dimensionality
+
+    def _name_form(self) -> dict[str, int]:
+        return {str(base_unit): order for base_unit, order in self.items()}
+
+    def inverted(self):
+        return Dimensionality(
+            {unit: -order for unit, order in self._dimensionality.items()}
+        )
+
+    def __repr__(self):
+        return f"Dimensionality({self._dimensionality})"
+
+    def __str__(self):
+        return str(self._name_form())
+
+    def items(self):
+        return self._dimensionality.items()
+
+    def keys(self):
+        return self._dimensionality.keys()
+
+    def values(self):
+        return self._dimensionality.values()
 
 
 class Unit:
@@ -334,7 +369,7 @@ class Unit:
     #     assert isinstance(other, ExpressionUnit)
     #     return other._expression == self._expression
 
-    def dimensionality(self) -> dict[BasisUnit, int]:
+    def dimensionality(self) -> Dimensionality:
         from ._expr.dimensionality import DimensionalityCounter
         from ._expr.split import SplitExpr
 
@@ -349,7 +384,9 @@ class Unit:
             unit_dimensionality = identifier_unit.dimensionality()
             for basis_unit, basis_order in unit_dimensionality.items():
                 result[basis_unit] = result.get(basis_unit, 0) + basis_order * order
-        return {basis: order for basis, order in result.items() if order != 0}
+        return Dimensionality(
+            {basis: order for basis, order in result.items() if order != 0}
+        )
 
     def is_dimensionless(self) -> bool:
         return self.dimensionality() == {}
@@ -361,7 +398,7 @@ class Unit:
             return True
         # It is also possible to simply invert the dimensionality. For example,
         # m/s is simply 1/value s/m
-        inverted_d = {unit: -order for unit, order in self_d.items()}
+        inverted_d = self_d.inverted()
         if inverted_d == other_d:
             return True
         return False

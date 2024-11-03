@@ -45,7 +45,7 @@ def test__dimensionality(
     unit = simple_unit_system.unit(unit_str)
 
     result = unit.dimensionality()
-    result = {str(base_unit): order for base_unit, order in result.items()}
+    # result = {str(base_unit): order for base_unit, order in result.items()}
     # result = {basis_unit.simplest_reference: exponent for basis_unit, exponent in result.items()}
     assert result == expected_dimensionality
 

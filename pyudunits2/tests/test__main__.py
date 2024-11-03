@@ -10,7 +10,7 @@ def test__explain_unit(monkeypatch, capsys):
     expected_output = textwrap.dedent("""
         Unit: mg
         In basis form: 0.001·0.001·kilogram
-        Dimensionality:  {'kilogram': 1}
+        Dimensionality: {'kilogram': 1}
     """).strip()
     assert err == ""
     assert out.strip() == expected_output

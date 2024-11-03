@@ -64,10 +64,7 @@ def explain_handler(args: argparse.Namespace) -> None:
     basis_unit = unit.expanded()
     print(f"Unit: {unit}")
     print(f"In basis form: {basis_unit}")
-    print(
-        "Dimensionality: ",
-        repr({str(unit): order for unit, order in unit.dimensionality().items()}),
-    )
+    print(f"Dimensionality: {unit.dimensionality()}")
 
 
 def main() -> None:
