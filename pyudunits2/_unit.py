@@ -102,81 +102,101 @@ class Converter:
     def __init__(self, from_unit: Unit, to_unit: Unit):
         """
 
-        Log units. The best example to help you get your head around what they represent
-        is to have a unit of `decade = lg(re year)`. 20 years == 2 decades. The log part
-        of a unit is a transformation of the value, and *not* a true symbolic
-        representation of log(year). Now we can extend the concept to
-        `century = lg(re lg(re year))`.
+                Log units. The best example to help you get your head around what they represent
+                is to have a unit of `decade = lg(re year)`. 20 years == 2 decades. The log part
+                of a unit is a transformation of the value, and *not* a true symbolic
+                representation of log(year). Now we can extend the concept to
+                `century = lg(re lg(re year))`.
 
-        Some useful examples from UDUNITS-2::
+                Some useful examples from UDUNITS-2::
 
-            You have: lg(re m/s)
-            You want: m/s
-                1 lg(re m/s) = 10 m/s
-                x/(m/s) = pow(10, (x/(lg(re m/s))))
+                    You have: lg(re m/s)
+                    You want: m/s
+                        1 lg(re m/s) = 10 m/s
+                        x/(m/s) = pow(10, (x/(lg(re m/s))))
 
-            You have: m
-            You want: lg(re m)
-                1 m = 0 (lg(re m))
-                x/(lg(re m)) = lg((x/m))
+                    You have: m
+                    You want: lg(re m)
+                        1 m = 0 (lg(re m))
+                        x/(lg(re m)) = lg((x/m))
 
-            You have: m/s
-            You want: lg(re 2*m/s)
-                1 m/s = -0.30103 (lg(re 2*m/s))
-                x/(lg(re 2*m/s)) = lg(0.5*(x/(m/s)))
+                    You have: m/s
+                    You want: lg(re 2*m/s)
+                        1 m/s = -0.30103 (lg(re 2*m/s))
+                        x/(lg(re 2*m/s)) = lg(0.5*(x/(m/s)))
 
-            You have: lg(re lg(re m))
-            You want: m
-                1 lg(re lg(re m)) = 1e+10 m
-                x/m = pow(10, (pow(10, (x/(lg(re lg(re m)))))))
+                    You have: lg(re lg(re m))
+                    You want: m
+                        1 lg(re lg(re m)) = 1e+10 m
+                        x/m = pow(10, (pow(10, (x/(lg(re lg(re m)))))))
 
-            You have: lg(re m)*degrees
-            You want: m
-                1 lg(re m)*degrees = 1.04101 m
-                x/m = pow(10, (0.0174533*(x/(lg(re m)*degrees))))
+                    You have: lg(re m)*degrees
+                    You want: m
+                        1 lg(re m)*degrees = 1.04101 m
+                        x/m = pow(10, (0.0174533*(x/(lg(re m)*degrees))))
 
-        Note that the unit grammar does not follow the normal mathematical rules
-        for logarithms (namely `n log(m) != log(m^n)`)
+                Note that the unit grammar does not follow the normal mathematical rules
+                for logarithms (namely `n log(m) != log(m^n)`)
 
-            You have: 2 lg(re years)
-            You want: years
-                2 lg(re years) = 100 years
-                x/years = 3.16888e-08*(3.15569e+07*(pow(10, (x/(lg(re years))))))
-            You have: 2*lg(re years)
+                    You have: 2 lg(re years)
+                    You want: years
+                        2 lg(re years) = 100 years
+                        x/years = 3.16888e-08*(3.15569e+07*(pow(10, (x/(lg(re years))))))
+                    You have: 2*lg(re years)
 
-            You have: lg(re years)*2
-            You want: years
-                1 lg(re years)*2 = 100 years
-                x/years = 3.16888e-08*(3.15569e+07*(pow(10, (2*(x/(lg(re years)*2))))))
+                    You have: lg(re years)*2
+                    You want: years
+                        1 lg(re years)*2 = 100 years
+                        x/years = 3.16888e-08*(3.15569e+07*(pow(10, (2*(x/(lg(re years)*2))))))
 
-        Some useful failure modes::
+                Some useful failure modes::
 
-            You have: lg(re m)*lg(re s)
-            logMultiply(): can't multiply second unit
-            ut_are_convertible(): NULL unit argument
-            udunits2: Don't recognize "lg(re m)*lg(re s)"
+                    You have: lg(re m)*lg(re s)
+                    logMultiply(): can't multiply second unit
+                    ut_are_convertible(): NULL unit argument
+                    udunits2: Don't recognize "lg(re m)*lg(re s)"
 
-            You have: lg(re m)*s
-            logMultiply(): Second unit not dimensionless
-            ut_are_convertible(): NULL unit argument
-            udunits2: Don't recognize "lg(re m)*s"
+                    You have: lg(re m)*s
+                    logMultiply(): Second unit not dimensionless
+                    ut_are_convertible(): NULL unit argument
+                    udunits2: Don't recognize "lg(re m)*s"
 
-        Is it possible that this is inconsistent...?
+                Is it possible that this is inconsistent...?
 
-            You have: degC
-            You want: kelvin
-                1 degC = 274.15 kelvin
-                x/kelvin = (x/degC) + 273.15
+                    You have: degC
+                    You want: kelvin
+                        1 degC = 274.15 kelvin
+                        x/kelvin = (x/degC) + 273.15
 
-            You have: degC^2
-            You want: kelvin^2
-                1 degC^2 = 1 kelvin^2
-                x/kelvin^2 = (x/degC^2)
+                    You have: degC^2
+                    You want: kelvin^2
+                        1 degC^2 = 1 kelvin^2
+                        x/kelvin^2 = (x/degC^2)
 
-        Log units are not really log units at all... they are value transformations.
-        For example:
+                Log units are not really log units at all... they are value transformations.
+                For example:
 
-            10 lg(re m) is really lg(re 10) m
+                    10 lg(re m) is really lg(re 10) m
+
+
+                Some date ones...
+
+                You have: seconds since 1970-01-01Z
+                You want: seconds since 1970-01-01T00:00:30Z
+                    1 seconds since 1970-01-01Z = -29 (seconds since 1970-01-01T00:00:30Z)
+                    x/(seconds since 1970-01-01T00:00:30Z) = (x/(seconds since 1970-01-01Z)) - 30
+                You have: seconds since 1970-01Z
+                You want: seconds since 1970-01-01T00:00:30Z
+                    1 seconds since 1970-01Z = -29 (seconds since 1970-01-01T00:00:30Z)
+                    x/(seconds since 1970-01-01T00:00:30Z) = (x/(seconds since 1970-01Z)) - 30
+                You have: ds since 2012-2-1Z
+                You want: s since 2000
+                    1 ds since 2012-2-1Z = 3.8137e+08 (s since 2000)
+                    x/(s since 2000) = 0.1*(x/(ds since 2012-2-1Z)) + 3.8137e+08
+        You have: seconds since 2020-01T01
+        You want: seconds since 2020-01-01 01:00
+            1 seconds since 2020-01T01 = 1 (seconds since 2020-01-01 01:00)
+            x/(seconds since 2020-01-01 01:00) = (x/(seconds since 2020-01T01))
         """
         self._from_unit = from_unit
         self._to_unit = to_unit

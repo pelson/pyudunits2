@@ -96,7 +96,8 @@ mode SHIFT_MODE;
 // S_WS: ' ' -> skip;
 
 
-TIMEZONE: 'UTC' | 'Z' | 'GMT';
+fragment TIMEZONE: 'UTC' | 'Z' | 'GMT';
+fragment TZ_OFFSET: SIGN? (CLOCK | CLOCK2);
 
 fragment SIGN:
     PLUS | MINUS
@@ -112,7 +113,8 @@ fragment MINUTE:
 ;
 
 fragment SECOND:
-    (MINUTE | '60') (PERIOD ('0'..'9')*)?
+{#    (MINUTE | '60') (PERIOD ('0'..'9')*)?#}
+    ('0'..'9')('0'..'9')? (PERIOD ('0'..'9')*)?
 ;
 
 fragment MONTH:
@@ -127,17 +129,19 @@ fragment YEAR:
     ANY_INT INT? INT? INT?  // e.g. 9, 0001, 150, +2001 (=year 200 in UDUNITS2 implementation)
 ;
 
-HOUR_MINUTE_SECOND: HOUR ':' MINUTE ':' SECOND;
-HOUR_MINUTE: HOUR ':' MINUTE;
-M_MINUS: '-';
-DATE: (YEAR MINUS MONTH (MINUS DAY)?);
+DATE: YEAR MINUS MONTH (MINUS DAY)?;
 
 fragment CLOCK: HOUR (MINUTE SECOND?)?;
 
-TIMESTAMP: (YEAR (MONTH DAY?)? 'T' CLOCK);
+TIMESTAMP: YEAR (MONTH DAY?)? ('T' | WS)* CLOCK? WS? (TIMEZONE | TZ_OFFSET)?;
 
-DT_T_CLOCK: DATE 'T' CLOCK; // UNDOCUMENTED
+fragment CLOCK2: HOUR ':'? (MINUTE ':'?)? (SECOND ':'?)?;
 
+DT_T_CLOCK: DATE ('T' | WS)* CLOCK2? WS? (TIMEZONE | TZ_OFFSET)?; // UNDOCUMENTED
+
+
+
+// Re-expose all of the tokens that are in the normal mode.
 {% for TOKEN in tokens['DEFAULT_MODE'] -%}
     SHIFT_MODE_{{ TOKEN }}: {{TOKEN}} -> type({{TOKEN}});
 {% endfor %}

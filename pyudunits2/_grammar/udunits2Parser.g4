@@ -55,23 +55,31 @@ number:
 
 
 timestamp:
-    (DATE | INT)     // e.g "s since 1990", "s since 1990:01[:02]"
-
-    | ((DATE | INT) WS? signed_clock (WS? timezone_offset)?)    // e.g. "s since 1990:01:01 12:21 +6
-
-    | DT_T_CLOCK    // e.g. "s since 1990:01:02T1900"
-    | (TIMESTAMP WS? timezone_offset?)    // e.g. "s since 19900101T190030"
+    DATE
+  | DT_T_CLOCK
+  | TIMESTAMP
 ;
-
-signed_clock:
-    HOUR_MINUTE_SECOND  // e.g. 10:11:12
-  | HOUR_MINUTE         // e.g. 10:11
-  | integer             // e.g. +101112
-;
-
-timezone_offset:
-    HOUR_MINUTE         // e.g. 10:11
-    | integer           // e.g. 1011
-    // NOTE: UDUNITS2 also supports named timezones, but these aren't documented
-    // in the grammar, and aren't yet implemented here.
-;
+//    (DATE | INT)     // e.g "s since 1990", "s since 1990:01[:02]"
+//
+//    | ((DATE | INT) WS? signed_clock (WS? (tz))?)    // e.g. "s since 1990:01:01 12:21 +6
+//
+//    | DT_T_CLOCK    // e.g. "s since 1990:01:02T1900"
+//    | (TIMESTAMP WS? timezone_offset?)    // e.g. "s since 19900101T190030"
+//;
+//
+//signed_clock:
+//    HOUR_MINUTE_SECOND  // e.g. 10:11:12
+//  | HOUR_MINUTE         // e.g. 10:11
+//  | integer             // e.g. +101112
+//;
+//
+//tz:
+//    timezone_offset
+//;
+//
+//timezone_offset:
+//    HOUR_MINUTE         // e.g. 10:11
+//    | integer           // e.g. 1011
+//    // NOTE: UDUNITS2 also supports named timezones, but these aren't documented
+//    // in the grammar, and aren't yet implemented here.
+//;

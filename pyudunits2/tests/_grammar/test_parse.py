@@ -3,9 +3,9 @@
 import re
 
 import pytest
-
+from pyudunits2._expr_graph import Identifier
 import cf_units
-from pyudunits2._grammar import normalize
+from pyudunits2._grammar import normalize, parse
 
 testdata = [
     "",
@@ -98,6 +98,14 @@ testdata = [
     "hours from 1990-1-1 0",
     "hours from 1990-1-1 0:1:1",
     "hours from 1990-1-1 0:0:1 +2",
+    "seconds since 1970-01-01T00:00:00Z",
+    "seconds since 1970-01Z",
+    "seconds since 1970-01-10TZ",
+    "seconds since 1970-01-10 Z",
+    "seconds since 1970-01-10T00:00UTC",
+    "seconds since 1970-01-10 00:00 GMT",
+    "s since 2020-0101",  # Same as 2020-01T01
+    "seconds since 20200101",  # Same as 2020-01-01
     "s since 1990-1-2+5:2:2",
     "s since 1990-1-2+5:2",
     "s since 1990-1-2 5 6:0",  # Undocumented packed_clock format?
@@ -106,10 +114,10 @@ testdata = [
     "s since 199022T1",  # UGLY! (bug?).
     "s since 1990 +2:0:2.9",
     "s since 1990-2T1",
+    "s since -1990 +2:0:2.9",
     "hours from 1990-1-1 -19:4:2",
     "hours from 1990-1-1 3+1",
     "seconds from 1990-1-1 0:0:0 +2550",
-    "s since 1990-1-2+5:2:2",
     "hours from 1990-1-1 0:1:60",
     "hours from 1990-1-1 0:1:62",
     "(hours since 1900) (s since 1980)",  # Really fruity behaviour.
@@ -147,6 +155,7 @@ invalid = [
     "hours from 1990-0-0 0:0:0",
     "hours since 1900-1 10:12 10:0 1",
     "s since 1990:01:02T1900 +1",
+    "1990-1-1 12:00:00",  # This form is only valid after the shift op.
 ]
 
 
@@ -160,6 +169,13 @@ def test_normed_units_equivalent(_, unit_str):
     # Now get the parsed form of the unit, and then convert that to
     # symbolic form. The two should match.
     unit_expr = normalize(unit_str)
+    if (
+        unit_expr.startswith("(")
+        and unit_expr.endswith(")")
+        and unit_expr.count("(") == 1
+    ):
+        # Udunits can't handle "(seconds since 1970-01Z)", yet it can handle "seconds since 1970-01Z"
+        unit_expr = unit_expr[1:-1]
     parsed_expr_symbol = cf_units.Unit(unit_expr).symbol
 
     # Whilst the symbolic form from udunits is ugly, it *is* acurate,
@@ -218,6 +234,7 @@ not_udunits = [
     ["ÿ"] * 2,
     ["µ"] * 2,
     ["µ°F·Ω⁻¹", "µ°F·Ω^-1"],
+    ["UTC"] * 2,  # Nothing special - it is a valid identifier name normally.
 ]
 
 
@@ -236,33 +253,6 @@ def test_invalid_in_udunits_but_still_parses(_, unit_str, expected):
 
     unit_expr = normalize(unit_str)
     assert unit_expr == expected
-
-
-known_issues = [
-    # Disabled due to crazy results from UDUNITS.
-    ["s since +1990 +2:0:2.9", SyntaxError],
-    ["s since -1990 +2:0:2.9", SyntaxError],
-    # The following are not yet implemented.
-    ["hours since 2001-12-31 23:59:59.999UTC", SyntaxError],
-    ["hours since 2001-12-31 23:59:59.999 Z", SyntaxError],
-    ["hours since 2001-12-31 23:59:59.999 GMT", SyntaxError],
-]
-
-
-@pytest.mark.parametrize("_, unit_str, expected", multi_enumerate(known_issues))
-def test_known_issues(_, unit_str, expected):
-    # Unfortunately the grammar is not perfect.
-    # These are the cases that don't work yet but which do work with udunits.
-
-    # Make sure udunits can read it.
-    _ = cf_units.Unit(unit_str).symbol
-
-    if isinstance(expected, type) and issubclass(expected, Exception):
-        with pytest.raises(SyntaxError):
-            unit_expr = normalize(unit_str)
-    else:
-        unit_expr = normalize(unit_str)
-        assert unit_expr != expected
 
 
 def test_syntax_parse_error_quality():
@@ -297,6 +287,8 @@ not_allowed = [
     "m++2",
     "m s^(-1)",
     "m per /s",
+    "s @ UTC",
+    "s @ Z",
 ]
 
 
@@ -310,3 +302,15 @@ def test_invalid_syntax_units(_, unit_str):
 
     with pytest.raises(SyntaxError):
         normalize(unit_str)
+
+
+@pytest.mark.parametrize(
+    "identifier",
+    [
+        "UTC",
+        "Z",
+        # 'since',
+    ],
+)
+def test_parse_no_special_cases(identifier):
+    assert parse(identifier) == Identifier(identifier)

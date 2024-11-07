@@ -44,8 +44,8 @@ class UnitParseVisitor(udunits2ParserVisitor):
         "DIVIDE": graph.Operand("/"),  # Drop context, such as " per ".
         "E_POWER": str,
         "FLOAT": lambda c: graph.Number(Decimal(c)),  # Preserve precision as decimal.
-        "HOUR_MINUTE_SECOND": str,
-        "HOUR_MINUTE": str,
+        # "HOUR_MINUTE_SECOND": str,
+        # "HOUR_MINUTE": str,
         "ID": graph.Identifier,
         "INT": lambda c: graph.Number(int(c)),
         "LOG": lambda c: graph.Operand(c.split("(")[0].strip()),

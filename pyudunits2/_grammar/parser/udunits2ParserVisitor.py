@@ -46,13 +46,5 @@ class udunits2ParserVisitor(ParseTreeVisitor):
     def visitTimestamp(self, ctx: udunits2Parser.TimestampContext):
         return self.visitChildren(ctx)
 
-    # Visit a parse tree produced by udunits2Parser#signed_clock.
-    def visitSigned_clock(self, ctx: udunits2Parser.Signed_clockContext):
-        return self.visitChildren(ctx)
-
-    # Visit a parse tree produced by udunits2Parser#timezone_offset.
-    def visitTimezone_offset(self, ctx: udunits2Parser.Timezone_offsetContext):
-        return self.visitChildren(ctx)
-
 
 del udunits2Parser
