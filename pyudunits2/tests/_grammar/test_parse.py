@@ -98,6 +98,7 @@ testdata = [
     "hours from 1990-1-1 0",
     "hours from 1990-1-1 0:1:1",
     "hours from 1990-1-1 0:0:1 +2",
+    "s since 1990-01-02 Z",  # But not "s since 1990-01-02 GMT"
     "s since 1990-1-2+5:2:2",
     "s since 1990-1-2+5:2",
     "s since 1990-1-2 5 6:0",  # Undocumented packed_clock format?
@@ -153,6 +154,8 @@ invalid = [
     "hours since 1900-1 10:12 10:0 1",
     "s since 1990:01:02T1900 +1",
     "s since 1990:01:02T1900 TZ",
+    "s since 1990-01-02T1900 TZ",
+    "s since 1990:01:02 GMT",
 ]
 
 
@@ -230,6 +233,8 @@ not_udunits = [
     ["ÿ"] * 2,
     ["µ"] * 2,
     ["µ°F·Ω⁻¹", "µ°F·Ω^-1"],
+    #  Not a valid unit (but with Z instead of GMT it would be fine)
+    ["s since 1990-01-02 GMT", "(s @ 1990-01-02 GMT)"],
 ]
 
 
