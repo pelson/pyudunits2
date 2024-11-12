@@ -391,6 +391,18 @@ class Unit:
     def is_dimensionless(self) -> bool:
         return self.dimensionality() == {}
 
+    # def calendar_based(self) -> bool:
+    #     """
+    #     Return whether this unit needs a calendar to interpret the unit correctly.
+    #
+    #     """
+    #     dimensionality = self.dimensionality()
+    def has_time_unit(self):
+        for basis_unit in self.dimensionality().keys():
+            if basis_unit.is_time_unit:
+                return True
+        return False
+
     def is_convertible_to(self, other: Unit) -> bool:
         self_d = self.dimensionality()
         other_d = other.dimensionality()
@@ -423,14 +435,12 @@ class NamedUnit(Unit):
 
 class BasisUnit(NamedUnit):
     def __init__(
-        self,
-        *,
-        names: Names,
-        dimensionless: bool = False,
+        self, *, names: Names, dimensionless: bool = False, is_time_unit: bool = False
     ):
         ref = names.name.singular or names.symbols[0]
         self._ref = ref
         self._dimensionless = dimensionless
+        self._is_time_unit = is_time_unit
         super().__init__(
             definition=Identifier(ref),
             identifier_references={Identifier(ref): self},
@@ -455,6 +465,13 @@ class BasisUnit(NamedUnit):
             return {}
         else:
             return {self: 1}
+
+    def has_time_unit(self):
+        return self._is_time_unit
+
+    @property
+    def is_time_unit(self):
+        return self._is_time_unit
 
 
 # class DefinedUnit(Unit):

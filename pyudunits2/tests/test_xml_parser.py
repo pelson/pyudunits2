@@ -51,3 +51,28 @@ def test__unit__dimensionless(
         assert unit.is_dimensionless()
     else:
         assert not unit.is_dimensionless()
+
+
+@pytest.mark.parametrize(
+    ["unit_str", "has_time_unit"],
+    [
+        ["s", True],
+        ["m", False],
+        ["m/s", True],
+        ["years", True],
+        ["m @ 20", False],
+        ["hr @ 20", True],
+        ["hr @ 20", True],
+        ["light_year", False],
+        ["eon", True],
+        ["s2/s", True],
+        ["s/s", False],
+    ],
+)
+def test__unit__has_time_unit(
+    unit_system: UnitSystem,
+    unit_str: str,
+    has_time_unit: dict,
+):
+    unit = unit_system.unit(unit_str)
+    assert unit.has_time_unit() is has_time_unit
