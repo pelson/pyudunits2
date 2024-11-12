@@ -199,9 +199,16 @@ class UDUNITS2XMLParser:
                     assert base_tag is not None
                     assert not base_tag.text and not base_tag.children
 
+                # Udunits2 knows about time units as a special case. For example
+                # https://github.com/Unidata/UDUNITS-2/blob/c83da987387db1174cd2266b73dd5dd556f4476b/lib/udunits-1.c#L50
+                # Instead of implementing this special casing in the units handling,
+                # we attach a special attribute to a time basis unit.
+                is_time_unit = reference.name.singular == "second"
+
                 unit = BasisUnit(
                     names=reference,
                     dimensionless=dimensionless,
+                    is_time_unit=is_time_unit,
                 )
 
             if unit_tag.children:

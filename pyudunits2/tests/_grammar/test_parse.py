@@ -98,14 +98,20 @@ testdata = [
     "hours from 1990-1-1 0",
     "hours from 1990-1-1 0:1:1",
     "hours from 1990-1-1 0:0:1 +2",
+    "s since 1990-01-02 Z",  # But not "s since 1990-01-02 GMT"
     "s since 1990-1-2+5:2:2",
     "s since 1990-1-2+5:2",
     "s since 1990-1-2 5 6:0",  # Undocumented packed_clock format?
     "s since 19900102T5",  # Packed format (undocumented?)
     "s since 19900101T190030 +2",
+    "s since 19900101T190030 GMT",
     "s since 199022T1",  # UGLY! (bug?).
     "s since 1990 +2:0:2.9",
     "s since 1990-2T1",
+    "hours since 2001-12-31 23:59:59.999UTC",
+    "hours since 2001-12-31 23:59:59.999 Z",
+    "hours since 2001-12-31 23:59:59.999 GMT",
+    "hours since 2001-12-31TZ",
     "hours from 1990-1-1 -19:4:2",
     "hours from 1990-1-1 3+1",
     "seconds from 1990-1-1 0:0:0 +2550",
@@ -147,6 +153,9 @@ invalid = [
     "hours from 1990-0-0 0:0:0",
     "hours since 1900-1 10:12 10:0 1",
     "s since 1990:01:02T1900 +1",
+    "s since 1990:01:02T1900 TZ",
+    "s since 1990-01-02T1900 TZ",
+    "s since 1990:01:02 GMT",
 ]
 
 
@@ -160,6 +169,12 @@ def test_normed_units_equivalent(_, unit_str):
     # Now get the parsed form of the unit, and then convert that to
     # symbolic form. The two should match.
     unit_expr = normalize(unit_str)
+    if (
+        unit_expr.startswith("(")
+        and unit_expr.endswith(")")
+        and unit_expr.count("(") == 1
+    ):
+        unit_expr = unit_expr[1:-1]
     parsed_expr_symbol = cf_units.Unit(unit_expr).symbol
 
     # Whilst the symbolic form from udunits is ugly, it *is* acurate,
@@ -218,6 +233,8 @@ not_udunits = [
     ["ÿ"] * 2,
     ["µ"] * 2,
     ["µ°F·Ω⁻¹", "µ°F·Ω^-1"],
+    #  Not a valid unit (but with Z instead of GMT it would be fine)
+    ["s since 1990-01-02 GMT", "(s @ 1990-01-02 GMT)"],
 ]
 
 
@@ -242,10 +259,6 @@ known_issues = [
     # Disabled due to crazy results from UDUNITS.
     ["s since +1990 +2:0:2.9", SyntaxError],
     ["s since -1990 +2:0:2.9", SyntaxError],
-    # The following are not yet implemented.
-    ["hours since 2001-12-31 23:59:59.999UTC", SyntaxError],
-    ["hours since 2001-12-31 23:59:59.999 Z", SyntaxError],
-    ["hours since 2001-12-31 23:59:59.999 GMT", SyntaxError],
 ]
 
 
