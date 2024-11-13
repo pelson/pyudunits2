@@ -14,7 +14,7 @@ def serializedATN():
         4,
         1,
         27,
-        146,
+        150,
         2,
         0,
         7,
@@ -303,9 +303,18 @@ def serializedATN():
         8,
         1,
         8,
+        1,
+        8,
         3,
         8,
-        135,
+        136,
+        8,
+        8,
+        1,
+        8,
+        3,
+        8,
+        139,
         8,
         8,
         1,
@@ -316,16 +325,16 @@ def serializedATN():
         9,
         3,
         9,
-        140,
-        8,
-        9,
-        1,
-        10,
-        1,
-        10,
-        3,
-        10,
         144,
+        8,
+        9,
+        1,
+        10,
+        1,
+        10,
+        3,
+        10,
+        148,
         8,
         10,
         1,
@@ -346,7 +355,7 @@ def serializedATN():
         18,
         20,
         0,
-        3,
+        4,
         2,
         0,
         1,
@@ -359,11 +368,17 @@ def serializedATN():
         9,
         25,
         25,
+        2,
+        0,
+        18,
+        18,
+        26,
+        26,
         1,
         0,
         20,
         21,
-        168,
+        174,
         0,
         23,
         1,
@@ -413,19 +428,19 @@ def serializedATN():
         0,
         0,
         16,
-        134,
+        138,
         1,
         0,
         0,
         0,
         18,
-        139,
+        143,
         1,
         0,
         0,
         0,
         20,
-        143,
+        147,
         1,
         0,
         0,
@@ -1055,7 +1070,7 @@ def serializedATN():
         0,
         0,
         107,
-        135,
+        139,
         7,
         1,
         0,
@@ -1068,8 +1083,8 @@ def serializedATN():
         0,
         109,
         111,
-        5,
-        18,
+        7,
+        2,
         0,
         0,
         110,
@@ -1151,63 +1166,63 @@ def serializedATN():
         0,
         0,
         119,
-        135,
+        139,
         1,
         0,
         0,
         0,
         120,
-        135,
-        5,
-        27,
-        0,
+        123,
+        3,
+        12,
+        6,
         0,
         121,
-        123,
-        5,
-        26,
-        0,
-        0,
-        122,
         124,
-        5,
-        18,
-        0,
-        0,
-        123,
-        122,
-        1,
-        0,
-        0,
-        0,
-        123,
-        124,
-        1,
-        0,
-        0,
-        0,
-        124,
-        127,
-        1,
-        0,
-        0,
-        0,
-        125,
-        128,
         3,
         20,
         10,
         0,
-        126,
-        128,
+        122,
+        124,
         5,
         20,
         0,
         0,
-        127,
-        125,
+        123,
+        121,
         1,
         0,
+        0,
+        0,
+        123,
+        122,
+        1,
+        0,
+        0,
+        0,
+        123,
+        124,
+        1,
+        0,
+        0,
+        0,
+        124,
+        139,
+        1,
+        0,
+        0,
+        0,
+        125,
+        127,
+        5,
+        27,
+        0,
+        0,
+        126,
+        128,
+        5,
+        18,
         0,
         0,
         127,
@@ -1223,21 +1238,27 @@ def serializedATN():
         0,
         0,
         128,
-        135,
+        131,
         1,
         0,
         0,
         0,
         129,
-        131,
-        7,
-        1,
-        0,
+        132,
+        3,
+        20,
+        10,
         0,
         130,
         132,
         5,
-        18,
+        20,
+        0,
+        0,
+        131,
+        129,
+        1,
+        0,
         0,
         0,
         131,
@@ -1253,7 +1274,7 @@ def serializedATN():
         0,
         0,
         132,
-        133,
+        139,
         1,
         0,
         0,
@@ -1261,118 +1282,148 @@ def serializedATN():
         133,
         135,
         7,
-        2,
+        1,
         0,
         0,
         134,
+        136,
+        5,
+        18,
+        0,
+        0,
+        135,
+        134,
+        1,
+        0,
+        0,
+        0,
+        135,
+        136,
+        1,
+        0,
+        0,
+        0,
+        136,
+        137,
+        1,
+        0,
+        0,
+        0,
+        137,
+        139,
+        7,
+        3,
+        0,
+        0,
+        138,
         107,
         1,
         0,
         0,
         0,
-        134,
+        138,
         108,
         1,
         0,
         0,
         0,
-        134,
+        138,
         120,
         1,
         0,
         0,
         0,
-        134,
-        121,
+        138,
+        125,
         1,
         0,
         0,
         0,
-        134,
-        129,
+        138,
+        133,
         1,
         0,
         0,
         0,
-        135,
+        139,
         17,
         1,
         0,
         0,
         0,
-        136,
         140,
+        144,
         5,
         22,
         0,
         0,
-        137,
-        140,
+        141,
+        144,
         5,
         23,
         0,
         0,
-        138,
-        140,
+        142,
+        144,
         3,
         12,
         6,
         0,
-        139,
-        136,
-        1,
-        0,
-        0,
-        0,
-        139,
-        137,
-        1,
-        0,
-        0,
-        0,
-        139,
-        138,
-        1,
-        0,
-        0,
-        0,
+        143,
         140,
+        1,
+        0,
+        0,
+        0,
+        143,
+        141,
+        1,
+        0,
+        0,
+        0,
+        143,
+        142,
+        1,
+        0,
+        0,
+        0,
+        144,
         19,
         1,
         0,
         0,
         0,
-        141,
-        144,
+        145,
+        148,
         5,
         23,
         0,
         0,
-        142,
-        144,
+        146,
+        148,
         3,
         12,
         6,
         0,
-        143,
-        141,
+        147,
+        145,
         1,
         0,
         0,
         0,
-        143,
-        142,
+        147,
+        146,
         1,
         0,
         0,
         0,
-        144,
+        148,
         21,
         1,
         0,
         0,
         0,
-        22,
+        23,
         23,
         30,
         34,
@@ -1392,9 +1443,10 @@ def serializedATN():
         123,
         127,
         131,
-        134,
-        139,
+        135,
+        138,
         143,
+        147,
     ]
 
 
@@ -1433,6 +1485,8 @@ class udunits2Parser(Parser):
         "<INVALID>",
         "<INVALID>",
         "'-'",
+        "<INVALID>",
+        "'T'",
     ]
 
     symbolicNames = [
@@ -1462,8 +1516,8 @@ class udunits2Parser(Parser):
         "HOUR_MINUTE",
         "M_MINUS",
         "DATE",
+        "T",
         "TIMESTAMP",
-        "DT_T_CLOCK",
     ]
 
     RULE_unit_spec = 0
@@ -1518,8 +1572,8 @@ class udunits2Parser(Parser):
     HOUR_MINUTE = 23
     M_MINUS = 24
     DATE = 25
-    TIMESTAMP = 26
-    DT_T_CLOCK = 27
+    T = 26
+    TIMESTAMP = 27
 
     def __init__(self, input: TokenStream, output: TextIO = sys.stdout):
         super().__init__(input, output)
@@ -2180,14 +2234,17 @@ class udunits2Parser(Parser):
             else:
                 return self.getToken(udunits2Parser.WS, i)
 
+        def T(self):
+            return self.getToken(udunits2Parser.T, 0)
+
         def timezone_offset(self):
             return self.getTypedRuleContext(udunits2Parser.Timezone_offsetContext, 0)
 
         def TIMEZONE(self):
             return self.getToken(udunits2Parser.TIMEZONE, 0)
 
-        def DT_T_CLOCK(self):
-            return self.getToken(udunits2Parser.DT_T_CLOCK, 0)
+        def integer(self):
+            return self.getTypedRuleContext(udunits2Parser.IntegerContext, 0)
 
         def TIMESTAMP(self):
             return self.getToken(udunits2Parser.TIMESTAMP, 0)
@@ -2209,9 +2266,9 @@ class udunits2Parser(Parser):
         self.enterRule(localctx, 16, self.RULE_timestamp)
         self._la = 0  # Token type
         try:
-            self.state = 134
+            self.state = 138
             self._errHandler.sync(self)
-            la_ = self._interp.adaptivePredict(self._input, 19, self._ctx)
+            la_ = self._interp.adaptivePredict(self._input, 20, self._ctx)
             if la_ == 1:
                 self.enterOuterAlt(localctx, 1)
                 self.state = 107
@@ -2235,9 +2292,14 @@ class udunits2Parser(Parser):
                 self.state = 110
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                if _la == 18:
+                if _la == 18 or _la == 26:
                     self.state = 109
-                    self.match(udunits2Parser.WS)
+                    _la = self._input.LA(1)
+                    if not (_la == 18 or _la == 26):
+                        self._errHandler.recoverInline(self)
+                    else:
+                        self._errHandler.reportMatch(self)
+                        self.consume()
 
                 self.state = 112
                 self.signed_clock()
@@ -2269,29 +2331,44 @@ class udunits2Parser(Parser):
             elif la_ == 3:
                 self.enterOuterAlt(localctx, 3)
                 self.state = 120
-                self.match(udunits2Parser.DT_T_CLOCK)
+                self.integer()
+                self.state = 123
+                self._errHandler.sync(self)
+                token = self._input.LA(1)
+                if token in [1, 9, 23]:
+                    self.state = 121
+                    self.timezone_offset()
+                    pass
+                elif token in [20]:
+                    self.state = 122
+                    self.match(udunits2Parser.TIMEZONE)
+                    pass
+                elif token in [-1, 7]:
+                    pass
+                else:
+                    pass
                 pass
 
             elif la_ == 4:
                 self.enterOuterAlt(localctx, 4)
-                self.state = 121
+                self.state = 125
                 self.match(udunits2Parser.TIMESTAMP)
-                self.state = 123
+                self.state = 127
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
                 if _la == 18:
-                    self.state = 122
+                    self.state = 126
                     self.match(udunits2Parser.WS)
 
-                self.state = 127
+                self.state = 131
                 self._errHandler.sync(self)
                 token = self._input.LA(1)
                 if token in [1, 9, 23]:
-                    self.state = 125
+                    self.state = 129
                     self.timezone_offset()
                     pass
                 elif token in [20]:
-                    self.state = 126
+                    self.state = 130
                     self.match(udunits2Parser.TIMEZONE)
                     pass
                 elif token in [-1, 7]:
@@ -2302,21 +2379,21 @@ class udunits2Parser(Parser):
 
             elif la_ == 5:
                 self.enterOuterAlt(localctx, 5)
-                self.state = 129
+                self.state = 133
                 _la = self._input.LA(1)
                 if not (_la == 9 or _la == 25):
                     self._errHandler.recoverInline(self)
                 else:
                     self._errHandler.reportMatch(self)
                     self.consume()
-                self.state = 131
+                self.state = 135
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
                 if _la == 18:
-                    self.state = 130
+                    self.state = 134
                     self.match(udunits2Parser.WS)
 
-                self.state = 133
+                self.state = 137
                 _la = self._input.LA(1)
                 if not (_la == 20 or _la == 21):
                     self._errHandler.recoverInline(self)
@@ -2364,22 +2441,22 @@ class udunits2Parser(Parser):
         localctx = udunits2Parser.Signed_clockContext(self, self._ctx, self.state)
         self.enterRule(localctx, 18, self.RULE_signed_clock)
         try:
-            self.state = 139
+            self.state = 143
             self._errHandler.sync(self)
             token = self._input.LA(1)
             if token in [22]:
                 self.enterOuterAlt(localctx, 1)
-                self.state = 136
+                self.state = 140
                 self.match(udunits2Parser.HOUR_MINUTE_SECOND)
                 pass
             elif token in [23]:
                 self.enterOuterAlt(localctx, 2)
-                self.state = 137
+                self.state = 141
                 self.match(udunits2Parser.HOUR_MINUTE)
                 pass
             elif token in [1, 9]:
                 self.enterOuterAlt(localctx, 3)
-                self.state = 138
+                self.state = 142
                 self.integer()
                 pass
             else:
@@ -2421,17 +2498,17 @@ class udunits2Parser(Parser):
         localctx = udunits2Parser.Timezone_offsetContext(self, self._ctx, self.state)
         self.enterRule(localctx, 20, self.RULE_timezone_offset)
         try:
-            self.state = 143
+            self.state = 147
             self._errHandler.sync(self)
             token = self._input.LA(1)
             if token in [23]:
                 self.enterOuterAlt(localctx, 1)
-                self.state = 141
+                self.state = 145
                 self.match(udunits2Parser.HOUR_MINUTE)
                 pass
             elif token in [1, 9]:
                 self.enterOuterAlt(localctx, 2)
-                self.state = 142
+                self.state = 146
                 self.integer()
                 pass
             else:

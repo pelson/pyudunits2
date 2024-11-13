@@ -397,6 +397,7 @@ class Unit:
     #
     #     """
     #     dimensionality = self.dimensionality()
+
     def has_time_unit(self):
         for basis_unit in self.dimensionality().keys():
             if basis_unit.is_time_unit:

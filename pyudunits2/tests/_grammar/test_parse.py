@@ -111,6 +111,7 @@ testdata = [
     "hours since 2001-12-31 23:59:59.999UTC",
     "hours since 2001-12-31 23:59:59.999 Z",
     "hours since 2001-12-31 23:59:59.999 GMT",
+    "days since 1970-01-01T00:00:00 UTC",
     "hours since 2001-12-31TZ",
     "hours from 1990-1-1 -19:4:2",
     "hours from 1990-1-1 3+1",
