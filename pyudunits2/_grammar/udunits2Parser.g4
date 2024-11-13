@@ -57,9 +57,9 @@ number:
 timestamp:
     (DATE | INT)     // e.g "s since 1990", "s since 1990:01[:02]"
 
-    | ((DATE | INT) WS? signed_clock (WS? (timezone_offset | TIMEZONE)?))    // e.g. "s since 1990:01:01 12:21 +6
+    | ((DATE | INT) (WS | T)? signed_clock (WS? (timezone_offset | TIMEZONE)?))    // e.g. "s since 1990-01-01 12:21 +6" and s since 1990-01-01T12:21 UTC"
 
-    | DT_T_CLOCK    // e.g. "s since 1990:01:02T1900"
+    | (integer (timezone_offset | TIMEZONE)?)    // e.g. "s since 199001021900 +10"
     | (TIMESTAMP WS? (timezone_offset | TIMEZONE)?)    // e.g. "s since 19900101T190030"
     | ((DATE | INT) WS? (TIMEZONE | TZ))    // e.g. "s since 1990-01 UTC"
 ;
