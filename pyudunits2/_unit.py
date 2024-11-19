@@ -1,8 +1,11 @@
 from __future__ import annotations
 
+# NOTE: No unit_system imports allowed.
 from ._expr_graph import Node, Identifier
 from ._unit_reference import UnitReference, Prefix
 from ._exceptions import IncompatibleUnitsError
+from ._datetime import DateTime
+from ._expr.normaliser import NormalisedNode
 
 import typing
 
@@ -177,6 +180,12 @@ class Converter:
         For example:
 
             10 lg(re m) is really lg(re 10) m
+
+
+        Date units... sigh. We avoid converting them at all, since it requires a calendar in general.
+            $ udunits2 -H '(m/m) days since 2000' -W '(km/m) days since 2001'
+                1 (m/m) days since 2000 = -0.365 ((km/m) days since 2001)
+                x/((km/m) days since 2001) = 0.001*(x/((m/m) days since 2000)) - 0.366
         """
         self._from_unit = from_unit
         self._to_unit = to_unit
@@ -251,7 +260,7 @@ class Dimensionality:
     def __init__(self, dimensionality: dict[BasisUnit, int]):
         self._dimensionality = dimensionality
 
-    def __eq__(self, other: Dimensionality):
+    def __eq__(self, other: typing.Any) -> bool:
         if isinstance(other, dict):
             return self._name_form() == other
         if type(self) is not type(other):
@@ -272,6 +281,9 @@ class Dimensionality:
     def __str__(self):
         return str(self._name_form())
 
+    def __len__(self):
+        return len(self._dimensionality)
+
     def items(self):
         return self._dimensionality.items()
 
@@ -282,13 +294,27 @@ class Dimensionality:
         return self._dimensionality.values()
 
 
-class Unit:
+class UnitInterface(typing.Protocol):
+    def dimensionality(self) -> Dimensionality: ...
+
+    def is_dimensionless(self) -> bool: ...
+
+    def is_convertible_to(self, other: UnitInterface) -> bool: ...
+
+
+class Unit(UnitInterface):
     def __init__(
         self,
         *,
-        definition: Node,
+        definition: Node | NormalisedNode,
         identifier_references: typing.Mapping[Identifier, Unit | Prefix],
     ):
+        if isinstance(definition, NormalisedNode):
+            definition = definition.unit_expr
+        else:
+            # Make sure we can normalise the definition without issue.
+            _ = NormalisedNode(definition, identifier_references)
+
         self._definition: Node = definition
         self._identifier_references = identifier_references
         self._cached_symbolic_definition = None
@@ -391,16 +417,16 @@ class Unit:
     def is_dimensionless(self) -> bool:
         return self.dimensionality() == {}
 
-    # def calendar_based(self) -> bool:
-    #     """
-    #     Return whether this unit needs a calendar to interpret the unit correctly.
-    #
-    #     """
-    #     dimensionality = self.dimensionality()
+    def is_time_unit(self) -> bool:
+        basis = self.dimensionality()
+        if len(basis) == 1:
+            [basis_unit, basis_unit_order] = next(iter(basis.items()))
+            return basis_unit.is_time_unit() and basis_unit_order == 1
+        return False
 
     def has_time_unit(self):
         for basis_unit in self.dimensionality().keys():
-            if basis_unit.is_time_unit:
+            if basis_unit.is_time_unit():
                 return True
         return False
 
@@ -418,6 +444,37 @@ class Unit:
 
 
 Names = UnitReference
+
+
+class DateUnit(UnitInterface):
+    def __init__(self, unit: Unit, reference_date: DateTime):
+        assert unit.is_time_unit()
+        self._unit = unit
+        self._reference_date = reference_date
+
+    def is_convertible_to(self, other: UnitInterface) -> bool:
+        # TODO: We can start to do better now that we have rich dates.
+        return False
+
+    @property
+    def reference_date(self) -> DateTime:
+        return self._reference_date
+
+    def is_dimensionless(self) -> bool:
+        return False
+
+    def is_time_unit(self):
+        return True
+
+    def dimensionality(self) -> Dimensionality:
+        return self._unit.dimensionality()
+
+    def _symbolic_definition(self):
+        # TODO: This should be specialised for dates.
+        return self._unit._symbolic_definition()
+
+    def expanded(self):
+        return f"{self._unit.expanded()} since {self.reference_date}"
 
 
 class NamedUnit(Unit):
@@ -470,7 +527,6 @@ class BasisUnit(NamedUnit):
     def has_time_unit(self):
         return self._is_time_unit
 
-    @property
     def is_time_unit(self):
         return self._is_time_unit
 

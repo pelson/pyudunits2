@@ -59,6 +59,7 @@ def simple_unit_system() -> UnitSystem:
                 name=Name(singular="second", plural="seconds"),
                 symbols=("s",),
             ),
+            is_time_unit=True,
         ),
     )
 

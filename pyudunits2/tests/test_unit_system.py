@@ -1,5 +1,7 @@
+import contextlib
+
 from pyudunits2 import UnitSystem, UnresolvableUnitException
-from pyudunits2._unit import Unit
+from pyudunits2._unit import Unit, DateUnit
 import pytest
 
 
@@ -30,7 +32,7 @@ def test__unit__expansion(
     "unit_spec",
     [
         "other",
-        "deci",  # A valid prefix.
+        "deci",  # A valid prefix in the unit system.
     ],
 )
 def test__unit__undefined_unit(simple_unit_system: UnitSystem, unit_spec):
@@ -53,3 +55,28 @@ def test__unit__symbolic_eq(
     unit2 = simple_unit_system.unit(unit_rhs)
 
     assert unit1 == unit2
+
+
+no_exception = contextlib.nullcontext()
+
+
+@pytest.mark.parametrize(
+    ["unit_expr", "expectation"],
+    [
+        ["s @ 2000", no_exception],
+        ["hours since 2000-01-01T00:00", no_exception],
+        ["kilohours since 2000-01-01T00:00", no_exception],
+        # If we do anything with the date, it isn't a date in udunits2, but we still reject it as a unit.
+        ["m (s @ 2000)", pytest.raises(ValueError, match="...")],
+        # We could abuse the syntax and try to shift by a non time based unit too... this is rejected
+        # by udunits2.
+        ["m @ 2000-01-01T00:00", pytest.raises(ValueError, match="...")],
+        ["(m/m) s @ 2000-01-01T00:00", no_exception],  # Normalises to a date.
+        ["(1000) s @ 2000-01-01T00:00", no_exception],
+        ["(m/hr) s @ 2000-01-01T00:00", pytest.raises(ValueError, match="...")],
+    ],
+)
+def test__unit__date_unit(simple_unit_system: UnitSystem, unit_expr: str, expectation):
+    with expectation:
+        unit = simple_unit_system.unit(unit_expr)
+        assert isinstance(unit, DateUnit)
