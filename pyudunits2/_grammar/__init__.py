@@ -39,7 +39,7 @@ class UnitParseVisitor(udunits2ParserVisitor):
     TERM_HANDLERS = {
         "CLOSE_PAREN": None,
         "DATE": str,
-        "DIVIDE": graph.Operand("/"),
+        "DIVIDE": "/",  # Drop context, such as " per ".
         "E_POWER": str,
         "FLOAT": lambda c: graph.Number(
             value=Decimal(c), raw_content=c
@@ -49,7 +49,7 @@ class UnitParseVisitor(udunits2ParserVisitor):
         "ID": graph.Identifier,
         "INT": lambda c: graph.Number(value=int(c), raw_content=c),
         "LOG": lambda c: graph.Operand(c.split("(")[0].strip()),
-        "MULTIPLY": graph.Operand("*"),
+        "MULTIPLY": None,
         "OPEN_PAREN": None,
         "PERIOD": str,
         "RAISE": None,
@@ -79,7 +79,7 @@ class UnitParseVisitor(udunits2ParserVisitor):
             result = result[0]
         return result
 
-    def visitTerminal(self, ctx):
+    def visitTerminal(self, ctx) -> graph.Terminal | None | str:
         """
         Return a graph.Node, or None, to represent the given lexer terminal.
 
@@ -100,9 +100,8 @@ class UnitParseVisitor(udunits2ParserVisitor):
             else:
                 result = handler
 
-        if result is not None and not isinstance(result, graph.Node):
-            print("RE:", result, type(result), callable(result))
-            result = graph.Terminal(result)
+        if result is not None and not isinstance(result, (graph.Node, str)):
+            raise ValueError(f"Unhandled token {result} (type {type(result)})")
         return result
 
     def visitProduct(self, ctx):
@@ -110,25 +109,15 @@ class UnitParseVisitor(udunits2ParserVisitor):
         # types ('/' and '*'), so we have to do the grunt work here.
         nodes = self.visitChildren(ctx)
 
-        op_type = graph.Multiply
-
         if isinstance(nodes, list):
-            # print('NODES:', nodes)
+            if len(nodes) == 3 and nodes[1] == "/":
+                op_type = graph.Divide
+            else:
+                assert len(nodes) == 2
+                op_type = graph.Multiply
+            first = nodes[0]
             last = nodes[-1]
-            if len(nodes) not in (2, 3):
-                raise ValueError(f"More nodes than I know what to do with {nodes}")
-            # Walk the nodes backwards applying the appropriate binary
-            # operation to each node successively.
-            # e.g. 1*2/3*4*5 = 1*(2/(3*(4*5)))
-            for node in nodes[:-1][::-1]:
-                if isinstance(node, graph.Operand):
-                    if node.content == "/":
-                        op_type = graph.Divide
-                    else:
-                        op_type = graph.Multiply
-                else:
-                    last = op_type(node, last)
-            node = last
+            node = op_type(first, last)
         else:
             node = nodes
         return node
@@ -170,7 +159,6 @@ class UnitParseVisitor(udunits2ParserVisitor):
         node = self.visitChildren(ctx)
         if not node:
             # We have an empty unit
-            print("UNHANDLED:", node, ctx)
             node = graph.Unhandled("")
         return node
 
