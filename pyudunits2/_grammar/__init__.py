@@ -48,7 +48,7 @@ class UnitParseVisitor(udunits2ParserVisitor):
         "HOUR_MINUTE": str,
         "ID": graph.Identifier,
         "INT": lambda c: graph.Number(value=int(c), raw_content=c),
-        "LOG": lambda c: graph.Operand(c.split("(")[0].strip()),
+        "LOG": lambda c: c.split("(")[0].strip(),
         "MULTIPLY": None,
         "OPEN_PAREN": None,
         "PERIOD": str,
@@ -142,8 +142,8 @@ class UnitParseVisitor(udunits2ParserVisitor):
         nodes = self.visitChildren(ctx)
         if isinstance(nodes, list):
             assert len(nodes) == 2
-            assert isinstance(nodes[0], graph.Operand)
-            base_function_name: str = nodes[0].content
+            assert isinstance(nodes[0], str)
+            base_function_name = nodes[0]
             node = graph.Logarithm(base_function_name, nodes[1])
         else:
             node = nodes

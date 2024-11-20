@@ -55,18 +55,6 @@ class Unhandled(Terminal):
 
 
 @dataclasses.dataclass(frozen=True)
-class Operand(Terminal):  # TODO: Rename to operator.
-    operator: str
-
-    @property
-    def content(self):
-        return self.operator
-
-    def __str__(self):
-        return str(self.operator)
-
-
-@dataclasses.dataclass(frozen=True)
 class Number(Terminal):
     value: decimal.Decimal | int
     raw_content: str | None
