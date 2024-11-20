@@ -1,5 +1,3 @@
-# Copyright cf-units contributors
-
 """
 Compiles the UDUNITS-2 grammar using ANTLR4.
 

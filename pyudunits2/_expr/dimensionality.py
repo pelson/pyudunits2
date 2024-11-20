@@ -1,6 +1,6 @@
-from .._expr_graph import Visitor
+from .graph import Visitor
 import typing
-from .. import _expr_graph as unit_graph
+from . import graph as unit_graph
 
 
 class DimensionalityCounter(Visitor):

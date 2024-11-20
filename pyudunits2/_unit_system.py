@@ -5,9 +5,9 @@ import typing
 
 from ._unit_reference import Prefix
 
-from ._expr_graph import Node
+from ._expr.graph import Node
 from ._expr.atoms import ExtractIdentifiers
-from . import _expr_graph as unit_graph
+from ._expr import graph as unit_graph
 from ._grammar import parse
 from ._exceptions import UnresolvableUnitException
 
@@ -225,8 +225,6 @@ class UnitSystem:
         elif unit := self._unit_by_symbol(name_or_symbol):
             result = unit
 
-        from ._expr_graph import Multiply, Identifier
-
         if result is None:
             for prefix_name, prefix in self._prefix_names.items():
                 if name_or_symbol.startswith(prefix_name):
@@ -235,13 +233,17 @@ class UnitSystem:
                     ) or self._unit_by_symbol(name_or_symbol[len(prefix_name) :])
                     if unit:
                         refs = {
-                            Identifier(prefix_name): prefix,
-                            Identifier(name_or_symbol[len(prefix_name) :]): unit,
+                            unit_graph.Identifier(prefix_name): prefix,
+                            unit_graph.Identifier(
+                                name_or_symbol[len(prefix_name) :]
+                            ): unit,
                         }
                         result = Unit(
-                            definition=Multiply(
-                                Identifier(prefix_name),
-                                Identifier(name_or_symbol[len(prefix_name) :]),
+                            definition=unit_graph.Multiply(
+                                unit_graph.Identifier(prefix_name),
+                                unit_graph.Identifier(
+                                    name_or_symbol[len(prefix_name) :]
+                                ),
                             ),
                             identifier_references=refs,
                         )
@@ -255,13 +257,17 @@ class UnitSystem:
                     ) or self._unit_by_symbol(name_or_symbol[len(prefix_symbol) :])
                     if unit:
                         refs = {
-                            Identifier(prefix_symbol): prefix,
-                            Identifier(name_or_symbol[len(prefix_symbol) :]): unit,
+                            unit_graph.Identifier(prefix_symbol): prefix,
+                            unit_graph.Identifier(
+                                name_or_symbol[len(prefix_symbol) :]
+                            ): unit,
                         }
                         result = Unit(
-                            definition=Multiply(
-                                Identifier(prefix_symbol),
-                                Identifier(name_or_symbol[len(prefix_symbol) :]),
+                            definition=unit_graph.Multiply(
+                                unit_graph.Identifier(prefix_symbol),
+                                unit_graph.Identifier(
+                                    name_or_symbol[len(prefix_symbol) :]
+                                ),
                             ),
                             identifier_references=refs,
                         )

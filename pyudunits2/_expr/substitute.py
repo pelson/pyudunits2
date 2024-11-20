@@ -1,6 +1,6 @@
-from .._expr_graph import Visitor, Node
+from .graph import Visitor, Node
 import typing
-from .. import _expr_graph as unit_graph
+from . import graph as unit_graph
 
 
 class Substitute(Visitor):

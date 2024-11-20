@@ -2,9 +2,8 @@ from types import NoneType
 
 from pyudunits2._expr.split import SplitExpr
 
-
 from pyudunits2._grammar import parse
-from pyudunits2 import _expr_graph as g
+from pyudunits2._expr import graph as g
 
 import pytest
 

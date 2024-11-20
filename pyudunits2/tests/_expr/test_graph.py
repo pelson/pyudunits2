@@ -1,26 +1,5 @@
-# Copyright cf-units contributors
-
-import pyudunits2._expr_graph as g
+import pyudunits2._expr.graph as g
 from pyudunits2._grammar import parse
-
-
-def test_Node_attributes():
-    n = g.Node(a=1, kwarg="two", arbitrary_kwargs=3)
-
-    assert n.a == 1
-    assert n.kwarg == "two"
-    assert n.arbitrary_kwargs == 3
-
-
-def test_Node_str():
-    n = g.Node(a=1, kwarg="two", arbitrary_kwargs=3)
-    assert str(n) == "Node(a=1, kwarg='two', arbitrary_kwargs=3)"
-
-
-def test_Node_children():
-    n = g.Node(a=1, kwarg="two", arbitrary_kwargs=3)
-    # Ordered, and consistent.
-    assert n.children() == [1, "two", 3]
 
 
 def test_large_graph():

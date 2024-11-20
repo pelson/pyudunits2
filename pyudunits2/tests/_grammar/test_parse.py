@@ -1,5 +1,3 @@
-# Copyright cf-units contributors
-
 import re
 
 import pytest
@@ -22,7 +20,7 @@ testdata = [
     "2.e-6",
     ".1e2",
     ".1e2.2",
-    "2e",  # <- TODO: Assert this isn't 2e1, but is infact the unit e *2
+    "2e",  # <- TODO: Assert this isn't 2e1, but is in fact the unit e *2
     "m",
     "meter",
     # Multiplication
@@ -178,7 +176,7 @@ def test_normed_units_equivalent(_, unit_str):
         unit_expr = unit_expr[1:-1]
     parsed_expr_symbol = cf_units.Unit(unit_expr).symbol
 
-    # Whilst the symbolic form from udunits is ugly, it *is* acurate,
+    # Whilst the symbolic form from udunits is ugly, it *is* accurate,
     # so check that the two represent the same unit.
     assert raw_symbol == parsed_expr_symbol
 
