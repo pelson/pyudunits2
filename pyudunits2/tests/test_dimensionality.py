@@ -20,7 +20,7 @@ import pytest
         ["(m2)*meter-3", {"meter": -1}],
         ["(m2)^-3*meter", {"meter": -5}],
         ["s @ 2", {"second": 1}],
-        ["(s @ 2)*1", {"second": 1}],
+        ["(m @ 2)*1", {"meter": 1}],
         ["s2*s3", {"second": 5}],
         ["lg(re year)", {"year": 1}],
         ["lg(re year/2)", {"year": 1}],

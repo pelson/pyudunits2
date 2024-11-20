@@ -260,6 +260,7 @@ known_issues = [
     # Disabled due to crazy results from UDUNITS.
     ["s since +1990 +2:0:2.9", SyntaxError],
     ["s since -1990 +2:0:2.9", SyntaxError],
+    ["days since 2000)", SyntaxError],  # Unbalanced parentheses work in udunits2.
 ]
 
 

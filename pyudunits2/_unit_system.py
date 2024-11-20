@@ -6,13 +6,15 @@ import typing
 from ._unit_reference import Prefix
 
 from ._expr_graph import Node
+from ._expr.atoms import ExtractIdentifiers
 from . import _expr_graph as unit_graph
 from ._grammar import parse
 from ._exceptions import UnresolvableUnitException
-from ._unit import Unit
+
+# We can import Unit from unit_system (but not the other way around)
+from ._unit import Unit, DateUnit, NamedUnit, _unit_from_expression_and_identifiers
 
 if typing.TYPE_CHECKING:
-    from ._unit import Unit, NamedUnit
     from ._unit_reference import UnitReference
 
 
@@ -39,8 +41,6 @@ class LazilyDefinedUnit:
         self._resolved_unit: NamedUnit | None = None
 
     def resolve(self) -> NamedUnit:
-        from ._unit import NamedUnit
-
         if self._resolved_unit is None:
             unit_expr = parse(self._definition)
 
@@ -195,8 +195,8 @@ class UnitSystem:
         # TODO: Validate that there are no identifiers/units remaining.
         return conversion_unit
 
-    def parse(self, unit_string: str) -> Node:
-        return parse(unit_string)
+    # def parse(self, unit_string: str) -> Node:
+    #     return parse(unit_string)
 
     def _unit_by_name(self, name: str) -> Unit | None:
         unit = self._names.get(name, None) or self._alias_names.get(name, None)
@@ -274,14 +274,8 @@ class UnitSystem:
             )
         return result
 
-    def unit(self, unit: str) -> Unit:
-        # unit_expr = parse(unit)
-        # from ._unit import DefinedUnit
-        # from ._unit_resolver import ToBasisVisitor, IdentifierLookupVisitor
-
+    def unit(self, unit: str) -> Unit | DateUnit:
         unit_expr = parse(unit)
-
-        from ._expr.atoms import ExtractIdentifiers
 
         identifiers = ExtractIdentifiers().visit(unit_expr)
 
@@ -289,15 +283,4 @@ class UnitSystem:
             identifier: self.unit_by_name_or_symbol(identifier.content)
             for identifier in identifiers
         }
-
-        unit = Unit(
-            definition=unit_expr,
-            identifier_references=identifier_references,
-        )
-        #
-        # identifier_handler = IdentifierLookupVisitor(self)
-        # # Do a non-recursive lookup of identifiers in the given unit.
-        # expression = identifier_handler.visit(unit_expr)
-        #
-        # result = DefinedUnit(raw_spec=unit, definition=expression)
-        return unit
+        return _unit_from_expression_and_identifiers(unit_expr, identifier_references)

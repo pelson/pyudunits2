@@ -54,25 +54,27 @@ def test__unit__dimensionless(
 
 
 @pytest.mark.parametrize(
-    ["unit_str", "has_time_unit"],
+    ["unit_str", "is_time_unit"],
     [
         ["s", True],
         ["m", False],
-        ["m/s", True],
+        ["m/s", False],
         ["years", True],
+        ["kiloyears", True],
+        ["1000 years", True],
         ["m @ 20", False],
-        ["hr @ 20", True],
-        ["hr @ 20", True],
+        ["hr @ 20", True],  # A udunits date
+        ["seconds since 2000-01-01T00:00 UTC", True],
         ["light_year", False],
         ["eon", True],
         ["s2/s", True],
         ["s/s", False],
     ],
 )
-def test__unit__has_time_unit(
+def test__unit__is_time_unit(
     unit_system: UnitSystem,
     unit_str: str,
-    has_time_unit: dict,
+    is_time_unit: dict,
 ):
     unit = unit_system.unit(unit_str)
-    assert unit.has_time_unit() is has_time_unit
+    assert unit.is_time_unit() is is_time_unit

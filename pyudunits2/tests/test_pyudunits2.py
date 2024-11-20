@@ -17,6 +17,8 @@ def test_public_api():
         "Unit",
         "Converter",
         "BasisUnit",
+        "DateUnit",
+        "DateTime",
         "NamedUnit",
         "UnitSystem",
         "UnresolvableUnitException",
