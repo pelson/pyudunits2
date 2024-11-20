@@ -146,13 +146,6 @@ class Logarithm(UnaryOp):
         return f"({self.function}(re {self.term}))"
 
 
-class Timestamp(Terminal):
-    # Currently we do not try to interpret the timestamp.
-    # This is likely to change in the future, but there are some
-    # gnarly test cases, and should not be undertaken lightly.
-    pass
-
-
 class Visitor:
     """
     This class may be used to help traversing an expression graph.

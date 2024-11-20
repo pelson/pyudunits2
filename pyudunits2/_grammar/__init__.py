@@ -53,7 +53,7 @@ class UnitParseVisitor(udunits2ParserVisitor):
         "OPEN_PAREN": None,
         "PERIOD": str,
         "RAISE": graph.Operand,
-        "TIMESTAMP": graph.Timestamp,
+        "TIMESTAMP": str,
         "SIGNED_INT": lambda c: graph.Number(int(c)),
         "SHIFT_OP": None,
         "WS": None,
