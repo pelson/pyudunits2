@@ -336,6 +336,8 @@ class Unit(UnitInterface):
             # form (so that we can round-trip our unit... note that this may
             # not be necessary in the future if our graph is able to guarantee
             # round-trip even after normalisation).
+            # Note that this call can result in an exception, for example if
+            # the definition contains a date-like unit.
             _ = NormalisedNode(definition, identifier_references)
 
         self._definition: Node = definition

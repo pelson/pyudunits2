@@ -94,11 +94,13 @@ class NormalisedExpressionGraph(Visitor):
         normed_unit = self.visit(node.unit)
 
         if normed_unit is None:
-            normed_node = NormalisedNode._from_guaranteed_norm(node)
-        else:
-            normed_node = NormalisedNode._from_guaranteed_norm(normed_unit)
+            # Return of None means that it is already normalised.
+            normed_unit = node.unit
+        normed_node = NormalisedNode._from_guaranteed_norm(normed_unit)
+
         unit = Unit(
-            definition=normed_node, identifier_references=self.identifier_references
+            definition=normed_node,
+            identifier_references=self.identifier_references,
         )
 
         if unit.is_time_unit():
@@ -116,6 +118,10 @@ class NormalisedExpressionGraph(Visitor):
 
 
 class NormalisedNode:
+    """
+    A container holding a node that has been normalised.
+    """
+
     def __init__(self, unit_expr: Node, identifier_references):
         new_unit_expr = NormalisedExpressionGraph(
             unit_expr,
@@ -127,6 +133,8 @@ class NormalisedNode:
 
     @classmethod
     def _from_guaranteed_norm(cls, node: Node) -> NormalisedNode:
+        # To be used when normalisation has been called already, and you are
+        # promising that the node being given is normalised.
         inst = NormalisedNode.__new__(cls)
         inst.unit_expr = node
         return inst
