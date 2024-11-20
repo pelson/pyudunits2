@@ -2,6 +2,7 @@ from __future__ import annotations
 
 # NOTE: No unit_system imports allowed.
 from ._expr_graph import Node, Identifier
+from . import _expr_graph as unit_graph
 from ._unit_reference import UnitReference, Prefix
 from ._exceptions import IncompatibleUnitsError
 from ._datetime import DateTime
@@ -12,15 +13,6 @@ import typing
 
 if typing.TYPE_CHECKING:
     from sympy.core.expr import Expr as SympyExpr
-
-# class Unit:
-#     def __init__(self, *, reference: UnitReference | None):
-#         self._reference = reference
-#
-#     def convertible_to(self, other: Unit) -> bool:
-#         # For basis units, and those without a unit system, the only units
-#         # which are convertible are those which are equal.
-#         return self == other
 
 
 class Expression:
@@ -190,13 +182,6 @@ class Converter:
         self._from_unit = from_unit
         self._to_unit = to_unit
 
-        # self._expression = Expression(
-        #     raw_definition=f"({self._from_unit._definition}) / ({self._to_unit._definition})",
-        #     expression=Divide(
-        #         self._from_unit._expanded_expr(),
-        #         self._to_unit._expanded_expr(),
-        #     ),
-        # )
         import sympy
 
         from_dimensionality = from_unit.dimensionality()
@@ -257,6 +242,12 @@ class Converter:
 
 
 class Dimensionality:
+    """
+    A dictionary-like interface to represent the mapping between a basis unit
+    and the dimensional order of that basis. For example, ``m^2/s`` (area per
+    second) would have a dimensionality dictionary of ``{'m': 2, 's': 1}``.
+    """
+
     def __init__(self, dimensionality: dict[BasisUnit, int]):
         self._dimensionality = dimensionality
 
@@ -301,6 +292,33 @@ class UnitInterface(typing.Protocol):
 
     def is_convertible_to(self, other: UnitInterface) -> bool: ...
 
+    # TODO: Add is_time_unit?
+
+
+def _unit_from_expression_and_identifiers(
+    unit_expr: unit_graph.Node,
+    identifier_references: typing.Mapping[Identifier, Unit | Prefix],
+) -> Unit | DateUnit:
+    if isinstance(unit_expr, unit_graph.Shift):
+        # The first shift MAY be a date unit. Any subsequent date shifts
+        # will result in an exception during normalisation.
+        shifted_unit_expr: unit_graph.Node = unit_expr.unit
+        shifted_unit = Unit(
+            definition=shifted_unit_expr,
+            identifier_references=identifier_references,
+        )
+        if shifted_unit.is_time_unit():
+            # Shifted and time => we have a date.
+            # date_ref = DateUnit.parse(unit_expr.shift_from)
+            date_ref = unit_expr.shift_from
+
+            return DateUnit(
+                unit=shifted_unit,
+                reference_date=date_ref,
+            )
+
+    return Unit(definition=unit_expr, identifier_references=identifier_references)
+
 
 class Unit(UnitInterface):
     def __init__(
@@ -310,9 +328,14 @@ class Unit(UnitInterface):
         identifier_references: typing.Mapping[Identifier, Unit | Prefix],
     ):
         if isinstance(definition, NormalisedNode):
+            # If it has already been normalised, pull out the definition.
             definition = definition.unit_expr
         else:
-            # Make sure we can normalise the definition without issue.
+            # If not already normalised, make sure we can normalise the
+            # definition without issue, but continue to use the un-normalised
+            # form (so that we can round-trip our unit... note that this may
+            # not be necessary in the future if our graph is able to guarantee
+            # round-trip even after normalisation).
             _ = NormalisedNode(definition, identifier_references)
 
         self._definition: Node = definition
@@ -424,13 +447,10 @@ class Unit(UnitInterface):
             return basis_unit.is_time_unit() and basis_unit_order == 1
         return False
 
-    def has_time_unit(self):
-        for basis_unit in self.dimensionality().keys():
-            if basis_unit.is_time_unit():
-                return True
-        return False
-
-    def is_convertible_to(self, other: Unit) -> bool:
+    def is_convertible_to(self, other: UnitInterface) -> bool:
+        if not isinstance(other, Unit):
+            # Reject other units-like units, such as DateUnit.
+            return False
         self_d = self.dimensionality()
         other_d = other.dimensionality()
         if self_d == other_d:
@@ -447,7 +467,12 @@ Names = UnitReference
 
 
 class DateUnit(UnitInterface):
-    def __init__(self, unit: Unit, reference_date: DateTime):
+    def __init__(
+        self,
+        *,
+        unit: Unit,
+        reference_date: DateTime,
+    ):
         assert unit.is_time_unit()
         self._unit = unit
         self._reference_date = reference_date
@@ -475,6 +500,31 @@ class DateUnit(UnitInterface):
 
     def expanded(self):
         return f"{self._unit.expanded()} since {self.reference_date}"
+
+    # def convert_to(self):
+    #     # Note that there are some interesting cases from udunits2:
+    #     #
+    #     #     $ udunits2 -H 'meter days since 2000' -W 'meter days since 2001'
+    #     #         1 meter days since 2000 = 0 (meter days since 2001)
+    #     #         x/(meter days since 2001) = (x/(meter days since 2000)) - 1
+    #     #     $ udunits2 -H 'meter days since 2000-01' -W 'meter days since 2001-01'
+    #     #         udunits2: Don't recognize "meter days since 2000-01"
+    #     #     $ udunits2 -H 'days since 2000' -W 'days since 2001'
+    #     #         1 days since 2000 = -365 (days since 2001)
+    #     #         x/(days since 2001) = (x/(days since 2000)) - 366
+    #     #     $ udunits2 -H 'meter (days since 2000)' -W 'meter (days since 2001)'
+    #     #         1 meter (days since 2000) = 1 (meter (days since 2001))
+    #     #         x/(meter (days since 2001)) = (x/(meter (days since 2000)))
+    #     #     $ udunits2 -H 'meter meter-1 days since 2000' -W 'meter meter-1 days since 2001'
+    #     #         1 meter meter-1 days since 2000 = -365 (meter meter-1 days since 2001)
+    #     #         x/(meter meter-1 days since 2001) = (x/(meter meter-1 days since 2000)) - 366
+    #     #     $ udunits2 -H '(weeks since 2001) (days since 2000)' -W '(weeks since 2001) (days since 2001)'
+    #     #         1 (weeks since 2001) (days since 2000) = 1 ((weeks since 2001) (days since 2001))
+    #     #         x/((weeks since 2001) (days since 2001)) = 1*(x/((weeks since 2001) (days since 2000)))
+    #     #     $ udunits2 -H 'kilodays since 2000-01' -W 'days since 2001-01'
+    #     #         1 kilodays since 2000-01 = 634 (days since 2001-01)
+    #     #         x/(days since 2001-01) = 1000*(x/(kilodays since 2000-01)) - 366
+    #     raise NotImplementedError()
 
 
 class NamedUnit(Unit):
@@ -523,9 +573,6 @@ class BasisUnit(NamedUnit):
             return {}
         else:
             return {self: 1}
-
-    def has_time_unit(self):
-        return self._is_time_unit
 
     def is_time_unit(self):
         return self._is_time_unit

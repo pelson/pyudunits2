@@ -11,6 +11,17 @@ _log = logging.getLogger(__name__)
 
 
 class NormalisedExpressionGraph(Visitor):
+    """
+    A visitor which tidies up a unit definition graph. For optimal performance,
+    any unchanged node is returned as None (this optimisation may change in
+    the future with frozen dataclasses).
+
+    Any date-like shift definition encountered will raise. It is expected that
+    a call to this visitor will already have separated out the first shift
+    operation of a date-like unit.
+
+    """
+
     def __init__(self, original_unit_expr, identifier_references):
         self.original_unit_expr = original_unit_expr
         self.identifier_references = identifier_references

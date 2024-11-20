@@ -1,7 +1,6 @@
 import pytest
 
 from pyudunits2._udunits2_xml_parser import UnitSystem, read_all
-from pyudunits2 import DateUnit
 
 
 @pytest.fixture(scope="module")
@@ -55,12 +54,14 @@ def test__unit__dimensionless(
 
 
 @pytest.mark.parametrize(
-    ["unit_str", "has_time_unit"],
+    ["unit_str", "is_time_unit"],
     [
         ["s", True],
         ["m", False],
-        ["m/s", True],
+        ["m/s", False],
         ["years", True],
+        ["kiloyears", True],
+        ["1000 years", True],
         ["m @ 20", False],
         ["hr @ 20", True],  # A udunits date
         ["seconds since 2000-01-01T00:00 UTC", True],
@@ -70,15 +71,10 @@ def test__unit__dimensionless(
         ["s/s", False],
     ],
 )
-def test__unit__has_time_unit(
+def test__unit__is_time_unit(
     unit_system: UnitSystem,
     unit_str: str,
-    has_time_unit: dict,
+    is_time_unit: dict,
 ):
     unit = unit_system.unit(unit_str)
-    if isinstance(unit, DateUnit):
-        # If we have a date unit, it is a time unit.
-        # There is no special method for this.
-        assert has_time_unit is True
-    else:
-        assert unit.has_time_unit() is has_time_unit
+    assert unit.is_time_unit() is is_time_unit

@@ -12,7 +12,7 @@ from ._grammar import parse
 from ._exceptions import UnresolvableUnitException
 
 # We can import Unit from unit_system (but not the other way around)
-from ._unit import Unit, DateUnit, NamedUnit
+from ._unit import Unit, DateUnit, NamedUnit, _unit_from_expression_and_identifiers
 
 if typing.TYPE_CHECKING:
     from ._unit_reference import UnitReference
@@ -283,21 +283,4 @@ class UnitSystem:
             identifier: self.unit_by_name_or_symbol(identifier.content)
             for identifier in identifiers
         }
-
-        if isinstance(unit_expr, unit_graph.Shift):
-            shifted_unit_expr: unit_graph.Node = unit_expr.unit
-            shifted_unit = Unit(
-                definition=shifted_unit_expr,
-                identifier_references=identifier_references,
-            )
-            if shifted_unit.is_time_unit():
-                # Shifted and time => we have a date.
-                # date_ref = DateUnit.parse(unit_expr.shift_from)
-                date_ref = unit_expr.shift_from
-
-                return DateUnit(
-                    shifted_unit,
-                    date_ref,
-                )
-
-        return Unit(definition=unit_expr, identifier_references=identifier_references)
+        return _unit_from_expression_and_identifiers(unit_expr, identifier_references)
