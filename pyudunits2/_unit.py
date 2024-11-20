@@ -484,6 +484,10 @@ class DateUnit(UnitInterface):
         return False
 
     @property
+    def unit(self):
+        return self._unit
+
+    @property
     def reference_date(self) -> DateTime:
         return self._reference_date
 
