@@ -3,8 +3,8 @@ from __future__ import annotations
 import logging
 import typing
 
-from .. import _expr_graph as unit_graph
-from .._expr_graph import Node, Visitor
+from . import graph as unit_graph
+from .graph import Node, Visitor
 
 
 _log = logging.getLogger(__name__)

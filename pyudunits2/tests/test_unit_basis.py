@@ -3,7 +3,7 @@ import pytest
 from pyudunits2._expr.expander import Expander
 from pyudunits2._udunits2_xml_parser import UnitSystem, read_all
 from pyudunits2._grammar import parse
-from pyudunits2 import _expr_graph as graph
+from pyudunits2._expr import graph as graph
 
 
 # TODO: Is all of this now obsolete with the use of sympy?

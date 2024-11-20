@@ -1,93 +1,114 @@
-# Copyright cf-units contributors
-#
-# This file is part of cf-units and is released under the BSD license.
-# See LICENSE in the root of the repository for full licensing details.
 from __future__ import annotations
 
+import dataclasses
+import decimal
 
+
+@dataclasses.dataclass(frozen=True)
 class Node:
     """
     Represents a node in an expression graph.
 
     """
 
-    def __init__(self, **kwargs):
-        self._attrs = kwargs
-
     def children(self) -> list[Node]:
         """
         Return the children of this node.
 
         """
-        # Since this is py>=36, the order of the attributes is well defined.
-        return list(self._attrs.values())
-
-    def __getattr__(self, name):
-        # Allow the dictionary to raise KeyError if the key doesn't exist.
-        return self._attrs[name]
-
-    def _repr_ctx(self):
-        # Return a dictionary that is useful for passing to string.format.
-        kwargs = ", ".join(f"{key}={value!r}" for key, value in self._attrs.items())
-        return {"cls_name": self.__class__.__name__, "kwargs": kwargs}
-
-    def __repr__(self):
-        return "{cls_name}({kwargs})".format(**self._repr_ctx())
+        return [
+            getattr(self, field.name)
+            for field in dataclasses.fields(self)
+            if isinstance(getattr(self, field.name), Node)
+        ]
 
 
+@dataclasses.dataclass(frozen=True)
 class Terminal(Node):
     """
     A generic terminal node in an expression graph.
 
     """
 
-    def __init__(self, content):
-        super().__init__(content=content)
-
     def children(self):
         return []
 
+    # def __str__(self):
+    #     return f"{self.raw_content}"
+
+    @property
+    def content(self):
+        # Provide a convenient interface to the terminal.
+        raise NotImplementedError("Subclass must implement")
+
+
+@dataclasses.dataclass(frozen=True)
+class Unhandled(Terminal):
+    raw_content: str
+
+    @property
+    def content(self):
+        return self.raw_content
+
     def __str__(self):
-        return f"{self.content}"
-
-    def __eq__(self, other: Node) -> bool:
-        if type(self) is type(other):
-            return self.content == other.content
-        else:
-            return NotImplemented
+        return str(self.raw_content)
 
 
-class Operand(Terminal):
-    pass
+@dataclasses.dataclass(frozen=True)
+class Operand(Terminal):  # TODO: Rename to operator.
+    operator: str
+
+    @property
+    def content(self):
+        return self.operator
+
+    def __str__(self):
+        return str(self.operator)
 
 
+@dataclasses.dataclass(frozen=True)
 class Number(Terminal):
-    pass
+    value: decimal.Decimal | int
+    raw_content: str | None
+
+    @property
+    def content(self):
+        return self.value
+
+    def __str__(self):
+        return str(self.value)
 
 
+@dataclasses.dataclass(frozen=True)
 class Identifier(Terminal):
     """The unit itself (e.g. meters, m, km and π)"""
 
-    content: str
+    name: str
 
-    def __hash__(self):
-        return hash(self.content)
+    @property
+    def content(self):
+        return self.name
+
+    def __str__(self):
+        return str(self.name)
 
 
+@dataclasses.dataclass(frozen=True)
 class UnaryOp(Node):
-    def __init__(self, function: str, term: Node):
-        super().__init__(function=function, term=term)
+    function: str
+    term: Node
 
-    def children(self) -> list[Node]:
-        return [self.term]
+    # def children(self) -> list[Node]:
+    #     return [self.term]
 
     def __repr__(self):
         return f"{self.function}({self.term})"
 
 
+@dataclasses.dataclass(frozen=True)
 class BinaryOp(Node):
-    def __init__(self, lhs, rhs):
-        super().__init__(lhs=lhs, rhs=rhs)
+    lhs: Node
+    rhs: Node
 
 
 class Raise(BinaryOp):
@@ -103,10 +124,11 @@ class Multiply(BinaryOp):
 class Divide(BinaryOp):
     def __str__(self):
         # TODO: It may be necessary to put brackets around
-        #  sthe rhs, depending on context (e.g. if rhs is a multiply)
+        #  the rhs, depending on context (e.g. if rhs is a multiply)
         return f"{self.lhs}/{self.rhs}"
 
 
+@dataclasses.dataclass(frozen=True)
 class Shift(Node):
     """
     You have: years @ 5
@@ -133,9 +155,10 @@ class Shift(Node):
 
     """
 
-    def __init__(self, unit, shift_from):
-        # The product unit to be shifted.
-        super().__init__(unit=unit, shift_from=shift_from)
+    unit: Node
+
+    #: The product unit to be shifted.
+    shift_from: Node
 
     def __str__(self):
         return f"({self.unit} @ {self.shift_from})"

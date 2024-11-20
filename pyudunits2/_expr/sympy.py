@@ -11,7 +11,7 @@ import sympy
 import logging
 import typing
 
-from .. import _expr_graph as unit_graph
+from . import graph as unit_graph
 import sympy.core.expr
 
 _log = logging.getLogger(__name__)

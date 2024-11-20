@@ -1,9 +1,7 @@
-# Copyright cf-units contributors
-
 import unicodedata
 from decimal import Decimal
 
-from .. import _expr_graph as graph
+from .._expr import graph as graph
 from ._antlr4_runtime import (
     CommonTokenStream,
     InputStream,
@@ -26,7 +24,7 @@ def handle_UNICODE_EXPONENT(string):
     # ascii minus (which is actually a less good version
     # of unicode minus).
     normd = unicodedata.normalize("NFKC", string).replace("−", "-")
-    return int(normd)
+    return graph.Number(normd, raw_content=normd)
 
 
 class UnitParseVisitor(udunits2ParserVisitor):
@@ -41,20 +39,22 @@ class UnitParseVisitor(udunits2ParserVisitor):
     TERM_HANDLERS = {
         "CLOSE_PAREN": None,
         "DATE": str,
-        "DIVIDE": graph.Operand("/"),  # Drop context, such as " per ".
+        "DIVIDE": graph.Operand("/"),
         "E_POWER": str,
-        "FLOAT": lambda c: graph.Number(Decimal(c)),  # Preserve precision as decimal.
+        "FLOAT": lambda c: graph.Number(
+            value=Decimal(c), raw_content=c
+        ),  # Preserve precision as decimal.
         "HOUR_MINUTE_SECOND": str,
         "HOUR_MINUTE": str,
         "ID": graph.Identifier,
-        "INT": lambda c: graph.Number(int(c)),
+        "INT": lambda c: graph.Number(value=int(c), raw_content=c),
         "LOG": lambda c: graph.Operand(c.split("(")[0].strip()),
         "MULTIPLY": graph.Operand("*"),
         "OPEN_PAREN": None,
         "PERIOD": str,
-        "RAISE": graph.Operand,
+        "RAISE": None,
         "TIMESTAMP": str,
-        "SIGNED_INT": lambda c: graph.Number(int(c)),
+        "SIGNED_INT": lambda c: graph.Number(value=int(c), raw_content=c),
         "SHIFT_OP": None,
         "WS": None,
         "UNICODE_EXPONENT": handle_UNICODE_EXPONENT,
@@ -101,6 +101,7 @@ class UnitParseVisitor(udunits2ParserVisitor):
                 result = handler
 
         if result is not None and not isinstance(result, graph.Node):
+            print("RE:", result, type(result), callable(result))
             result = graph.Terminal(result)
         return result
 
@@ -112,8 +113,10 @@ class UnitParseVisitor(udunits2ParserVisitor):
         op_type = graph.Multiply
 
         if isinstance(nodes, list):
+            # print('NODES:', nodes)
             last = nodes[-1]
-
+            if len(nodes) not in (2, 3):
+                raise ValueError(f"More nodes than I know what to do with {nodes}")
             # Walk the nodes backwards applying the appropriate binary
             # operation to each node successively.
             # e.g. 1*2/3*4*5 = 1*(2/(3*(4*5)))
@@ -134,7 +137,7 @@ class UnitParseVisitor(udunits2ParserVisitor):
         # For now, we simply amalgamate timestamps into a single Terminal.
         # More work is needed to turn this into a good date/time/timezone
         # representation.
-        return graph.Terminal(ctx.getText())
+        return graph.Unhandled(raw_content=ctx.getText())
 
     def visitPower(self, ctx):
         node = self.visitChildren(ctx)
@@ -166,7 +169,9 @@ class UnitParseVisitor(udunits2ParserVisitor):
     def visitUnit_spec(self, ctx):
         node = self.visitChildren(ctx)
         if not node:
-            node = graph.Terminal("")
+            # We have an empty unit
+            print("UNHANDLED:", node, ctx)
+            node = graph.Unhandled("")
         return node
 
 

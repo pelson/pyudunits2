@@ -3,7 +3,7 @@ from __future__ import annotations
 import logging
 import typing
 
-from .. import _expr_graph as unit_graph
+from . import graph as unit_graph
 
 _log = logging.getLogger(__name__)
 
@@ -42,7 +42,7 @@ class SplitExpr(unit_graph.Visitor):
         # then the K/K will cancel out.
         t1, d1 = self.visit(node.unit)
         if t1 is None:
-            t1 = unit_graph.Identifier("value")
+            t1 = unit_graph.Identifier(name="value")
         # Looking at UDUNITS2, the shift is completely ignored in conversions
         # unless it is the terminating operation.
         if node is self._root_node:
@@ -80,5 +80,5 @@ class SplitExpr(unit_graph.Visitor):
     def visit_Logarithm(self, node: unit_graph.Logarithm):
         t1, d1 = self.visit(node.term)
         if t1 is None:
-            t1 = unit_graph.Identifier("value")
-        return unit_graph.Logarithm(term=t1, function=node.function), d1
+            t1 = unit_graph.Identifier(name="value")
+        return unit_graph.Logarithm(function=node.function, term=t1), d1

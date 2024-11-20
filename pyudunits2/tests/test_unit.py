@@ -4,7 +4,7 @@ from pyudunits2._unit import Names, _unit_from_expression_and_identifiers
 import pytest
 from pyudunits2._grammar import parse
 from pyudunits2._expr.atoms import ExtractIdentifiers
-import pyudunits2._expr_graph as graph
+import pyudunits2._expr.graph as graph
 
 
 @pytest.fixture

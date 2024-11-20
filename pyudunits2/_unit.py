@@ -1,8 +1,8 @@
 from __future__ import annotations
 
 # NOTE: No unit_system imports allowed.
-from ._expr_graph import Node, Identifier
-from . import _expr_graph as unit_graph
+from ._expr.graph import Node, Identifier
+from ._expr import graph as unit_graph
 from ._unit_reference import UnitReference, Prefix
 from ._exceptions import IncompatibleUnitsError
 from ._datetime import DateTime
@@ -553,7 +553,7 @@ class BasisUnit(NamedUnit):
         self._is_time_unit = is_time_unit
         super().__init__(
             definition=Identifier(ref),
-            identifier_references={Identifier(ref): self},
+            identifier_references={Identifier(name=ref): self},
             names=names,
         )
 

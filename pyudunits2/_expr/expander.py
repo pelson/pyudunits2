@@ -4,8 +4,8 @@ import contextlib
 import logging
 import typing
 
-from .. import _expr_graph as unit_graph
-from .._expr_graph import Node, Visitor
+from . import graph as unit_graph
+from .graph import Node, Visitor
 
 
 _log = logging.getLogger(__name__)
@@ -39,7 +39,9 @@ class ChainedExpr:
             if raised_to == 0:
                 continue
             elif raised_to != 1:
-                term = unit_graph.Raise(node, unit_graph.Number(raised_to))
+                term = unit_graph.Raise(
+                    node, unit_graph.Number(raised_to, raw_content=None)
+                )
 
             if terms:
                 last_term = terms[-1]
@@ -68,7 +70,7 @@ class ChainedExpr:
                 else:
                     new_term = unit_graph.Raise(
                         node,
-                        unit_graph.Number(new_exponent),
+                        unit_graph.Number(new_exponent, raw_content=None),
                     )
                 _log.debug(
                     'Combined form "a · a^n"; '
@@ -90,7 +92,8 @@ class ChainedExpr:
                 # We can combine the two terms, so pop the last one.
                 assert terms.pop() is last_term
                 new_term = unit_graph.Number(
-                    last_term.content * (node.content**raised_to)
+                    last_term.content * (node.content**raised_to),
+                    raw_content=None,
                 )
                 _log.debug(
                     'Combined form "a · b^n"; '
@@ -122,7 +125,7 @@ class ChainedExpr:
                 else:
                     new_term = unit_graph.Raise(
                         node,
-                        unit_graph.Number(new_exponent),
+                        unit_graph.Number(new_exponent, raw_content=None),
                     )
                 _log.debug(
                     'Combined form "a^n · a^m == a^(n+m)"; '
@@ -133,7 +136,7 @@ class ChainedExpr:
             else:
                 terms.append(term)
 
-        result = unit_graph.Number(1)
+        result = unit_graph.Number(1, raw_content=None)
         if len(terms) == 1:
             result = terms[0]
         elif len(terms) > 1:
