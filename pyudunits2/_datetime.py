@@ -27,7 +27,7 @@ class DateTime:
     time: Time = Time(0, 0)
     tz_offset: Time | str = "UTC"
     #: The original representation of the date time before any parsing.
-    raw_form: str | None = None
+    raw_content: str | None = None
 
     def __eq__(self, other: typing.Any) -> bool:
         if not isinstance(other, DateTime):

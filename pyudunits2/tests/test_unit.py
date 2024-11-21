@@ -86,6 +86,7 @@ def test_unit__init_with_date(expr: str, error_msg: str, common_id_refs):
     ["unit_expr", "expected_ref"],
     [
         ["s @ 2000", "2000"],
+        ["s @ 2000 +10 UTC", "2000 +10 UTC"],
         ["100s @ 2000", "2000"],
         ["years since 2000-01-01T00:00", "2000-01-01T00:00"],
         [
@@ -101,6 +102,7 @@ def test_dateunit__reference_date(unit_expr: str, expected_ref, common_id_refs):
         definition, identifier_references=common_id_refs
     )
     assert isinstance(date_unit, DateUnit)
+    assert isinstance(date_unit.reference_date, graph.Unhandled)
     # TODO: get this assertion to be true.
     # assert isinstance(date_unit.reference_date, DateTime)
     assert str(date_unit.reference_date) == expected_ref
