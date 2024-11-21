@@ -4,6 +4,7 @@ import sys
 from ._unit_system import UnitSystem
 from ._unit import Converter
 from ._exceptions import IncompatibleUnitsError
+from ._grammar import _debug_tokens
 
 
 def configure_parser(parser: argparse.ArgumentParser) -> None:
@@ -35,6 +36,13 @@ def configure_parser(parser: argparse.ArgumentParser) -> None:
     explain.add_argument("unit", help="The unit to explain")
     explain.set_defaults(handler=explain_handler)
 
+    explain = subparsers.add_parser(
+        "debug-parser",
+        help="Show debug information relating to the raw parsing of a unit",
+    )
+    explain.add_argument("unit", help="The unit to debug parsing for")
+    explain.set_defaults(handler=debug_parsing_handler)
+
 
 def convert_handler(args: argparse.Namespace) -> None:
     raise NotImplementedError("Conversion not yet implemented")
@@ -65,6 +73,10 @@ def explain_handler(args: argparse.Namespace) -> None:
     print(f"Unit: {unit}")
     print(f"In basis form: {basis_unit}")
     print(f"Dimensionality: {unit.dimensionality()}")
+
+
+def debug_parsing_handler(args: argparse.Namespace) -> None:
+    _debug_tokens(args.unit)
 
 
 def main() -> None:
