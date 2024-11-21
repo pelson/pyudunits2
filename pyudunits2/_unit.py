@@ -311,6 +311,10 @@ def _unit_from_expression_and_identifiers(
             # Shifted and time => we have a date.
             # date_ref = DateUnit.parse(unit_expr.shift_from)
             date_ref = unit_expr.shift_from
+            if isinstance(date_ref, unit_graph.Number):
+                date_ref = unit_graph.Unhandled(date_ref.raw_content)
+            if not isinstance(date_ref, unit_graph.Unhandled):
+                raise ValueError(f"Unexpected parse type for date: {type(date_ref)}")
 
             return DateUnit(
                 unit=shifted_unit,
@@ -473,7 +477,7 @@ class DateUnit(UnitInterface):
         self,
         *,
         unit: Unit,
-        reference_date: DateTime,
+        reference_date: DateTime | unit_graph.Unhandled,
     ):
         assert unit.is_time_unit()
         self._unit = unit
@@ -488,7 +492,7 @@ class DateUnit(UnitInterface):
         return self._unit
 
     @property
-    def reference_date(self) -> DateTime:
+    def reference_date(self) -> DateTime | unit_graph.Unhandled:
         return self._reference_date
 
     def is_dimensionless(self) -> bool:

@@ -101,6 +101,7 @@ def test_dateunit__reference_date(unit_expr: str, expected_ref, common_id_refs):
         definition, identifier_references=common_id_refs
     )
     assert isinstance(date_unit, DateUnit)
+    assert isinstance(date_unit.reference_date, graph.Unhandled)
     # TODO: get this assertion to be true.
     # assert isinstance(date_unit.reference_date, DateTime)
     assert str(date_unit.reference_date) == expected_ref
