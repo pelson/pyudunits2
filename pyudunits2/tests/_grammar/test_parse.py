@@ -96,6 +96,14 @@ testdata = [
     "hours from 1990-1-1 0",
     "hours from 1990-1-1 0:1:1",
     "hours from 1990-1-1 0:0:1 +2",
+    "seconds since 1970-01-01T00:00:00Z",
+    "seconds since 1970-01Z",
+    "seconds since 1970-01-10TZ",
+    "seconds since 1970-01-10 Z",
+    "seconds since 1970-01-10T00:00UTC",
+    "seconds since 1970-01-10 00:00 GMT",
+    "s since 2020-0101",  # Same as 2020-01T01
+    "seconds since 20200101",  # Same as 2020-01-01
     "s since 1990-01-02 Z",  # But not "s since 1990-01-02 GMT"
     "s since 1990-1-2+5:2:2",
     "s since 1990-1-2+5:2",
@@ -106,6 +114,7 @@ testdata = [
     "s since 199022T1",  # UGLY! (bug?).
     "s since 1990 +2:0:2.9",
     "s since 1990-2T1",
+    "s since -1990 +2:0:2.9",
     "hours since 2001-12-31 23:59:59.999UTC",
     "hours since 2001-12-31 23:59:59.999 Z",
     "hours since 2001-12-31 23:59:59.999 GMT",
@@ -118,6 +127,8 @@ testdata = [
     "hours from 1990-1-1 0:1:60",
     "hours from 1990-1-1 0:1:62",
     "(hours since 1900) (s since 1980)",  # Really fruity behaviour.
+    "s since +1990 +2:0:2.9",
+    "s since -1990 +2:0:2.9",
     # Unicode / constants
     "π",
     "e",
@@ -155,6 +166,7 @@ invalid = [
     "s since 1990:01:02T1900 TZ",
     "s since 1990-01-02T1900 TZ",
     "s since 1990:01:02 GMT",
+    "1990-1-1 12:00:00",  # This form is only valid after the shift op.
 ]
 
 
@@ -234,6 +246,7 @@ not_udunits = [
     ["µ°F·Ω⁻¹", "µ°F·Ω^-1"],
     #  Not a valid unit (but with Z instead of GMT it would be fine)
     ["s since 1990-01-02 GMT", "(s @ 1990-01-02 GMT)"],
+    ["UTC"] * 2,  # Nothing special - it is a valid identifier name normally.
 ]
 
 
@@ -255,9 +268,6 @@ def test_invalid_in_udunits_but_still_parses(_, unit_str, expected):
 
 
 known_issues = [
-    # Disabled due to crazy results from UDUNITS.
-    ["s since +1990 +2:0:2.9", SyntaxError],
-    ["s since -1990 +2:0:2.9", SyntaxError],
     ["days since 2000)", SyntaxError],  # Unbalanced parentheses work in udunits2.
 ]
 
@@ -310,6 +320,7 @@ not_allowed = [
     "m++2",
     "m s^(-1)",
     "m per /s",
+    "s @ UTC",
 ]
 
 
