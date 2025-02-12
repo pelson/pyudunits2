@@ -21,16 +21,18 @@ requires-python = ">=3.10"
 # The core dependencies of the project.
 dependencies = [
   "sympy>=1.8",
+  "sympy>=1.12; python_version >= '3.13'",  # Due to distutils use (https://github.com/sympy/sympy/pull/24363/commits/c31d2727090b67e16d7ef9c8677c49c1f3583996).
   "pyudunits2[xml]",  # Would be nice if this was a default extra (PEP-771)
 ]
 
 [project.optional-dependencies]
 xml = [
-  "lxml",
+  "lxml>=5.2",
+  "lxml>=5.3; python_version >= '3.13'",
 ]
 test = [
-  "cf-units",  # To compare against the real udunits2.
-  "pytest",
+  "cf-units>=3.3.0",  # To compare against the real udunits2.
+  "pytest>=8.0",
 ]
 doc = [
 ]
