@@ -473,6 +473,8 @@ Names = UnitReference
 
 
 class DateUnit(UnitInterface):
+    """Represents a unit with a reference date and time. The unit itself is exposed via :attr:`unit`"""
+
     def __init__(
         self,
         *,
@@ -489,6 +491,7 @@ class DateUnit(UnitInterface):
 
     @property
     def unit(self):
+        """The unit which this DateUnit represents."""
         return self._unit
 
     @property
@@ -499,6 +502,7 @@ class DateUnit(UnitInterface):
         return False
 
     def is_time_unit(self):
+        # TODO: Is this right? What if it is `meters since 2000-01-01`?
         return True
 
     def dimensionality(self) -> Dimensionality:

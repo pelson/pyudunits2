@@ -110,12 +110,39 @@ definitions. The complexity of having a compiled `cf-units` has been shown to
 be a source of pain for both maintenance and use <sup>
 [1](https://github.com/SciTools/cf-units/issues/446)
 [2](https://github.com/ioos/compliance-checker/pull/1094)
-</sup>.  
+</sup>. The first iteration of the grammar defined in `pyudunits2` was done in
+`cf-units` (in both cases by @pelson), and there has been significant inspiration
+drawn from `cf-units` when designing this library.
 
 The [`xclim`](https://github.com/Ouranosinc/xclim) library offers some powerful
 `UDUNITS2`-like functionality. It is hoped that `pyudunits2` could serve as a
 basis for that library in the future.
 
 
+## Contributing to pyudunits2
+
+Contributions come in many forms, and all are welcome to `pyudunits2`!
+Please don't hesitate to open an issue, comment or review a pull request,
+answer a question/discussion, fix a typo, write some documentation, or make a
+code contribution.
+
+Extending or adapting the pure Python part of `pyudunits2` is the place where
+small improvements to the interface is most likely to occur. We welcome novel
+approaches and interfaces which represent an expressive and efficient unit API.
+Conceptually, `pyudunits2` should serve the behaviour of `UDUNITS-2`, but avoiding
+a ["God-class"][Wiki on God class] which represents all "Unit" behaviour in a
+single entity.
+
+From our experience, it is worth noting that adapting the units grammar
+is delicate, and can easily unravel to a complex refactoring even for a very minor
+change. For this reason, we have invested heavily in an extensive parsing test suite
+which runs very quickly. If the tests pass, it is aligned with existing UDUNITS-2
+behaviour, and the grammar structure remains in a coherent and maintainable state,
+then the contribution is likely to be accepted. Please check out the
+[pyudunits2/_grammar](pyudunits2/_grammar) for more details on how this part of
+`pyudunits2` is developed.
+
+
 [CF Conventions]: https://cfconventions.org/
 [cf-units]: https://github.com/SciTools/cf-units
+[Wiki on God class]: https://en.wikipedia.org/wiki/God_object
