@@ -9,6 +9,8 @@ if typing.TYPE_CHECKING:
 
 @dataclasses.dataclass(frozen=True)
 class Prefix:
+    """Represents a unit prefix (e.g. kilo, micro)"""
+
     name: str
     # String, since it needs to be parsed, looks like '1e-3', or '.01'.
     value: str
