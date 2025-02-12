@@ -20,7 +20,7 @@ requires-python = ">=3.10"
 
 # The core dependencies of the project.
 dependencies = [
-  "sympy",
+  "sympy>=1.8",
   "pyudunits2[xml]",  # Would be nice if this was a default extra (PEP-771)
 ]
 
