@@ -106,3 +106,11 @@ def test_dateunit__reference_date(unit_expr: str, expected_ref, common_id_refs):
     # TODO: get this assertion to be true.
     # assert isinstance(date_unit.reference_date, DateTime)
     assert str(date_unit.reference_date) == expected_ref
+
+
+def test__BasisUnit__name(common_id_refs):
+    year_unit = common_id_refs[graph.Identifier("years")]
+
+    assert str(year_unit) == "year"
+
+    assert year_unit.name == "year"

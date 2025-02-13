@@ -42,3 +42,23 @@ class UnitReference:
     alias_names: tuple[Name, ...] = ()
     alias_symbols: tuple[str, ...] = ()
     description: str | None = ""
+
+    def __post_init__(self):
+        if (
+            self.name is None
+            and not self.symbols
+            and not self.alias_names
+            and not self.alias_symbols
+        ):
+            raise ValueError("name or symbol (or aliases) is required")
+
+    def best_name(self) -> str:
+        """Pick the most appropriate string which can be considered as a reasonable "name" approximation"""
+        if self.name:
+            return self.name.singular
+        if self.alias_names:
+            return self.alias_names[0].singular
+        if self.symbols:
+            return self.symbols[0]
+        if self.alias_symbols:
+            return self.alias_symbols[0]
