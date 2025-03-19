@@ -60,6 +60,10 @@ class Tag:
 
 class UDUNITS2XMLParser:
     @classmethod
+    def unhandled_content_detected(cls, message: str) -> None:
+        pass
+
+    @classmethod
     def handle_name_tag(cls, tag: Tag) -> Name:
         singular_name_tag = tag.pop_first_matching_tag("singular")
 
@@ -90,7 +94,9 @@ class UDUNITS2XMLParser:
                 plural_name = singular_name + "s"
 
         if tag.children or tag.text:
-            raise ValueError(f"Unhandled content in unit {tag} (name {singular_name})")
+            cls.unhandled_content_detected(
+                f"Unhandled content in unit {tag} (name {singular_name})"
+            )
         return Name(
             singular=singular_name,
             plural=plural_name,
@@ -117,7 +123,9 @@ class UDUNITS2XMLParser:
             symbols.add(symbol.text)
 
         if tag.children or tag.text:
-            raise ValueError(f"Unhandled content in prefix {tag} (name {name})")
+            cls.unhandled_content_detected(
+                f"Unhandled content in prefix {tag} (name {name})"
+            )
 
         return Prefix(
             name=name,
@@ -167,7 +175,9 @@ class UDUNITS2XMLParser:
                         # Dropped. Seen in avogadro_constant.
                         continue
                     else:
-                        raise ValueError(f"Unhandled alias content: {alias}")
+                        cls.unhandled_content_detected(
+                            f"Unhandled alias content: {alias}"
+                        )
 
             unit_tag.pop_first_matching_tag("comment")
 
@@ -212,16 +222,33 @@ class UDUNITS2XMLParser:
                 )
 
             if unit_tag.children:
-                raise ValueError(
+                cls.unhandled_content_detected(
                     f"Unhandled unit content for unit {unit}: \n{unit_tag}"
                 )
 
             system.add_unit(unit)
 
         if unit_system_t.children:
-            raise ValueError(f"Unhandled content {unit_system_t}")
+            cls.unhandled_content_detected(f"Unhandled content {unit_system_t}")
 
         return system
+
+
+class UnhandledContentDisallowed(UDUNITS2XMLParser):
+    """
+    A parser which prohibits additional (unhandled) tags in the XML file.
+    This is good for building a robust parser, since there is no known spec,
+    but means that there is inflexibility in what is allowed to be additionally
+    included in the document.
+
+    This strict behaviour was originally the default, but it is clear that from
+    a user perspective, there is no reason for making it so inflexible.
+    The issue https://github.com/pelson/pyudunits2/issues/21 relates.
+    """
+
+    @classmethod
+    def unhandled_content_detected(cls, message: str) -> None:
+        raise ValueError(message)
 
 
 def read_all() -> UnitSystem:
