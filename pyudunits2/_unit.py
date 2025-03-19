@@ -81,18 +81,6 @@ class Expression:
         return expand(sim, trig=False) == 0
 
 
-class UnitDefinition:
-    def __init__(
-        self, definition: Node, identifier_references: typing.Mapping[Identifier, Unit]
-    ):
-        self._definition = definition
-        self._expression_graph: Node
-        self._identifier_references: dict[Identifier, Prefix | Unit] = {}
-
-    def _to_sympy(self):
-        pass
-
-
 class Converter:
     def __init__(self, from_unit: Unit, to_unit: Unit):
         """
@@ -553,6 +541,10 @@ class NamedUnit(Unit):
             definition=definition, identifier_references=identifier_references
         )
         self._names = names
+
+    @property
+    def name(self) -> str:
+        return self._names.best_name()
 
 
 class BasisUnit(NamedUnit):
